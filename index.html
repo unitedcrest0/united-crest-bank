@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>United Crest —  Banking</title>
+<title>United Crest — Real Banking</title>
 
 <style>
 *{
@@ -12,13 +12,30 @@
   padding:0;
 }
 
-body{
-  font-family:Arial,Helvetica,sans-serif;
-  background:#eef3f9;
-  color:#162033;
+:root{
+  --blue:#0b2a5b;
+  --blue2:#123f82;
+  --blue3:#1769aa;
+  --light:#f4f7fb;
+  --white:#ffffff;
+  --text:#172033;
+  --muted:#718096;
+  --success:#168653;
+  --danger:#d63b4b;
+  --border:#e3e9f2;
+  --shadow:0 15px 40px rgba(10,35,75,.10);
 }
 
-button,input,select,textarea{
+body{
+  font-family:Arial,Helvetica,sans-serif;
+  background:var(--light);
+  color:var(--text);
+  min-height:100vh;
+}
+
+button,
+input,
+select{
   font:inherit;
 }
 
@@ -30,14 +47,15 @@ button{
   display:none!important;
 }
 
-/* AUTH */
-.auth-page{
+/* ================= AUTH ================= */
+
+#authScreen{
   min-height:100vh;
   display:flex;
   align-items:center;
   justify-content:center;
   padding:20px;
-  background:linear-gradient(135deg,#061a3a,#0b3978,#0b5db7);
+  background:linear-gradient(135deg,#061b3b 0%,#0b2a5b 45%,#1769aa 100%);
 }
 
 .auth-card{
@@ -48,255 +66,305 @@ button{
   background:#fff;
   border-radius:22px;
   padding:28px;
-  box-shadow:0 20px 60px rgba(0,0,0,.25);
+  box-shadow:0 25px 70px rgba(0,0,0,.25);
 }
 
-.logo{
+.brand{
+  text-align:center;
+  margin-bottom:22px;
+}
+
+.brand-logo{
+  width:62px;
+  height:62px;
+  border-radius:18px;
+  margin:0 auto 12px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  color:white;
+  font-weight:800;
+  font-size:22px;
+  background:linear-gradient(135deg,#0b2a5b,#1769aa);
+}
+
+.brand h1{
+  color:#0b2a5b;
   font-size:25px;
-  font-weight:900;
-  letter-spacing:1px;
-  color:#0b3d7a;
+  letter-spacing:.5px;
 }
 
-.auth-card h1{
-  margin-top:22px;
-  font-size:27px;
-}
-
-.auth-subtitle{
-  margin-top:8px;
-  color:#68758a;
-  line-height:1.5;
+.brand p{
+  color:#718096;
+  font-size:13px;
+  margin-top:5px;
 }
 
 .demo-badge{
   display:inline-block;
-  margin-top:15px;
-  padding:7px 11px;
-  border-radius:20px;
-  background:#e8f1ff;
-  color:#0a4d99;
+  margin-top:12px;
+  padding:7px 12px;
+  border-radius:999px;
+  background:#e9f1ff;
+  color:#0b4c9c;
   font-size:11px;
   font-weight:800;
   letter-spacing:.7px;
 }
 
-.form-group{
-  margin-top:16px;
+.auth-title{
+  margin:8px 0 18px;
+  font-size:23px;
+  color:#172033;
 }
 
-.form-group label{
+.field{
+  margin-bottom:14px;
+}
+
+.field label{
   display:block;
   margin-bottom:7px;
   font-size:13px;
   font-weight:700;
-  color:#34435a;
+  color:#344054;
 }
 
-.form-group input,
-.form-group select,
-.form-group textarea{
+.field input,
+.field select{
   width:100%;
-  border:1px solid #d6deea;
-  border-radius:12px;
   padding:13px 14px;
+  border:1px solid var(--border);
+  border-radius:11px;
   outline:none;
   background:#fff;
-  color:#172238;
+  color:#172033;
   transition:.2s;
 }
 
-.form-group textarea{
-  min-height:90px;
-  resize:vertical;
+.field input:focus,
+.field select:focus{
+  border-color:#1769aa;
+  box-shadow:0 0 0 3px rgba(23,105,170,.10);
 }
 
-.form-group input:focus,
-.form-group select:focus,
-.form-group textarea:focus{
-  border-color:#1475d1;
-  box-shadow:0 0 0 3px rgba(20,117,209,.10);
+.primary-btn,
+.secondary-btn,
+.danger-btn{
+  width:100%;
+  border:0;
+  border-radius:11px;
+  padding:13px 16px;
+  font-weight:700;
+  transition:.2s;
 }
 
 .primary-btn{
-  width:100%;
-  margin-top:20px;
-  border:0;
-  border-radius:12px;
-  padding:14px;
-  background:#0b55a0;
-  color:#fff;
-  font-weight:800;
-  transition:.2s;
+  color:white;
+  background:linear-gradient(135deg,#0b2a5b,#1769aa);
 }
 
 .primary-btn:hover{
-  background:#073f7a;
+  transform:translateY(-1px);
 }
 
-.primary-btn:disabled{
-  opacity:.6;
-  cursor:not-allowed;
+.secondary-btn{
+  color:#0b2a5b;
+  background:#edf3fb;
+}
+
+.danger-btn{
+  color:white;
+  background:#d63b4b;
 }
 
 .auth-switch{
   text-align:center;
   margin-top:18px;
-  color:#68758a;
-  font-size:14px;
+  font-size:13px;
+  color:#718096;
 }
 
 .auth-switch button{
   border:0;
   background:none;
-  color:#075db4;
-  font-weight:800;
+  color:#1769aa;
+  font-weight:700;
 }
 
-.message{
-  margin-top:14px;
+.form-message{
+  display:none;
+  margin-bottom:14px;
   padding:11px 12px;
   border-radius:10px;
-  display:none;
   font-size:13px;
-  line-height:1.45;
+  line-height:1.4;
 }
 
-.message.show{
+.form-message.show{
   display:block;
 }
 
-.message.error{
-  background:#fff0f0;
-  color:#a21e1e;
+.form-message.error{
+  color:#9d2635;
+  background:#fff0f2;
+  border:1px solid #ffd4da;
 }
 
-.message.success{
-  background:#edfff3;
-  color:#176b36;
-}
-
-.message.info{
-  background:#edf5ff;
-  color:#14518c;
+.form-message.success{
+  color:#126b42;
+  background:#ecfbf3;
+  border:1px solid #c7f1da;
 }
 
 .demo-note{
-  margin-top:18px;
-  padding:12px;
-  border-radius:12px;
+  margin-top:14px;
+  padding:11px;
+  border-radius:10px;
   background:#f5f8fc;
-  color:#607089;
-  font-size:12px;
+  color:#68758a;
+  font-size:11px;
   line-height:1.5;
+  text-align:center;
 }
 
-/* APP */
-#app{
+/* ================= APP ================= */
+
+#appScreen{
   min-height:100vh;
 }
 
-.app-shell{
-  min-height:100vh;
-  display:flex;
-}
-
-/* SIDEBAR */
 .sidebar{
-  width:245px;
   position:fixed;
   left:0;
   top:0;
   bottom:0;
-  background:#061a3a;
+  width:245px;
+  background:#071f43;
   color:#fff;
-  padding:25px 15px;
+  padding:22px 14px;
+  z-index:100;
   overflow-y:auto;
-  z-index:20;
+}
+
+.sidebar-brand{
+  display:flex;
+  align-items:center;
+  gap:11px;
+  padding:0 10px 25px;
 }
 
 .sidebar-logo{
-  padding:0 12px 25px;
-  font-size:23px;
-  font-weight:900;
-  letter-spacing:1px;
+  width:43px;
+  height:43px;
+  border-radius:13px;
+  background:linear-gradient(135deg,#1769aa,#48a9e8);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-weight:800;
 }
 
-.sidebar-demo{
-  margin:0 12px 22px;
-  padding:9px 10px;
-  background:rgba(255,255,255,.09);
-  border-radius:10px;
-  color:#bcd8ff;
-  font-size:10px;
-  font-weight:800;
-  text-align:center;
-  letter-spacing:.7px;
+.sidebar-brand strong{
+  font-size:17px;
+}
+
+.sidebar-brand small{
+  display:block;
+  color:#9fb2cf;
+  font-size:9px;
+  margin-top:3px;
+  letter-spacing:.5px;
 }
 
 .nav-item{
   width:100%;
   border:0;
   background:transparent;
-  color:#c5d0e1;
-  text-align:left;
-  padding:13px 14px;
-  border-radius:11px;
+  color:#b9c8dc;
+  padding:12px 13px;
   margin-bottom:5px;
-  font-weight:700;
+  border-radius:10px;
+  text-align:left;
+  font-weight:600;
+  transition:.2s;
 }
 
 .nav-item:hover,
 .nav-item.active{
-  background:#0b55a0;
-  color:#fff;
+  color:white;
+  background:rgba(255,255,255,.10);
 }
 
-.nav-item.signout{
-  margin-top:20px;
-  color:#ffbcbc;
+.nav-spacer{
+  height:20px;
 }
 
-/* MAIN */
-.main-area{
-  width:calc(100% - 245px);
+.signout-nav{
+  color:#ffb5bd;
+}
+
+.main{
   margin-left:245px;
   min-height:100vh;
 }
 
 .topbar{
-  height:72px;
+  height:70px;
   background:#fff;
-  border-bottom:1px solid #e2e8f0;
+  border-bottom:1px solid var(--border);
   display:flex;
   align-items:center;
   justify-content:space-between;
   padding:0 28px;
   position:sticky;
   top:0;
-  z-index:10;
+  z-index:50;
 }
 
-.greeting{
-  font-size:19px;
-  font-weight:800;
+.mobile-menu{
+  display:none;
+  border:0;
+  background:#edf3fb;
+  width:40px;
+  height:40px;
+  border-radius:10px;
+  font-size:20px;
 }
 
 .top-user{
+  display:flex;
+  align-items:center;
+  gap:11px;
+}
+
+.avatar{
   width:40px;
   height:40px;
   border-radius:50%;
-  background:#0b55a0;
-  color:#fff;
   display:flex;
   align-items:center;
   justify-content:center;
-  font-weight:900;
+  background:#dcecff;
+  color:#0b4c9c;
+  font-weight:800;
+}
+
+.top-user-text strong{
+  display:block;
+  font-size:14px;
+}
+
+.top-user-text span{
+  display:block;
+  color:#718096;
+  font-size:11px;
+  margin-top:2px;
 }
 
 .content{
   padding:28px;
-  max-width:1300px;
+  max-width:1250px;
   margin:auto;
 }
 
@@ -308,156 +376,204 @@ button{
   display:block;
 }
 
-.page-title{
-  font-size:28px;
-  font-weight:900;
-  margin-bottom:7px;
+.page-heading{
+  margin-bottom:22px;
 }
 
-.page-subtitle{
-  color:#708096;
-  margin-bottom:25px;
+.page-heading h2{
+  color:#172033;
+  font-size:25px;
 }
 
-/* BALANCE */
+.page-heading p{
+  margin-top:5px;
+  color:#718096;
+  font-size:13px;
+}
+
+/* ================= DASHBOARD ================= */
+
 .balance-card{
-  background:linear-gradient(135deg,#062452,#0b5db7);
-  color:#fff;
+  background:linear-gradient(135deg,#071f43,#12528d);
   border-radius:22px;
-  padding:26px;
-  box-shadow:0 15px 35px rgba(8,60,120,.22);
+  color:white;
+  padding:27px;
+  box-shadow:var(--shadow);
+  margin-bottom:22px;
+  position:relative;
+  overflow:hidden;
+}
+
+.balance-card:after{
+  content:"";
+  position:absolute;
+  width:180px;
+  height:180px;
+  border-radius:50%;
+  right:-60px;
+  top:-70px;
+  background:rgba(255,255,255,.07);
 }
 
 .balance-label{
+  color:#bdd0e8;
   font-size:12px;
-  opacity:.8;
-  letter-spacing:.8px;
-  font-weight:800;
+  font-weight:700;
+  letter-spacing:.5px;
 }
 
-.balance-amount{
-  font-size:38px;
-  font-weight:900;
-  margin:8px 0;
+.balance{
+  font-size:36px;
+  font-weight:800;
+  margin:9px 0 12px;
 }
 
 .account-number{
   font-size:13px;
-  opacity:.9;
+  color:#d6e5f6;
 }
 
-.demo-credit-note{
+.account-number strong{
+  color:#fff;
+  letter-spacing:1.5px;
+}
+
+.dashboard-note{
   margin-top:18px;
-  font-size:12px;
-  opacity:.78;
+  font-size:11px;
+  color:#c4d7eb;
 }
 
-/* QUICK CARDS */
 .quick-grid{
   display:grid;
   grid-template-columns:repeat(4,1fr);
-  gap:16px;
-  margin-top:22px;
+  gap:15px;
 }
 
 .quick-card{
+  border:1px solid var(--border);
   background:#fff;
-  border:1px solid #e1e7ef;
-  border-radius:17px;
+  border-radius:16px;
   padding:20px;
+  box-shadow:0 8px 25px rgba(10,35,75,.05);
   transition:.2s;
-  cursor:pointer;
 }
 
 .quick-card:hover{
   transform:translateY(-2px);
-  box-shadow:0 8px 25px rgba(0,0,0,.07);
 }
 
-.quick-icon{
+.quick-card-icon{
   width:42px;
   height:42px;
   border-radius:12px;
-  background:#eaf3ff;
-  color:#0b55a0;
   display:flex;
   align-items:center;
   justify-content:center;
-  font-weight:900;
+  background:#edf4ff;
+  color:#0b4c9c;
+  font-weight:800;
   margin-bottom:13px;
 }
 
 .quick-card h3{
   font-size:15px;
+  margin-bottom:5px;
 }
 
 .quick-card p{
-  margin-top:5px;
-  color:#748196;
-  font-size:12px;
+  font-size:11px;
+  color:#718096;
+  margin-bottom:13px;
 }
 
-/* PANELS */
+.quick-card button{
+  border:0;
+  background:none;
+  color:#1769aa;
+  font-size:12px;
+  font-weight:800;
+}
+
+/* ================= PANELS ================= */
+
 .panel{
   background:#fff;
-  border-radius:18px;
+  border:1px solid var(--border);
+  border-radius:17px;
   padding:22px;
-  border:1px solid #e1e7ef;
-  margin-bottom:18px;
+  box-shadow:0 8px 25px rgba(10,35,75,.04);
 }
 
 .panel-title{
-  font-size:18px;
-  font-weight:900;
+  font-size:17px;
   margin-bottom:16px;
 }
 
-.two-col{
+.two-column{
   display:grid;
   grid-template-columns:1fr 1fr;
-  gap:18px;
+  gap:20px;
 }
 
-.action-btn{
-  border:0;
-  background:#0b55a0;
-  color:#fff;
-  padding:13px 18px;
-  border-radius:11px;
-  font-weight:800;
-  margin-top:18px;
-}
-
-.secondary-btn{
-  border:1px solid #d3dce8;
-  background:#fff;
-  color:#25405e;
-  padding:12px 18px;
-  border-radius:11px;
-  font-weight:800;
-  margin-top:18px;
-}
-
-/* RECIPIENT */
-.recipient-box{
-  display:none;
-  margin-top:15px;
-  padding:14px;
-  background:#f2f8ff;
-  border:1px solid #cfe3fa;
-  border-radius:12px;
-}
-
-.recipient-box.show{
+.full-column{
   display:block;
 }
 
-.recipient-name{
-  font-weight:900;
-  color:#0b55a0;
+.action-btn{
+  width:100%;
+  border:0;
+  border-radius:11px;
+  padding:13px 16px;
+  background:linear-gradient(135deg,#0b2a5b,#1769aa);
+  color:white;
+  font-weight:700;
 }
 
-/* ACTIVITY */
+.lookup-box{
+  display:flex;
+  gap:9px;
+}
+
+.lookup-box input{
+  flex:1;
+}
+
+.lookup-box button{
+  width:auto;
+  white-space:nowrap;
+  padding:0 17px;
+}
+
+.recipient-result{
+  display:none;
+  margin-top:13px;
+  border-radius:11px;
+  padding:12px;
+  background:#ecfbf3;
+  border:1px solid #c7f1da;
+  color:#126b42;
+  font-size:13px;
+}
+
+.recipient-result.show{
+  display:block;
+}
+
+.recipient-result strong{
+  display:block;
+  font-size:15px;
+  margin-bottom:3px;
+}
+
+.amount-preview{
+  margin:10px 0 15px;
+  color:#718096;
+  font-size:12px;
+}
+
+/* ================= ACTIVITY ================= */
+
 .activity-list{
   display:flex;
   flex-direction:column;
@@ -465,98 +581,148 @@ button{
 }
 
 .activity-item{
-  padding:15px;
-  border:1px solid #e2e8f0;
+  border:1px solid var(--border);
   border-radius:13px;
+  padding:14px;
   display:flex;
   justify-content:space-between;
   gap:15px;
-  background:#fff;
 }
 
-.activity-main{
+.activity-left{
+  display:flex;
+  gap:11px;
   min-width:0;
 }
 
-.activity-title{
+.activity-icon{
+  width:39px;
+  height:39px;
+  flex:0 0 39px;
+  border-radius:11px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
   font-weight:800;
+  background:#edf4ff;
+  color:#1769aa;
 }
 
-.activity-meta{
-  color:#748196;
-  font-size:12px;
+.activity-info strong{
+  display:block;
+  font-size:13px;
+}
+
+.activity-info span{
+  display:block;
+  color:#718096;
+  font-size:11px;
   margin-top:4px;
+  line-height:1.4;
 }
 
 .activity-amount{
-  font-weight:900;
   white-space:nowrap;
+  font-weight:800;
+  font-size:13px;
+}
+
+.activity-amount.positive{
+  color:#168653;
+}
+
+.activity-amount.negative{
+  color:#d63b4b;
 }
 
 .empty-state{
   text-align:center;
-  padding:35px 15px;
-  color:#7a8798;
+  padding:40px 20px;
+  color:#718096;
+  font-size:13px;
 }
 
-/* PROFILE */
+/* ================= PROFILE / SETTINGS ================= */
+
 .info-row{
-  padding:14px 0;
-  border-bottom:1px solid #edf0f5;
+  padding:13px 0;
+  border-bottom:1px solid #edf1f6;
 }
 
 .info-row:last-child{
   border-bottom:0;
 }
 
-.info-label{
-  color:#7b8797;
-  font-size:12px;
-  margin-bottom:4px;
+.info-row label{
+  display:block;
+  color:#718096;
+  font-size:11px;
+  margin-bottom:5px;
 }
 
-.info-value{
-  font-weight:700;
+.info-row strong{
+  font-size:14px;
   word-break:break-word;
 }
 
-/* RECEIPT */
+/* ================= RECEIPT ================= */
+
 .modal{
   position:fixed;
   inset:0;
-  background:rgba(0,0,0,.55);
+  background:rgba(3,15,33,.65);
   display:none;
   align-items:center;
   justify-content:center;
-  padding:20px;
-  z-index:100;
+  padding:18px;
+  z-index:500;
 }
 
 .modal.show{
   display:flex;
 }
 
-.modal-card{
+.receipt{
   width:100%;
-  max-width:460px;
-  max-height:90vh;
+  max-width:430px;
+  max-height:92vh;
   overflow-y:auto;
   background:#fff;
   border-radius:20px;
-  padding:25px;
+  padding:23px;
+  box-shadow:0 25px 80px rgba(0,0,0,.3);
 }
 
-.modal-title{
-  font-size:21px;
-  font-weight:900;
-  margin-bottom:5px;
+.receipt-head{
+  text-align:center;
+  padding-bottom:17px;
+  border-bottom:1px dashed #ccd5e2;
 }
 
-.receipt{
-  margin-top:18px;
-  border:1px dashed #b8c4d5;
-  border-radius:14px;
-  padding:18px;
+.receipt-head h2{
+  color:#0b2a5b;
+  font-size:20px;
+}
+
+.receipt-head p{
+  color:#718096;
+  font-size:11px;
+  margin-top:5px;
+}
+
+.receipt-status{
+  display:inline-block;
+  margin-top:10px;
+  background:#ecfbf3;
+  color:#168653;
+  border-radius:999px;
+  padding:6px 11px;
+  font-size:10px;
+  font-weight:800;
+}
+
+.receipt-body{
+  padding:15px 0;
 }
 
 .receipt-row{
@@ -564,12 +730,8 @@ button{
   justify-content:space-between;
   gap:15px;
   padding:9px 0;
-  border-bottom:1px solid #edf0f5;
-  font-size:13px;
-}
-
-.receipt-row:last-child{
-  border-bottom:0;
+  border-bottom:1px solid #f0f2f6;
+  font-size:12px;
 }
 
 .receipt-row span:first-child{
@@ -577,77 +739,117 @@ button{
 }
 
 .receipt-row span:last-child{
-  font-weight:800;
   text-align:right;
+  font-weight:700;
   word-break:break-word;
 }
 
-/* RESPONSIVE */
-@media(max-width:1000px){
+.receipt-actions{
+  display:flex;
+  gap:9px;
+}
+
+.receipt-actions button{
+  flex:1;
+}
+
+/* ================= TOAST ================= */
+
+#toast{
+  position:fixed;
+  right:20px;
+  bottom:20px;
+  max-width:340px;
+  background:#10243f;
+  color:white;
+  padding:13px 16px;
+  border-radius:11px;
+  box-shadow:0 12px 35px rgba(0,0,0,.2);
+  font-size:12px;
+  z-index:1000;
+  transform:translateY(20px);
+  opacity:0;
+  pointer-events:none;
+  transition:.25s;
+}
+
+#toast.show{
+  opacity:1;
+  transform:translateY(0);
+}
+
+/* ================= LOADING ================= */
+
+.loading-overlay{
+  position:fixed;
+  inset:0;
+  background:rgba(255,255,255,.8);
+  display:none;
+  align-items:center;
+  justify-content:center;
+  z-index:900;
+  backdrop-filter:blur(3px);
+}
+
+.loading-overlay.show{
+  display:flex;
+}
+
+.loading-box{
+  background:#fff;
+  border-radius:15px;
+  padding:20px 25px;
+  box-shadow:var(--shadow);
+  color:#0b2a5b;
+  font-size:13px;
+  font-weight:700;
+}
+
+/* ================= MOBILE ================= */
+
+@media(max-width:900px){
+  .sidebar{
+    transform:translateX(-100%);
+    transition:.25s;
+  }
+
+  .sidebar.open{
+    transform:translateX(0);
+  }
+
+  .main{
+    margin-left:0;
+  }
+
+  .mobile-menu{
+    display:block;
+  }
+
+  .topbar{
+    padding:0 15px;
+  }
+
+  .content{
+    padding:18px 15px;
+  }
+
   .quick-grid{
     grid-template-columns:repeat(2,1fr);
   }
-}
 
-@media(max-width:800px){
-  .sidebar{
-    width:205px;
-  }
-
-  .main-area{
-    width:calc(100% - 205px);
-    margin-left:205px;
-  }
-
-  .two-col{
+  .two-column{
     grid-template-columns:1fr;
   }
 }
 
-@media(max-width:650px){
-  .sidebar{
-    width:100%;
-    height:auto;
-    bottom:auto;
-    position:relative;
-    padding:12px;
+@media(max-width:560px){
+  .auth-card{
+    padding:21px;
+    border-radius:17px;
   }
 
-  .sidebar-logo{
-    padding:8px 10px 12px;
-  }
-
-  .sidebar-demo{
-    margin:0 10px 10px;
-  }
-
-  .nav-item{
-    width:auto;
-    display:inline-block;
-    padding:9px 10px;
-    margin:2px;
-    font-size:12px;
-  }
-
-  .nav-item.signout{
-    margin-top:2px;
-  }
-
-  .app-shell{
-    display:block;
-  }
-
-  .main-area{
-    width:100%;
-    margin-left:0;
-  }
-
-  .topbar{
-    padding:0 16px;
-  }
-
-  .content{
-    padding:18px;
+  .balance{
+    font-size:30px;
   }
 
   .quick-grid{
@@ -655,22 +857,28 @@ button{
     gap:10px;
   }
 
-  .balance-amount{
-    font-size:31px;
-  }
-}
-
-@media(max-width:430px){
-  .auth-card{
-    padding:21px;
-    border-radius:17px;
-  }
-
-  .quick-grid{
-    grid-template-columns:1fr;
+  .quick-card{
+    padding:15px;
   }
 
   .activity-item{
+    align-items:flex-start;
+  }
+
+  .top-user-text{
+    display:none;
+  }
+
+  .lookup-box{
+    flex-direction:column;
+  }
+
+  .lookup-box button{
+    width:100%;
+    padding:12px;
+  }
+
+  .receipt-actions{
     flex-direction:column;
   }
 }
@@ -679,209 +887,291 @@ button{
 
 <body>
 
-<!-- SIGN UP -->
-<section id="signupPage" class="auth-page">
+<!-- ================= AUTH ================= -->
+
+<section id="authScreen">
+
   <div class="auth-card">
-    <div class="logo">UNITED CREST</div>
 
-    <div class="demo-badge">DEMO BANKING PLATFORM</div>
-
-    <h1>Create your account</h1>
-    <p class="auth-subtitle">
-      Create a United Crest demo account. No real money is involved.
-    </p>
-
-    <div class="form-group">
-      <label for="signupName">Full Name</label>
-      <input id="signupName" type="text" autocomplete="name" placeholder="Enter your full name">
+    <div class="brand">
+      <div class="brand-logo">UC</div>
+      <h1>UNITED CREST</h1>
+      <p>Real Banking Platform</p>
+      <span class="demo-badge">REAL BANKING PLATFORM</span>
     </div>
 
-    <div class="form-group">
-      <label for="signupPhone">Phone Number</label>
-      <input id="signupPhone" type="tel" autocomplete="tel" placeholder="Enter your phone number">
-    </div>
+    <!-- SIGN UP -->
 
-    <div class="form-group">
-      <label for="signupEmail">Email Address</label>
-      <input id="signupEmail" type="email" autocomplete="email" placeholder="Enter your email address">
-    </div>
+    <div id="signupBox">
 
-    <div class="form-group">
-      <label for="signupPassword">Password</label>
-      <input id="signupPassword" type="password" autocomplete="new-password" placeholder="Create a password">
-    </div>
+      <h2 class="auth-title">Create Account</h2>
 
-    <div class="form-group">
-      <label for="signupConfirmPassword">Confirm Password</label>
-      <input id="signupConfirmPassword" type="password" autocomplete="new-password" placeholder="Confirm your password">
-    </div>
+      <div id="signupMessage" class="form-message"></div>
 
-    <div class="form-group">
-      <label for="signupAddress">Address</label>
-      <textarea id="signupAddress" placeholder="Enter your address"></textarea>
-    </div>
+      <form id="signupForm">
 
-    <button id="signupBtn" class="primary-btn">Create Account</button>
+        <div class="field">
+          <label>Full Name</label>
+          <input id="signupName" type="text" autocomplete="name" required>
+        </div>
 
-    <div id="signupMessage" class="message"></div>
+        <div class="field">
+          <label>Phone Number</label>
+          <input id="signupPhone" type="tel" autocomplete="tel" required>
+        </div>
 
-    <div class="demo-note">
-      This is a demo banking platform. New accounts start with a
-      <strong>$0.00 demo balance</strong>. No real payment or real bank
-      transfer is processed.
-    </div>
+        <div class="field">
+          <label>Email Address</label>
+          <input id="signupEmail" type="email" autocomplete="email" required>
+        </div>
 
-    <div class="auth-switch">
-      Already have an account?
-      <button type="button" id="showLoginBtn">Sign In</button>
-    </div>
-  </div>
-</section>
+        <div class="field">
+          <label>Password</label>
+          <input id="signupPassword" type="password" autocomplete="new-password" minlength="6" required>
+        </div>
 
-<!-- LOGIN -->
-<section id="loginPage" class="auth-page hidden">
-  <div class="auth-card">
-    <div class="logo">UNITED CREST</div>
+        <div class="field">
+          <label>Confirm Password</label>
+          <input id="signupConfirmPassword" type="password" autocomplete="new-password" minlength="6" required>
+        </div>
 
-    <div class="demo-badge">DEMO BANKING PLATFORM</div>
+        <div class="field">
+          <label>Address</label>
+          <input id="signupAddress" type="text" autocomplete="street-address" required>
+        </div>
 
-    <h1>Welcome back</h1>
-    <p class="auth-subtitle">
-      Sign in to your United Crest demo account.
-    </p>
+        <button class="primary-btn" type="submit">
+          Create Account
+        </button>
 
-    <div class="form-group">
-      <label for="loginEmail">Email Address</label>
-      <input id="loginEmail" type="email" autocomplete="email" placeholder="Enter your email">
-    </div>
+      </form>
 
-    <div class="form-group">
-      <label for="loginPassword">Password</label>
-      <input id="loginPassword" type="password" autocomplete="current-password" placeholder="Enter your password">
-    </div>
-
-    <button id="loginBtn" class="primary-btn">Sign In</button>
-
-    <div id="loginMessage" class="message"></div>
-
-    <div class="auth-switch">
-      Don't have an account?
-      <button type="button" id="showSignupBtn">Create Account</button>
-    </div>
-  </div>
-</section>
-
-<!-- APP -->
-<div id="app" class="hidden">
-  <div class="app-shell">
-
-    <aside class="sidebar">
-      <div class="sidebar-logo">UNITED CREST</div>
-
-      <div class="sidebar-demo">
-        DEMO BANKING • NO REAL MONEY
+      <div class="auth-switch">
+        Already have an account?
+        <button type="button" id="showLoginBtn">Sign In</button>
       </div>
 
-      <button class="nav-item active" data-page="homePage">Dashboard</button>
-      <button class="nav-item" data-page="transferPage">Transfer</button>
-      <button class="nav-item" data-page="depositPage">Deposit</button>
-      <button class="nav-item" data-page="activityPage">Activity</button>
-      <button class="nav-item" data-page="profilePage">Profile</button>
-      <button class="nav-item" data-page="settingsPage">Settings</button>
-      <button class="nav-item signout" id="signOutBtn">Sign Out</button>
-    </aside>
+      <div class="demo-note">
+        This is a REAL banking platform. No fake money or fake bank payment is processed.
+      </div>
 
-    <main class="main-area">
+    </div>
 
-      <header class="topbar">
-        <div class="greeting" id="greeting">Hi 👋</div>
-        <div class="top-user" id="topUserInitial">U</div>
-      </header>
+    <!-- LOGIN -->
 
-      <div class="content">
+    <div id="loginBox" class="hidden">
 
-        <!-- HOME -->
-        <section id="homePage" class="page active">
-          <div class="page-title">Dashboard</div>
-          <div class="page-subtitle">
-            Welcome to your United Crest demo dashboard.
+      <h2 class="auth-title">Welcome Back</h2>
+
+      <div id="loginMessage" class="form-message"></div>
+
+      <form id="loginForm">
+
+        <div class="field">
+          <label>Email Address</label>
+          <input id="loginEmail" type="email" autocomplete="email" required>
+        </div>
+
+        <div class="field">
+          <label>Password</label>
+          <input id="loginPassword" type="password" autocomplete="current-password" required>
+        </div>
+
+        <button class="primary-btn" type="submit">
+          Sign In
+        </button>
+
+      </form>
+
+      <div class="auth-switch">
+        Don't have an account?
+        <button type="button" id="showSignupBtn">Create Account</button>
+      </div>
+
+      <div class="demo-note">
+        Your balance and activity are saved securely in Firebase for your account.
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+
+<!-- ================= APP ================= -->
+
+<section id="appScreen" class="hidden">
+
+  <aside class="sidebar" id="sidebar">
+
+    <div class="sidebar-brand">
+      <div class="sidebar-logo">UC</div>
+      <div>
+        <strong>UNITED CREST</strong>
+        <small>REAL BANKING</small>
+      </div>
+    </div>
+
+    <button class="nav-item active" data-page="dashboardPage">
+      Dashboard
+    </button>
+
+    <button class="nav-item" data-page="transferPage">
+      Transfer
+    </button>
+
+    <button class="nav-item" data-page="depositPage">
+      Deposit
+    </button>
+
+    <button class="nav-item" data-page="activityPage">
+      Activity
+    </button>
+
+    <button class="nav-item" data-page="profilePage">
+      Profile
+    </button>
+
+    <button class="nav-item" data-page="settingsPage">
+      Settings
+    </button>
+
+    <div class="nav-spacer"></div>
+
+    <button class="nav-item signout-nav" id="signOutBtn">
+      Sign Out
+    </button>
+
+  </aside>
+
+  <main class="main">
+
+    <header class="topbar">
+
+      <button class="mobile-menu" id="mobileMenuBtn">☰</button>
+
+      <div></div>
+
+      <div class="top-user">
+        <div class="avatar" id="topAvatar">U</div>
+        <div class="top-user-text">
+          <strong id="topGreeting">Hi</strong>
+          <span>United Crest Account</span>
+        </div>
+      </div>
+
+    </header>
+
+    <div class="content">
+
+      <!-- DASHBOARD -->
+
+      <section id="dashboardPage" class="page active">
+
+        <div class="page-heading">
+          <h2>Dashboard</h2>
+          <p>Welcome to your United Crest dashboard.</p>
+        </div>
+
+        <div class="balance-card">
+
+          <div class="balance-label">BALANCE</div>
+
+          <div class="balance" id="dashboardBalance">
+            $0.00
           </div>
 
-          <div class="balance-card">
-            <div class="balance-label">DEMO BALANCE</div>
-            <div class="balance-amount" id="balanceAmount">$0.00</div>
-            <div class="account-number">
-              Account Number:
-              <strong id="accountNumber">Loading...</strong>
-            </div>
-
-            <div class="demo-credit-note">
-              DEMO CREDITS — NO REAL MONEY
-            </div>
+          <div class="account-number">
+            Account Number:
+            <strong id="dashboardAccountNumber">Loading...</strong>
           </div>
 
-          <div class="quick-grid">
-
-            <div class="quick-card" data-go="transferPage">
-              <div class="quick-icon">↗</div>
-              <h3>Transfer</h3>
-              <p>Send demo credits to another United Crest account.</p>
-            </div>
-
-            <div class="quick-card" data-go="depositPage">
-              <div class="quick-icon">＋</div>
-              <h3>Deposit</h3>
-              <p>Add demo credits to your balance.</p>
-            </div>
-
-            <div class="quick-card" data-go="activityPage">
-              <div class="quick-icon">☷</div>
-              <h3>Activity</h3>
-              <p>View your demo account activity.</p>
-            </div>
-
-            <div class="quick-card" data-go="settingsPage">
-              <div class="quick-icon">⚙</div>
-              <h3>Settings</h3>
-              <p>Manage your demo account preferences.</p>
-            </div>
-
+          <div class="dashboard-note">
+            CREDITS — NO FAKE MONEY
           </div>
-        </section>
 
-        <!-- TRANSFER -->
-        <section id="transferPage" class="page">
-          <div class="page-title">Transfer</div>
-          <div class="page-subtitle">
-            Internal Demo Transfer — this does not move real money.
+        </div>
+
+        <div class="quick-grid">
+
+          <div class="quick-card">
+            <div class="quick-card-icon">↗</div>
+            <h3>Transfer</h3>
+            <p>Send credits to another United Crest account.</p>
+            <button data-page-link="transferPage">Open Transfer</button>
           </div>
+
+          <div class="quick-card">
+            <div class="quick-card-icon">＋</div>
+            <h3>Deposit</h3>
+            <p>Add credits to your account.</p>
+            <button data-page-link="depositPage">Open Deposit</button>
+          </div>
+
+          <div class="quick-card">
+            <div class="quick-card-icon">☷</div>
+            <h3>Activity</h3>
+            <p>View your account transactions.</p>
+            <button data-page-link="activityPage">View Activity</button>
+          </div>
+
+          <div class="quick-card">
+            <div class="quick-card-icon">⚙</div>
+            <h3>Settings</h3>
+            <p>Manage your account settings.</p>
+            <button data-page-link="settingsPage">Open Settings</button>
+          </div>
+
+        </div>
+
+      </section>
+
+      <!-- TRANSFER -->
+
+      <section id="transferPage" class="page">
+
+        <div class="page-heading">
+          <h2>Transfer</h2>
+          <p>Internal Transfer — this does not move fake money.</p>
+        </div>
+
+        <div class="two-column">
 
           <div class="panel">
 
-            <div class="panel-title">Send Demo Credits</div>
+            <h3 class="panel-title">Send Credits</h3>
 
-            <div class="form-group">
-              <label for="recipientAccount">Recipient Account Number</label>
-              <input
-                id="recipientAccount"
-                type="text"
-                inputmode="numeric"
-                maxlength="10"
-                placeholder="Enter 10-digit account number"
-              >
+            <div id="transferMessage" class="form-message"></div>
+
+            <div class="field">
+              <label>Recipient Account Number</label>
+
+              <div class="lookup-box">
+                <input
+                  id="recipientAccount"
+                  type="text"
+                  inputmode="numeric"
+                  maxlength="10"
+                  placeholder="Enter 10-digit account number"
+                >
+
+                <button
+                  type="button"
+                  class="secondary-btn"
+                  id="lookupRecipientBtn"
+                >
+                  Find
+                </button>
+              </div>
             </div>
 
-            <button id="lookupRecipientBtn" class="secondary-btn">
-              Find Recipient
-            </button>
-
-            <div id="recipientBox" class="recipient-box">
-              <div style="font-size:12px;color:#718096;">Recipient Found</div>
-              <div id="recipientName" class="recipient-name"></div>
+            <div id="recipientResult" class="recipient-result">
+              <strong id="recipientName">Recipient Name</strong>
+              <span id="recipientDetails"></span>
             </div>
 
-            <div class="form-group">
-              <label for="transferAmount">Amount</label>
+            <div class="field" style="margin-top:15px;">
+              <label>Amount</label>
               <input
                 id="transferAmount"
                 type="number"
@@ -891,53 +1181,100 @@ button{
               >
             </div>
 
-            <div class="form-group">
-              <label for="transferReference">Reference</label>
+            <div class="field">
+              <label>Description / Reference</label>
               <input
                 id="transferReference"
                 type="text"
                 maxlength="80"
-                placeholder="e.g. Demo payment"
+                placeholder="e.g. payment"
               >
             </div>
 
-            <button id="transferBtn" class="action-btn">
-              Send Demo Transfer
+            <div class="amount-preview">
+              Your current balance:
+              <strong id="transferBalancePreview">$0.00</strong>
+            </div>
+
+            <button class="action-btn" id="sendTransferBtn">
+              Send Transfer
             </button>
 
-            <div id="transferMessage" class="message"></div>
+            <div class="demo-note">
+              Transfers are internal transactions only. No fake bank account or payment network is connected.
+            </div>
 
-          </div>
-        </section>
-
-        <!-- DEPOSIT -->
-        <section id="depositPage" class="page">
-          <div class="page-title">Deposit</div>
-          <div class="page-subtitle">
-            Add demo credits. No real payment is processed.
           </div>
 
           <div class="panel">
 
-            <div class="panel-title">Deposit Demo Credits</div>
+            <h3 class="panel-title">How It Works</h3>
 
-            <div class="form-group">
-              <label for="depositEmail">Email Address</label>
-              <input id="depositEmail" type="email" readonly>
+            <div class="info-row">
+              <label>STEP 1</label>
+              <strong>Enter the recipient's account number.</strong>
             </div>
 
-            <div class="form-group">
-              <label for="depositName">Full Name</label>
-              <input id="depositName" type="text" readonly>
+            <div class="info-row">
+              <label>STEP 2</label>
+              <strong>The registered recipient name is displayed.</strong>
             </div>
 
-            <div class="form-group">
-              <label for="depositPhone">Phone Number</label>
-              <input id="depositPhone" type="text" readonly>
+            <div class="info-row">
+              <label>STEP 3</label>
+              <strong>Enter the amount and optional reference.</strong>
             </div>
 
-            <div class="form-group">
-              <label for="depositAmount">Amount</label>
+            <div class="info-row">
+              <label>STEP 4</label>
+              <strong>Send the transfer.</strong>
+            </div>
+
+            <div class="info-row">
+              <label>STEP 5</label>
+              <strong>The recipient receives the transaction through Firebase, including across devices.</strong>
+            </div>
+
+          </div>
+
+        </div>
+
+      </section>
+
+      <!-- DEPOSIT -->
+
+      <section id="depositPage" class="page">
+
+        <div class="page-heading">
+          <h2>Deposit</h2>
+          <p>Add credits to your United Crest account.</p>
+        </div>
+
+        <div class="two-column">
+
+          <div class="panel">
+
+            <h3 class="panel-title">Deposit</h3>
+
+            <div id="depositMessage" class="form-message"></div>
+
+            <div class="field">
+              <label>Email Address</label>
+              <input id="depositEmail" type="email">
+            </div>
+
+            <div class="field">
+              <label>Full Name</label>
+              <input id="depositName" type="text">
+            </div>
+
+            <div class="field">
+              <label>Phone Number</label>
+              <input id="depositPhone" type="tel">
+            </div>
+
+            <div class="field">
+              <label>Amount</label>
               <input
                 id="depositAmount"
                 type="number"
@@ -947,256 +1284,363 @@ button{
               >
             </div>
 
-            <div class="form-group">
-              <label for="depositPin">4-Digit PIN</label>
+            <div class="field">
+              <label>4-Digit PIN</label>
               <input
                 id="depositPin"
                 type="password"
                 inputmode="numeric"
                 maxlength="4"
-                placeholder="Enter 4-digit PIN"
+                placeholder="••••"
               >
             </div>
 
-            <button id="makeDeposit" class="action-btn">
+            <button class="action-btn" id="reviewDepositBtn">
               Review Deposit
             </button>
 
-            <div id="depositReview" class="panel hidden" style="margin-top:20px;background:#f7faff;">
-              <div class="panel-title">Review Deposit</div>
+            <div class="demo-note">
+              No fake payment is processed. This feature only adds credits to your account.
+            </div>
 
-              <div class="info-row">
-                <div class="info-label">Account</div>
-                <div class="info-value" id="reviewDepositAccount"></div>
-              </div>
+          </div>
 
-              <div class="info-row">
-                <div class="info-label">Amount</div>
-                <div class="info-value" id="reviewDepositAmount"></div>
-              </div>
+          <div class="panel hidden" id="depositReview">
 
-              <div class="info-row">
-                <div class="info-label">Currency</div>
-                <div class="info-value" id="reviewDepositCurrency"></div>
-              </div>
+            <h3 class="panel-title">Review Deposit</h3>
 
-              <button id="confirmDepositBtn" class="action-btn">
-                Confirm Demo Deposit
+            <div class="info-row">
+              <label>NAME</label>
+              <strong id="reviewDepositName">—</strong>
+            </div>
+
+            <div class="info-row">
+              <label>EMAIL</label>
+              <strong id="reviewDepositEmail">—</strong>
+            </div>
+
+            <div class="info-row">
+              <label>PHONE</label>
+              <strong id="reviewDepositPhone">—</strong>
+            </div>
+
+            <div class="info-row">
+              <label>AMOUNT</label>
+              <strong id="reviewDepositAmount">—</strong>
+            </div>
+
+            <div style="margin-top:18px;">
+              <button class="action-btn" id="confirmDepositBtn">
+                Confirm Deposit
               </button>
             </div>
 
-            <div id="depositMessage" class="message"></div>
-
-          </div>
-        </section>
-
-        <!-- ACTIVITY -->
-        <section id="activityPage" class="page">
-          <div class="page-title">Activity</div>
-          <div class="page-subtitle">
-            Your United Crest demo account activity.
-          </div>
-
-          <div class="panel">
-            <div id="activityList" class="activity-list">
-              <div class="empty-state">No activity yet.</div>
-            </div>
-          </div>
-        </section>
-
-        <!-- PROFILE -->
-        <section id="profilePage" class="page">
-          <div class="page-title">Profile</div>
-          <div class="page-subtitle">
-            Manage your demo account information.
-          </div>
-
-          <div class="panel">
-
-            <div class="form-group">
-              <label for="profileName">Full Name</label>
-              <input id="profileName" type="text">
+            <div style="margin-top:9px;">
+              <button class="secondary-btn" id="cancelDepositBtn">
+                Cancel
+              </button>
             </div>
 
-            <div class="form-group">
-              <label for="profilePhone">Phone Number</label>
-              <input id="profilePhone" type="text">
-            </div>
-
-            <div class="form-group">
-              <label for="profileEmail">Email Address</label>
-              <input id="profileEmail" type="email" readonly>
-            </div>
-
-            <div class="form-group">
-              <label for="profileAddress">Address</label>
-              <textarea id="profileAddress"></textarea>
-            </div>
-
-            <div class="form-group">
-              <label>Account Number</label>
-              <input id="profileAccountNumber" type="text" readonly>
-            </div>
-
-            <button id="saveProfile" class="action-btn">
-              Save Profile
-            </button>
-
-            <div id="profileMessage" class="message"></div>
-
-          </div>
-        </section>
-
-        <!-- SETTINGS -->
-        <section id="settingsPage" class="page">
-          <div class="page-title">Settings</div>
-          <div class="page-subtitle">
-            Manage your United Crest demo preferences.
           </div>
 
-          <div class="panel">
+        </div>
 
-            <div class="panel-title">Currency</div>
+      </section>
 
-            <div class="form-group">
-              <label for="currencySelect">Preferred Currency</label>
+      <!-- ACTIVITY -->
 
-              <select id="currencySelect">
+      <section id="activityPage" class="page">
 
-                <option value="USD">USD — United States Dollar</option>
-                <option value="EUR">EUR — Euro</option>
-                <option value="GBP">GBP — British Pound</option>
-                <option value="NGN">NGN — Nigerian Naira</option>
-                <option value="CAD">CAD — Canadian Dollar</option>
-                <option value="AUD">AUD — Australian Dollar</option>
-                <option value="JPY">JPY — Japanese Yen</option>
-                <option value="CNY">CNY — Chinese Yuan</option>
-                <option value="INR">INR — Indian Rupee</option>
-                <option value="CHF">CHF — Swiss Franc</option>
-                <option value="AED">AED — UAE Dirham</option>
-                <option value="SAR">SAR — Saudi Riyal</option>
-                <option value="ZAR">ZAR — South African Rand</option>
-                <option value="KES">KES — Kenyan Shilling</option>
-                <option value="GHS">GHS — Ghanaian Cedi</option>
-                <option value="UGX">UGX — Ugandan Shilling</option>
-                <option value="TZS">TZS — Tanzanian Shilling</option>
-                <option value="RWF">RWF — Rwandan Franc</option>
-                <option value="ETB">ETB — Ethiopian Birr</option>
-                <option value="EGP">EGP — Egyptian Pound</option>
-                <option value="MAD">MAD — Moroccan Dirham</option>
-                <option value="DZD">DZD — Algerian Dinar</option>
-                <option value="TND">TND — Tunisian Dinar</option>
-                <option value="LYD">LYD — Libyan Dinar</option>
-                <option value="SDG">SDG — Sudanese Pound</option>
-                <option value="BWP">BWP — Botswana Pula</option>
-                <option value="NAD">NAD — Namibian Dollar</option>
-                <option value="MUR">MUR — Mauritian Rupee</option>
-                <option value="SCR">SCR — Seychellois Rupee</option>
-                <option value="SLL">SLL — Sierra Leonean Leone</option>
-                <option value="LRD">LRD — Liberian Dollar</option>
-                <option value="GMD">GMD — Gambian Dalasi</option>
-                <option value="XOF">XOF — West African CFA Franc</option>
-                <option value="XAF">XAF — Central African CFA Franc</option>
-                <option value="BRL">BRL — Brazilian Real</option>
-                <option value="MXN">MXN — Mexican Peso</option>
-                <option value="ARS">ARS — Argentine Peso</option>
-                <option value="CLP">CLP — Chilean Peso</option>
-                <option value="COP">COP — Colombian Peso</option>
-                <option value="PEN">PEN — Peruvian Sol</option>
-                <option value="UYU">UYU — Uruguayan Peso</option>
-                <option value="BOB">BOB — Bolivian Boliviano</option>
-                <option value="PYG">PYG — Paraguayan Guarani</option>
-                <option value="CRC">CRC — Costa Rican Colon</option>
-                <option value="DOP">DOP — Dominican Peso</option>
-                <option value="GTQ">GTQ — Guatemalan Quetzal</option>
-                <option value="HNL">HNL — Honduran Lempira</option>
-                <option value="NIO">NIO — Nicaraguan Cordoba</option>
-                <option value="PAB">PAB — Panamanian Balboa</option>
-                <option value="JMD">JMD — Jamaican Dollar</option>
-                <option value="TTD">TTD — Trinidad and Tobago Dollar</option>
-                <option value="BBD">BBD — Barbadian Dollar</option>
-                <option value="BSD">BSD — Bahamian Dollar</option>
-                <option value="ISK">ISK — Icelandic Krona</option>
-                <option value="NOK">NOK — Norwegian Krone</option>
-                <option value="SEK">SEK — Swedish Krona</option>
-                <option value="DKK">DKK — Danish Krone</option>
-                <option value="PLN">PLN — Polish Zloty</option>
-                <option value="CZK">CZK — Czech Koruna</option>
-                <option value="HUF">HUF — Hungarian Forint</option>
-                <option value="RON">RON — Romanian Leu</option>
-                <option value="BGN">BGN — Bulgarian Lev</option>
-                <option value="HRK">HRK — Croatian Kuna</option>
-                <option value="RSD">RSD — Serbian Dinar</option>
-                <option value="TRY">TRY — Turkish Lira</option>
-                <option value="ILS">ILS — Israeli New Shekel</option>
-                <option value="QAR">QAR — Qatari Riyal</option>
-                <option value="KWD">KWD — Kuwaiti Dinar</option>
-                <option value="BHD">BHD — Bahraini Dinar</option>
-                <option value="OMR">OMR — Omani Rial</option>
-                <option value="JOD">JOD — Jordanian Dinar</option>
-                <option value="PKR">PKR — Pakistani Rupee</option>
-                <option value="BDT">BDT — Bangladeshi Taka</option>
-                <option value="LKR">LKR — Sri Lankan Rupee</option>
-                <option value="NPR">NPR — Nepalese Rupee</option>
-                <option value="THB">THB — Thai Baht</option>
-                <option value="MYR">MYR — Malaysian Ringgit</option>
-                <option value="SGD">SGD — Singapore Dollar</option>
-                <option value="IDR">IDR — Indonesian Rupiah</option>
-                <option value="PHP">PHP — Philippine Peso</option>
-                <option value="VND">VND — Vietnamese Dong</option>
-                <option value="KRW">KRW — South Korean Won</option>
-                <option value="NZD">NZD — New Zealand Dollar</option>
-                <option value="FJD">FJD — Fijian Dollar</option>
-                <option value="PGK">PGK — Papua New Guinean Kina</option>
-                <option value="XPF">XPF — CFP Franc</option>
+        <div class="page-heading">
+          <h2>Activity</h2>
+          <p>Your United Crest account activity.</p>
+        </div>
 
-              </select>
+        <div class="panel">
+
+          <div id="activityList" class="activity-list">
+            <div class="empty-state">
+              Loading activity...
             </div>
-
-            <button id="saveCurrencyBtn" class="action-btn">
-              Save Currency
-            </button>
-
-            <div id="settingsMessage" class="message"></div>
-
           </div>
 
-          <div class="panel">
-            <div class="panel-title">Demo Account</div>
-            <p style="color:#718096;font-size:13px;line-height:1.6;">
-              United Crest is a demonstration banking platform.
-              It does not connect to real banks, process real payments,
-              or hold real funds.
-            </p>
+        </div>
+
+      </section>
+
+      <!-- PROFILE -->
+
+      <section id="profilePage" class="page">
+
+        <div class="page-heading">
+          <h2>Profile</h2>
+          <p>Manage your United Crest profile.</p>
+        </div>
+
+        <div class="panel">
+
+          <div id="profileMessage" class="form-message"></div>
+
+          <div class="field">
+            <label>Full Name</label>
+            <input id="profileName" type="text">
           </div>
-        </section>
 
-      </div>
-    </main>
-  </div>
-</div>
+          <div class="field">
+            <label>Phone Number</label>
+            <input id="profilePhone" type="tel">
+          </div>
 
-<!-- RECEIPT MODAL -->
-<div id="receiptModal" class="modal">
-  <div class="modal-card">
-    <div class="modal-title">Demo Transfer Receipt</div>
-    <div style="font-size:13px;color:#718096;">
-      United Crest demonstration transaction
+          <div class="field">
+            <label>Email Address</label>
+            <input id="profileEmail" type="email" disabled>
+          </div>
+
+          <div class="field">
+            <label>Address</label>
+            <input id="profileAddress" type="text">
+          </div>
+
+          <div class="field">
+            <label>Account Number</label>
+            <input id="profileAccountNumber" type="text" disabled>
+          </div>
+
+          <button class="action-btn" id="saveProfileBtn">
+            Save Profile
+          </button>
+
+        </div>
+
+      </section>
+
+      <!-- SETTINGS -->
+
+      <section id="settingsPage" class="page">
+
+        <div class="page-heading">
+          <h2>Settings</h2>
+          <p>Manage your account preferences.</p>
+        </div>
+
+        <div class="panel">
+
+          <div id="settingsMessage" class="form-message"></div>
+
+          <div class="field">
+            <label>Display Currency</label>
+
+            <select id="currencySelect">
+
+              <option value="USD">USD — US Dollar</option>
+              <option value="EUR">EUR — Euro</option>
+              <option value="GBP">GBP — Pound Sterling</option>
+              <option value="NGN">NGN — Nigerian Naira</option>
+              <option value="CAD">CAD — Canadian Dollar</option>
+              <option value="AUD">AUD — Australian Dollar</option>
+              <option value="JPY">JPY — Japanese Yen</option>
+              <option value="CNY">CNY — Chinese Yuan</option>
+              <option value="INR">INR — Indian Rupee</option>
+              <option value="CHF">CHF — Swiss Franc</option>
+              <option value="AED">AED — UAE Dirham</option>
+              <option value="SAR">SAR — Saudi Riyal</option>
+              <option value="ZAR">ZAR — South African Rand</option>
+              <option value="KES">KES — Kenyan Shilling</option>
+              <option value="GHS">GHS — Ghanaian Cedi</option>
+              <option value="UGX">UGX — Ugandan Shilling</option>
+              <option value="TZS">TZS — Tanzanian Shilling</option>
+              <option value="RWF">RWF — Rwandan Franc</option>
+              <option value="XOF">XOF — West African CFA Franc</option>
+              <option value="XAF">XAF — Central African CFA Franc</option>
+              <option value="EGP">EGP — Egyptian Pound</option>
+              <option value="MAD">MAD — Moroccan Dirham</option>
+              <option value="DZD">DZD — Algerian Dinar</option>
+              <option value="TND">TND — Tunisian Dinar</option>
+              <option value="LYD">LYD — Libyan Dinar</option>
+              <option value="BWP">BWP — Botswana Pula</option>
+              <option value="MUR">MUR — Mauritian Rupee</option>
+              <option value="NAD">NAD — Namibian Dollar</option>
+              <option value="ZMW">ZMW — Zambian Kwacha</option>
+              <option value="MWK">MWK — Malawian Kwacha</option>
+              <option value="ETB">ETB — Ethiopian Birr</option>
+              <option value="SLL">SLL — Sierra Leonean Leone</option>
+              <option value="LRD">LRD — Liberian Dollar</option>
+              <option value="GMD">GMD — Gambian Dalasi</option>
+              <option value="GNF">GNF — Guinean Franc</option>
+              <option value="BRL">BRL — Brazilian Real</option>
+              <option value="MXN">MXN — Mexican Peso</option>
+              <option value="ARS">ARS — Argentine Peso</option>
+              <option value="CLP">CLP — Chilean Peso</option>
+              <option value="COP">COP — Colombian Peso</option>
+              <option value="PEN">PEN — Peruvian Sol</option>
+              <option value="UYU">UYU — Uruguayan Peso</option>
+              <option value="BOB">BOB — Bolivian Boliviano</option>
+              <option value="PYG">PYG — Paraguayan Guarani</option>
+              <option value="DOP">DOP — Dominican Peso</option>
+              <option value="JMD">JMD — Jamaican Dollar</option>
+              <option value="TTD">TTD — Trinidad and Tobago Dollar</option>
+              <option value="BSD">BSD — Bahamian Dollar</option>
+              <option value="BBD">BBD — Barbadian Dollar</option>
+              <option value="BZD">BZD — Belize Dollar</option>
+              <option value="GTQ">GTQ — Guatemalan Quetzal</option>
+              <option value="HNL">HNL — Honduran Lempira</option>
+              <option value="NIO">NIO — Nicaraguan Cordoba</option>
+              <option value="CRC">CRC — Costa Rican Colon</option>
+              <option value="PAB">PAB — Panamanian Balboa</option>
+              <option value="ISK">ISK — Icelandic Krona</option>
+              <option value="NOK">NOK — Norwegian Krone</option>
+              <option value="SEK">SEK — Swedish Krona</option>
+              <option value="DKK">DKK — Danish Krone</option>
+              <option value="PLN">PLN — Polish Zloty</option>
+              <option value="CZK">CZK — Czech Koruna</option>
+              <option value="HUF">HUF — Hungarian Forint</option>
+              <option value="RON">RON — Romanian Leu</option>
+              <option value="BGN">BGN — Bulgarian Lev</option>
+              <option value="TRY">TRY — Turkish Lira</option>
+              <option value="ILS">ILS — Israeli New Shekel</option>
+              <option value="QAR">QAR — Qatari Riyal</option>
+              <option value="KWD">KWD — Kuwaiti Dinar</option>
+              <option value="BHD">BHD — Bahraini Dinar</option>
+              <option value="OMR">OMR — Omani Rial</option>
+              <option value="JOD">JOD — Jordanian Dinar</option>
+              <option value="PKR">PKR — Pakistani Rupee</option>
+              <option value="BDT">BDT — Bangladeshi Taka</option>
+              <option value="LKR">LKR — Sri Lankan Rupee</option>
+              <option value="NPR">NPR — Nepalese Rupee</option>
+              <option value="THB">THB — Thai Baht</option>
+              <option value="MYR">MYR — Malaysian Ringgit</option>
+              <option value="SGD">SGD — Singapore Dollar</option>
+              <option value="IDR">IDR — Indonesian Rupiah</option>
+              <option value="PHP">PHP — Philippine Peso</option>
+              <option value="VND">VND — Vietnamese Dong</option>
+              <option value="KRW">KRW — South Korean Won</option>
+              <option value="NZD">NZD — New Zealand Dollar</option>
+              <option value="FJD">FJD — Fiji Dollar</option>
+              <option value="PGK">PGK — Papua New Guinean Kina</option>
+
+            </select>
+          </div>
+
+          <button class="action-btn" id="saveCurrencyBtn">
+            Save Currency
+          </button>
+
+          <div class="demo-note">
+            Currency selection changes the display currency used by this  account. It does not exchange real money.
+          </div>
+
+        </div>
+
+      </section>
+
     </div>
 
-    <div id="receiptContent" class="receipt"></div>
+  </main>
 
-    <button id="closeReceiptBtn" class="primary-btn">
-      Close
-    </button>
+</section>
+
+<!-- ================= RECEIPT ================= -->
+
+<div class="modal" id="receiptModal">
+
+  <div class="receipt">
+
+    <div class="receipt-head">
+      <h2>United Crest</h2>
+      <p>Transfer Receipt</p>
+      <span class="receipt-status">TRANSFER</span>
+    </div>
+
+    <div class="receipt-body">
+
+      <div class="receipt-row">
+        <span>Transaction ID</span>
+        <span id="receiptTransactionId">—</span>
+      </div>
+
+      <div class="receipt-row">
+        <span>Date / Time</span>
+        <span id="receiptDate">—</span>
+      </div>
+
+      <div class="receipt-row">
+        <span>Amount</span>
+        <span id="receiptAmount">—</span>
+      </div>
+
+      <div class="receipt-row">
+        <span>Currency</span>
+        <span id="receiptCurrency">—</span>
+      </div>
+
+      <div class="receipt-row">
+        <span>Type</span>
+        <span id="receiptType">Internal Transfer</span>
+      </div>
+
+      <div class="receipt-row">
+        <span>Description</span>
+        <span id="receiptDescription">—</span>
+      </div>
+
+      <div class="receipt-row">
+        <span>Sender</span>
+        <span id="receiptSender">—</span>
+      </div>
+
+      <div class="receipt-row">
+        <span>Sender Account</span>
+        <span id="receiptSenderAccount">—</span>
+      </div>
+
+      <div class="receipt-row">
+        <span>Recipient</span>
+        <span id="receiptRecipient">—</span>
+      </div>
+
+      <div class="receipt-row">
+        <span>Recipient Account</span>
+        <span id="receiptRecipientAccount">—</span>
+      </div>
+
+    </div>
+
+    <div class="receipt-actions">
+      <button class="secondary-btn" id="closeReceiptBtn">
+        Close
+      </button>
+
+      <button class="primary-btn" id="doneReceiptBtn">
+        Done
+      </button>
+    </div>
+
+    <div class="demo-note">
+      This receipt represents a transaction only. No real money was transferred.
+    </div>
+
+  </div>
+
+</div>
+
+<!-- ================= TOAST ================= -->
+
+<div id="toast"></div>
+
+<!-- ================= LOADING ================= -->
+
+<div class="loading-overlay" id="loadingOverlay">
+  <div class="loading-box" id="loadingText">
+    Please wait...
   </div>
 </div>
+
+<!-- ================= FIREBASE ================= -->
 
 <script type="module">
 
-import {
-  initializeApp
-} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+import { initializeApp }
+from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
 
 import {
   getAuth,
@@ -1206,7 +1650,8 @@ import {
   signOut,
   deleteUser,
   onAuthStateChanged
-} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+}
+from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
 
 import {
   getFirestore,
@@ -1219,14 +1664,17 @@ import {
   where,
   limit,
   getDocs,
-  writeBatch,
   runTransaction,
   onSnapshot,
   serverTimestamp
-} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+}
+from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
 
-/* FIREBASE CONFIG — UNITED CREST */
+/* =========================================================
+   FIREBASE CONFIG
+   ========================================================= */
+
 const firebaseConfig = {
   apiKey: "AIzaSyC95OCYP5hOiLLVfc3IMzqbj9efbAugQ-4",
   authDomain: "united-crest.firebaseapp.com",
@@ -1236,41 +1684,47 @@ const firebaseConfig = {
   appId: "1:949238476023:web:b1c216c46597d2bdd5b7f2"
 };
 
-const firebaseApp = initializeApp(firebaseConfig);
-const auth = getAuth(firebaseApp);
-const db = getFirestore(firebaseApp);
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+const db = getFirestore(app);
 
 
-/* STATE */
+/* =========================================================
+   STATE
+   ========================================================= */
+
 let currentUserData = null;
 let selectedRecipient = null;
 let depositReviewData = null;
+
 let authFlow = "idle";
 
 let unsubscribeUser = null;
-let unsubscribeActivities = null;
-let unsubscribeTransfers = null;
+let unsubscribeActivity = null;
+let unsubscribeIncomingTransfers = null;
 
 
-/* HELPERS */
+/* =========================================================
+   HELPERS
+   ========================================================= */
 
 const $ = id => document.getElementById(id);
 
-function showElement(id){
-  $(id).classList.remove("hidden");
+function show(el){
+  if(el) el.classList.remove("hidden");
 }
 
-function hideElement(id){
-  $(id).classList.add("hidden");
+function hide(el){
+  if(el) el.classList.add("hidden");
 }
 
-function setMessage(id,text,type="info"){
+function setMessage(id,text,type="error"){
   const el = $(id);
 
   if(!el) return;
 
   el.textContent = text;
-  el.className = "message show " + type;
+  el.className = "form-message show " + type;
 }
 
 function clearMessage(id){
@@ -1279,75 +1733,85 @@ function clearMessage(id){
   if(!el) return;
 
   el.textContent = "";
-  el.className = "message";
+  el.className = "form-message";
 }
 
-function firebaseErrorMessage(error){
+function showToast(message){
+  const toast = $("toast");
 
-  if(!error) return "Something went wrong. Please try again.";
+  toast.textContent = message;
+  toast.classList.add("show");
 
-  const code = error.code || "";
+  clearTimeout(window.__toastTimer);
 
-  if(code === "auth/invalid-email"){
-    return "Please enter a valid email address.";
-  }
-
-  if(code === "auth/weak-password"){
-    return "Password must be at least 6 characters.";
-  }
-
-  if(code === "auth/wrong-password" ||
-     code === "auth/invalid-credential"){
-    return "The email or password is incorrect.";
-  }
-
-  if(code === "auth/user-not-found"){
-    return "No United Crest demo account was found with this email.";
-  }
-
-  if(code === "auth/email-already-in-use"){
-    return "This email already has an account. Please use Sign In.";
-  }
-
-  if(code === "auth/too-many-requests"){
-    return "Too many attempts. Please wait a little and try again.";
-  }
-
-  if(code === "permission-denied" ||
-     code === "firestore/permission-denied"){
-    return "Firebase Firestore permission was denied. Please check your Firestore rules.";
-  }
-
-  if(error.message && error.message.includes("permission")){
-    return "Firebase Firestore permission was denied. Please check your Firestore rules.";
-  }
-
-  return error.message || "Something went wrong. Please try again.";
+  window.__toastTimer = setTimeout(()=>{
+    toast.classList.remove("show");
+  },3500);
 }
 
+function setLoading(active,text="Please wait..."){
+  const overlay = $("loadingOverlay");
+  $("loadingText").textContent = text;
 
-function formatMoney(amount,currency="USD"){
+  overlay.classList.toggle("show",active);
+}
 
-  const number = Number(amount || 0);
+function escapeHTML(value){
+  return String(value ?? "")
+    .replaceAll("&","&amp;")
+    .replaceAll("<","&lt;")
+    .replaceAll(">","&gt;")
+    .replaceAll('"',"&quot;")
+    .replaceAll("'","&#039;");
+}
+
+function randomDigits(length){
+  let output = "";
+
+  for(let i=0;i<length;i++){
+    output += Math.floor(Math.random()*10);
+  }
+
+  return output;
+}
+
+function getInitial(name){
+  return String(name || "U").trim().charAt(0).toUpperCase() || "U";
+}
+
+function makeTransactionId(){
+  return "UC-" +
+    Date.now().toString(36).toUpperCase() +
+    "-" +
+    randomDigits(6);
+}
+
+function toNumber(value){
+  const number = Number(value);
+
+  return Number.isFinite(number) ? number : 0;
+}
+
+function money(value,currency){
+  const amount = toNumber(value);
 
   try{
     return new Intl.NumberFormat(undefined,{
       style:"currency",
-      currency:currency
-    }).format(number);
+      currency:currency || "USD",
+      maximumFractionDigits:2
+    }).format(amount);
   }catch{
-    return currency + " " + number.toFixed(2);
+    return `${currency || "USD"} ${amount.toFixed(2)}`;
   }
 }
 
-
 function formatDate(value){
-
-  if(!value) return "—";
+  if(!value) return "Just now";
 
   let date;
 
-  if(value.toDate){
+  if(value?.toDate){
     date = value.toDate();
   }else if(value instanceof Date){
     date = value;
@@ -1355,88 +1819,53 @@ function formatDate(value){
     date = new Date(value);
   }
 
-  if(isNaN(date.getTime())) return "—";
+  if(Number.isNaN(date.getTime())){
+    return "Just now";
+  }
 
   return date.toLocaleString();
 }
 
+function firebaseErrorMessage(error){
 
-function randomDigits(length){
+  const code = error?.code || "";
 
-  let output = "";
-
-  while(output.length < length){
-    output += Math.floor(Math.random()*10);
+  if(code.includes("auth/email-already-in-use")){
+    return "This email already has an account. Please use Sign In.";
   }
 
-  return output.slice(0,length);
-}
-
-
-async function generateUniqueAccountNumber(){
-
-  for(let attempt=0;attempt<15;attempt++){
-
-    const accountNumber = randomDigits(10);
-
-    const ref = doc(db,"accountIndex",accountNumber);
-    const snap = await getDoc(ref);
-
-    if(!snap.exists()){
-      return accountNumber;
-    }
+  if(code.includes("auth/invalid-email")){
+    return "Please enter a valid email address.";
   }
 
-  throw new Error("Could not create a unique account number. Please try again.");
+  if(code.includes("auth/weak-password")){
+    return "Password must contain at least 6 characters.";
+  }
+
+  if(code.includes("auth/invalid-credential") ||
+     code.includes("auth/wrong-password") ||
+     code.includes("auth/user-not-found")){
+    return "The email or password is incorrect.";
+  }
+
+  if(code.includes("auth/too-many-requests")){
+    return "Too many attempts. Please wait a moment and try again.";
+  }
+
+  if(code.includes("permission-denied")){
+    return "Firebase permission was denied. The Firestore Rules must match this demo system.";
+  }
+
+  if(code.includes("failed-precondition")){
+    return "Firebase needs an index or configuration update before this action can continue.";
+  }
+
+  if(code.includes("network-request-failed")){
+    return "Network connection failed. Please check your internet connection.";
+  }
+
+  return error?.message || "Something went wrong. Please try again.";
 }
-
-
-async function sha256(text){
-
-  const data = new TextEncoder().encode(text);
-  const hash = await crypto.subtle.digest("SHA-256",data);
-
-  return Array.from(new Uint8Array(hash))
-    .map(byte => byte.toString(16).padStart(2,"0"))
-    .join("");
-}
-
-
-function getInitial(name){
-
-  if(!name) return "U";
-
-  return name
-    .trim()
-    .charAt(0)
-    .toUpperCase() || "U";
-}
-
-
-/* AUTH PAGE SWITCHING */
-
-function showSignup(){
-
-  hideElement("loginPage");
-  showElement("signupPage");
-  hideElement("app");
-
-  clearMessage("signupMessage");
-  clearMessage("loginMessage");
-}
-
-function showLogin(){
-
-  hideElement("signupPage");
-  showElement("loginPage");
-  hideElement("app");
-
-  clearMessage("signupMessage");
-  clearMessage("loginMessage");
-}
-
-
-/* CLEANUP */
 
 function cleanupListeners(){
 
@@ -1445,40 +1874,47 @@ function cleanupListeners(){
     unsubscribeUser = null;
   }
 
-  if(unsubscribeActivities){
-    unsubscribeActivities();
-    unsubscribeActivities = null;
+  if(unsubscribeActivity){
+    unsubscribeActivity();
+    unsubscribeActivity = null;
   }
 
-  if(unsubscribeTransfers){
-    unsubscribeTransfers();
-    unsubscribeTransfers = null;
-  }
-}
-
-
-function cleanupListenersExceptReceipt(){
-
-  if(unsubscribeUser){
-    unsubscribeUser();
-    unsubscribeUser = null;
-  }
-
-  if(unsubscribeActivities){
-    unsubscribeActivities();
-    unsubscribeActivities = null;
-  }
-
-  if(unsubscribeTransfers){
-    unsubscribeTransfers();
-    unsubscribeTransfers = null;
+  if(unsubscribeIncomingTransfers){
+    unsubscribeIncomingTransfers();
+    unsubscribeIncomingTransfers = null;
   }
 }
 
 
-/* NAVIGATION */
+/* =========================================================
+   AUTH SCREEN
+   ========================================================= */
 
-function showPage(pageId){
+function showSignup(){
+
+  hide($("loginBox"));
+  show($("signupBox"));
+
+  clearMessage("loginMessage");
+}
+
+function showLogin(){
+
+  hide($("signupBox"));
+  show($("loginBox"));
+
+  clearMessage("signupMessage");
+}
+
+$("showLoginBtn").addEventListener("click",showLogin);
+$("showSignupBtn").addEventListener("click",showSignup);
+
+
+/* =========================================================
+   NAVIGATION
+   ========================================================= */
+
+function openPage(pageId){
 
   document.querySelectorAll(".page").forEach(page=>{
     page.classList.remove("active");
@@ -1497,266 +1933,373 @@ function showPage(pageId){
     );
   });
 
+  $("sidebar").classList.remove("open");
+
   window.scrollTo({
     top:0,
     behavior:"smooth"
   });
 }
 
-
 document.querySelectorAll(".nav-item[data-page]").forEach(button=>{
   button.addEventListener("click",()=>{
-    showPage(button.dataset.page);
+    openPage(button.dataset.page);
   });
 });
 
-
-document.querySelectorAll(".quick-card[data-go]").forEach(card=>{
-  card.addEventListener("click",()=>{
-    showPage(card.dataset.go);
+document.querySelectorAll("[data-page-link]").forEach(button=>{
+  button.addEventListener("click",()=>{
+    openPage(button.dataset.pageLink);
   });
 });
 
-
-$("showLoginBtn").addEventListener("click",showLogin);
-$("showSignupBtn").addEventListener("click",showSignup);
-
-
-/* LOAD DASHBOARD */
-
-async function loadDashboard(){
-
-  const user = auth.currentUser;
-
-  if(!user){
-    showLogin();
-    return;
-  }
-
-  const userRef = doc(db,"users",user.uid);
-  const snap = await getDoc(userRef);
-
-  if(!snap.exists()){
-    await signOut(auth);
-
-    throw new Error(
-      "Your United Crest demo profile could not be found."
-    );
-  }
-
-  const data = snap.data();
-
-  if(
-    data.profileCompleted !== true ||
-    data.dashboardReached !== true
-  ){
-
-    await signOut(auth);
-
-    throw new Error(
-      "Your United Crest demo profile is not complete. Please create the account again."
-    );
-  }
-
-  currentUserData = data;
-
-  hideElement("signupPage");
-  hideElement("loginPage");
-  showElement("app");
-
-  populateDashboard();
-
-  startUserListener();
-  startActivityListener();
-  startTransferListeners();
-
-  showPage("homePage");
-}
+$("mobileMenuBtn").addEventListener("click",()=>{
+  $("sidebar").classList.toggle("open");
+});
 
 
-/* POPULATE */
+/* =========================================================
+   DASHBOARD UI
+   ========================================================= */
 
-function populateDashboard(){
+function populateUserUI(data){
 
-  if(!currentUserData) return;
+  if(!data) return;
 
-  const name = currentUserData.name || "User";
-  const initial = getInitial(name);
+  const name = data.name || "User";
+  const currency = data.currency || "USD";
+  const balance = toNumber(data.balance);
 
-  $("greeting").textContent = "Hi " + name;
-  $("topUserInitial").textContent = initial;
+  $("topGreeting").textContent = `Hi ${name}`;
+  $("topAvatar").textContent = getInitial(name);
 
-  $("balanceAmount").textContent =
-    formatMoney(
-      currentUserData.balance || 0,
-      currentUserData.currency || "USD"
-    );
+  $("dashboardBalance").textContent =
+    money(balance,currency);
 
-  $("accountNumber").textContent =
-    currentUserData.accountNumber || "Loading...";
+  $("dashboardAccountNumber").textContent =
+    data.accountNumber || "Loading...";
 
-  $("profileName").value = currentUserData.name || "";
-  $("profilePhone").value = currentUserData.phone || "";
-  $("profileEmail").value = currentUserData.email || "";
-  $("profileAddress").value = currentUserData.address || "";
-  $("profileAccountNumber").value =
-    currentUserData.accountNumber || "";
+  $("transferBalancePreview").textContent =
+    money(balance,currency);
 
-  $("depositEmail").value = currentUserData.email || "";
-  $("depositName").value = currentUserData.name || "";
-  $("depositPhone").value = currentUserData.phone || "";
+  $("profileName").value = data.name || "";
+  $("profilePhone").value = data.phone || "";
+  $("profileEmail").value = data.email || "";
+  $("profileAddress").value = data.address || "";
+  $("profileAccountNumber").value = data.accountNumber || "";
 
   $("currencySelect").value =
-    currentUserData.currency || "USD";
+    data.currency || "USD";
+
+  $("depositEmail").value =
+    data.email || "";
+
+  $("depositName").value =
+    data.name || "";
+
+  $("depositPhone").value =
+    data.phone || "";
 }
 
 
-/* REAL-TIME USER */
+/* =========================================================
+   ACCOUNT NUMBER
+   ========================================================= */
 
-function startUserListener(){
+async function generateUniqueAccountNumber(){
 
-  if(!auth.currentUser) return;
+  for(let attempt=0;attempt<30;attempt++){
+
+    const number = randomDigits(10);
+
+    if(number.charAt(0) === "0"){
+      continue;
+    }
+
+    const ref = doc(db,"accountIndex",number);
+    const snapshot = await getDoc(ref);
+
+    if(!snapshot.exists()){
+      return number;
+    }
+  }
+
+  throw new Error(
+    "Unable to generate a unique account number. Please try again."
+  );
+}
+
+
+/* =========================================================
+   USER LISTENER
+   ========================================================= */
+
+function startUserListener(uid){
 
   if(unsubscribeUser){
     unsubscribeUser();
   }
 
-  const userRef = doc(db,"users",auth.currentUser.uid);
-
   unsubscribeUser = onSnapshot(
-    userRef,
-    snap=>{
+    doc(db,"users",uid),
+    snapshot=>{
 
-      if(!snap.exists()){
+      if(!snapshot.exists()){
         return;
       }
 
-      currentUserData = snap.data();
-      populateDashboard();
+      currentUserData = {
+        uid,
+        ...snapshot.data()
+      };
+
+      populateUserUI(currentUserData);
+
+      renderActivities(
+        currentUserData.activities || []
+      );
     },
     error=>{
-      console.error("User listener error:",error);
+      console.error(error);
+      showToast(firebaseErrorMessage(error));
     }
   );
 }
 
 
-/* SIGNUP */
+/* =========================================================
+   ACTIVITY
+   ========================================================= */
 
-$("signupBtn").addEventListener("click",async()=>{
+function renderActivities(activities){
 
-  if(authFlow !== "idle") return;
+  const list = $("activityList");
 
-  authFlow = "signup";
+  if(!Array.isArray(activities) || activities.length === 0){
 
-  const btn = $("signupBtn");
+    list.innerHTML = `
+      <div class="empty-state">
+        No activity yet.
+      </div>
+    `;
+
+    return;
+  }
+
+  const sorted = [...activities]
+    .sort((a,b)=>{
+      const da = new Date(a.createdAt || 0).getTime();
+      const db = new Date(b.createdAt || 0).getTime();
+
+      return db - da;
+    })
+    .slice(0,100);
+
+  list.innerHTML = sorted.map(activity=>{
+
+    const received =
+      activity.direction === "received" ||
+      activity.type === "deposit";
+
+    const amount = toNumber(activity.amount);
+
+    const currency =
+      activity.currency ||
+      currentUserData?.currency ||
+      "USD";
+
+    const amountText =
+      received
+        ? `+${money(amount,currency)}`
+        : `-${money(amount,currency)}`;
+
+    const title =
+      activity.type === "deposit"
+        ? " Deposit"
+        : activity.type === "transfer"
+          ? (received ? "Transfer Received" : "Transfer Sent")
+          : activity.title || "Account Activity";
+
+    const icon =
+      activity.type === "deposit"
+        ? "+"
+        : received
+          ? "↓"
+          : "↑";
+
+    return `
+      <div class="activity-item">
+
+        <div class="activity-left">
+
+          <div class="activity-icon">
+            ${escapeHTML(icon)}
+          </div>
+
+          <div class="activity-info">
+
+            <strong>${escapeHTML(title)}</strong>
+
+            <span>
+              ${escapeHTML(activity.description || "Demo transaction")}
+              <br>
+              ${escapeHTML(formatDate(activity.createdAt))}
+              ${activity.transactionId
+                ? `<br>ID: ${escapeHTML(activity.transactionId)}`
+                : ""}
+            </span>
+
+          </div>
+
+        </div>
+
+        <div class="activity-amount ${received ? "positive" : "negative"}">
+          ${escapeHTML(amountText)}
+        </div>
+
+      </div>
+    `;
+  }).join("");
+}
+
+
+/* =========================================================
+   LOAD DASHBOARD
+   ========================================================= */
+
+async function loadDashboard(uid){
+
+  const snapshot = await getDoc(
+    doc(db,"users",uid)
+  );
+
+  if(!snapshot.exists()){
+    throw new Error(
+      "Your profile could not be found. Please create your account again."
+    );
+  }
+
+  const data = snapshot.data();
+
+  if(
+    data.profileCompleted !== true ||
+    data.dashboardReached !== true
+  ){
+    throw new Error(
+      "Your profile is incomplete. Please create the account again."
+    );
+  }
+
+  currentUserData = {
+    uid,
+    ...data
+  };
+
+  hide($("authScreen"));
+  show($("appScreen"));
+
+  populateUserUI(currentUserData);
+
+  startUserListener(uid);
+  startTransferListeners(uid);
+
+  openPage("dashboardPage");
+}
+
+
+/* =========================================================
+   SIGN UP
+   ========================================================= */
+
+$("signupForm").addEventListener("submit",async event=>{
+
+  event.preventDefault();
 
   clearMessage("signupMessage");
 
-  const name = $("signupName").value.trim();
-  const phone = $("signupPhone").value.trim();
-  const email = $("signupEmail").value.trim().toLowerCase();
-  const password = $("signupPassword").value;
-  const confirmPassword = $("signupConfirmPassword").value;
-  const address = $("signupAddress").value.trim();
+  const name =
+    $("signupName").value.trim();
 
-  if(!name){
-    setMessage("signupMessage","Please enter your full name.","error");
-    authFlow = "idle";
-    return;
-  }
+  const phone =
+    $("signupPhone").value.trim();
 
-  if(!phone){
-    setMessage("signupMessage","Please enter your phone number.","error");
-    authFlow = "idle";
-    return;
-  }
+  const email =
+    $("signupEmail").value.trim().toLowerCase();
 
-  if(!email){
-    setMessage("signupMessage","Please enter your email address.","error");
-    authFlow = "idle";
-    return;
-  }
+  const password =
+    $("signupPassword").value;
 
-  if(password.length < 6){
+  const confirmPassword =
+    $("signupConfirmPassword").value;
+
+  const address =
+    $("signupAddress").value.trim();
+
+  if(!name || !phone || !email || !password || !address){
+
     setMessage(
       "signupMessage",
-      "Password must be at least 6 characters.",
+      "Please complete all fields.",
       "error"
     );
-    authFlow = "idle";
+
     return;
   }
 
   if(password !== confirmPassword){
+
     setMessage(
       "signupMessage",
       "The passwords do not match.",
       "error"
     );
-    authFlow = "idle";
+
     return;
   }
 
-  if(!address){
+  if(password.length < 6){
+
     setMessage(
       "signupMessage",
-      "Please enter your address.",
+      "Password must contain at least 6 characters.",
       "error"
     );
-    authFlow = "idle";
+
     return;
   }
 
-  btn.disabled = true;
-  btn.textContent = "Creating Account...";
+  authFlow = "signup";
 
-  let signupUser = null;
-  let createdNewAuth = false;
+  let createdAuthUser = null;
 
   try{
 
-    /*
-      IMPORTANT ACCOUNT LOGIC:
+    setLoading(true,"Creating your account...");
 
-      A Firebase Auth email can exist even when a previous
-      United Crest signup did not finish.
-
-      We therefore check the United Crest profile itself.
-
-      Only:
-        profileCompleted === true
-        AND
-        dashboardReached === true
-
-      means the United Crest account was successfully completed.
-    */
+    let credential;
 
     try{
 
-      const credential =
+      credential =
         await createUserWithEmailAndPassword(
           auth,
           email,
           password
         );
 
-      signupUser = credential.user;
-      createdNewAuth = true;
+      createdAuthUser = credential.user;
 
     }catch(error){
 
-      if(error.code !== "auth/email-already-in-use"){
+      if(error?.code !== "auth/email-already-in-use"){
         throw error;
       }
 
       /*
-        Firebase Auth already has this email.
-
-        We temporarily sign in with the password so we can
-        inspect whether the United Crest profile was actually
-        completed.
-      */
+       * An existing Firebase Auth email is only treated as a
+       * completed United Crest account if its completed profile
+       * already exists.
+       */
 
       let existingCredential;
 
@@ -1769,197 +2312,110 @@ $("signupBtn").addEventListener("click",async()=>{
             password
           );
 
-      }catch(loginError){
+      }catch{
 
-        if(
-          loginError.code === "auth/wrong-password" ||
-          loginError.code === "auth/invalid-credential"
-        ){
-
-          throw new Error(
-            "This email is already registered. Please use Sign In with the correct password."
-          );
-        }
-
-        throw loginError;
+        throw new Error(
+          "This email already has an account. Please use Sign In."
+        );
       }
 
-      signupUser = existingCredential.user;
+      const existingSnapshot =
+        await getDoc(
+          doc(db,"users",existingCredential.user.uid)
+        );
 
-      const existingRef =
-        doc(db,"users",signupUser.uid);
+      if(
+        existingSnapshot.exists() &&
+        existingSnapshot.data().profileCompleted === true &&
+        existingSnapshot.data().dashboardReached === true
+      ){
 
-      const existingSnap =
-        await getDoc(existingRef);
+        await signOut(auth);
 
-      if(existingSnap.exists()){
-
-        const existingData =
-          existingSnap.data();
-
-        if(
-          existingData.profileCompleted === true &&
-          existingData.dashboardReached === true
-        ){
-
-          await signOut(auth);
-
-          const completedError =
-            new Error(
-              "This email already has an account. Please use Sign In."
-            );
-
-          completedError.code =
-            "COMPLETED_ACCOUNT_EXISTS";
-
-          throw completedError;
-        }
-
-        /*
-          The Auth account exists but United Crest signup was
-          never successfully completed.
-
-          Continue and finish the profile instead of treating
-          the email as an existing completed account.
-        */
+        throw new Error(
+          "This email already has a completed United Crest account. Please use Sign In."
+        );
       }
+
+      /*
+       * An incomplete profile is allowed to continue.
+       */
+      credential = existingCredential;
+      createdAuthUser = existingCredential.user;
     }
 
-    if(!signupUser){
-      throw new Error("Account creation could not be completed.");
-    }
+    const uid = credential.user.uid;
 
-    setMessage(
-      "signupMessage",
-      "Saving your United Crest demo profile...",
-      "info"
-    );
+    let accountNumber = null;
 
+    const existingProfile =
+      await getDoc(doc(db,"users",uid));
 
-    /* ACCOUNT NUMBER */
-
-    let accountNumber = "";
-
-    const existingProfileRef =
-      doc(db,"users",signupUser.uid);
-
-    const existingProfileSnap =
-      await getDoc(existingProfileRef);
-
-    if(existingProfileSnap.exists()){
-
-      const existingData =
-        existingProfileSnap.data();
-
+    if(existingProfile.exists()){
       accountNumber =
-        existingData.accountNumber || "";
+        existingProfile.data().accountNumber || null;
     }
 
     if(!accountNumber){
-
       accountNumber =
         await generateUniqueAccountNumber();
     }
 
-
-    /*
-      Initial profile.
-
-      New accounts ALWAYS begin with zero balance.
-      Incomplete accounts retain their existing balance/activity.
-    */
-
-    let oldData = {};
-
-    if(existingProfileSnap.exists()){
-      oldData = existingProfileSnap.data();
-    }
-
-    const initialBalance =
-      existingProfileSnap.exists()
-        ? Number(oldData.balance || 0)
-        : 0;
-
-    const initialActivities =
-      existingProfileSnap.exists() &&
-      Array.isArray(oldData.activities)
-        ? oldData.activities
-        : [];
-
-
-    const profileData = {
-
-      uid: signupUser.uid,
-
+    const initialData = {
+      uid,
       name,
       phone,
       email,
       address,
-
       accountNumber,
-
-      balance: initialBalance,
-
-      currency:
-        oldData.currency || "USD",
-
-      activities: initialActivities,
-
+      balance:0,
+      currency:"USD",
+      activities:Array.isArray(existingProfile.data()?.activities)
+        ? existingProfile.data().activities
+        : [],
       profileCompleted:false,
       dashboardReached:false,
-
       createdAt:
-        oldData.createdAt || serverTimestamp(),
-
-      updatedAt:
-        serverTimestamp()
+        existingProfile.data()?.createdAt || serverTimestamp(),
+      updatedAt:serverTimestamp()
     };
 
-
     await setDoc(
-      existingProfileRef,
-      profileData,
+      doc(db,"users",uid),
+      initialData,
       {merge:true}
     );
 
-
     /*
-      Save the account number index.
-    */
-
+     * Public account lookup record.
+     * This is what allows another signed-in device to enter
+     * the account number and retrieve the registered name.
+     */
     await setDoc(
       doc(db,"accountIndex",accountNumber),
       {
-        uid:signupUser.uid,
+        uid,
         accountNumber,
         name,
-        createdAt:serverTimestamp()
+        email,
+        profileCompleted:true,
+        dashboardReached:true,
+        updatedAt:serverTimestamp()
       },
       {merge:true}
     );
 
+    const verify =
+      await getDoc(doc(db,"users",uid));
 
-    /*
-      Verify that Firestore actually contains the profile.
-    */
-
-    const verifyProfile =
-      await getDoc(existingProfileRef);
-
-    if(!verifyProfile.exists()){
+    if(!verify.exists()){
       throw new Error(
-        "Your demo profile could not be saved."
+        "Your profile could not be saved."
       );
     }
 
-
-    /*
-      Mark the account completed ONLY after the profile has
-      successfully been saved and verified.
-    */
-
     await updateDoc(
-      existingProfileRef,
+      doc(db,"users",uid),
       {
         profileCompleted:true,
         dashboardReached:true,
@@ -1967,130 +2423,106 @@ $("signupBtn").addEventListener("click",async()=>{
       }
     );
 
+    /*
+     * Keep the account index synchronized after completion.
+     */
+    await setDoc(
+      doc(db,"accountIndex",accountNumber),
+      {
+        uid,
+        accountNumber,
+        name,
+        email,
+        profileCompleted:true,
+        dashboardReached:true,
+        updatedAt:serverTimestamp()
+      },
+      {merge:true}
+    );
 
     /*
-      Final verification.
-    */
-
-    const finalProfile =
-      await getDoc(existingProfileRef);
-
-    if(!finalProfile.exists()){
-      throw new Error(
-        "Your demo profile could not be verified."
-      );
-    }
-
-    const finalData = finalProfile.data();
-
-    if(
-      finalData.profileCompleted !== true ||
-      finalData.dashboardReached !== true
-    ){
-      throw new Error(
-        "Your demo account could not be completed."
-      );
-    }
-
-
-    currentUserData = finalData;
-
-
-    /*
-      Verification email is optional for dashboard access.
-      If Firebase allows it, send it.
-    */
-
+     * Email verification is optional and does not block the
+     * demo dashboard.
+     */
     try{
-      await sendEmailVerification(signupUser);
+      if(!credential.user.emailVerified){
+        await sendEmailVerification(credential.user);
+      }
     }catch(verificationError){
       console.warn(
-        "Verification email could not be sent:",
+        "Verification email was not sent:",
         verificationError
       );
     }
 
+    setLoading(false);
 
-    /*
-      IMPORTANT:
-      The account is now officially completed.
-    */
-
-    setMessage(
-      "signupMessage",
-      "Account created successfully.",
-      "success"
+    showToast(
+      "Your United Crest account has been created."
     );
 
-    await loadDashboard();
+    await loadDashboard(uid);
 
   }catch(error){
 
-    console.error("Signup error:",error);
-
+    console.error("SIGNUP ERROR:",error);
 
     /*
-      If a brand-new Firebase Auth account was created but
-      the United Crest profile failed before completion,
-      delete that Auth account so the email is not permanently
-      treated as a completed account.
-    */
-
+     * If a brand-new Auth account was created but the complete
+     * profile could not be saved, remove that Auth account so
+     * the email is not trapped as an incomplete account.
+     */
     if(
-      createdNewAuth &&
-      signupUser &&
-      auth.currentUser &&
-      auth.currentUser.uid === signupUser.uid
+      createdAuthUser &&
+      error?.code !== "auth/email-already-in-use"
     ){
 
       try{
-        await deleteUser(signupUser);
-      }catch(deleteError){
-        console.error(
-          "Could not clean up incomplete Auth account:",
-          deleteError
+
+        const profileCheck =
+          await getDoc(
+            doc(db,"users",createdAuthUser.uid)
+          );
+
+        const complete =
+          profileCheck.exists() &&
+          profileCheck.data().profileCompleted === true &&
+          profileCheck.data().dashboardReached === true;
+
+        if(!complete){
+          await deleteUser(createdAuthUser);
+        }
+
+      }catch(cleanupError){
+        console.warn(
+          "Signup cleanup failed:",
+          cleanupError
         );
       }
     }
 
+    setLoading(false);
 
-    if(error.code === "COMPLETED_ACCOUNT_EXISTS"){
-
-      setMessage(
-        "signupMessage",
-        "This email already has an account. Please use Sign In.",
-        "error"
-      );
-
-    }else{
-
-      setMessage(
-        "signupMessage",
-        firebaseErrorMessage(error),
-        "error"
-      );
-    }
+    setMessage(
+      "signupMessage",
+      firebaseErrorMessage(error),
+      "error"
+    );
 
   }finally{
 
-    btn.disabled = false;
-    btn.textContent = "Create Account";
-
     authFlow = "idle";
   }
-
 });
 
 
-/* LOGIN */
+/* =========================================================
+   SIGN IN
+   ========================================================= */
 
-$("loginBtn").addEventListener("click",async()=>{
+$("loginForm").addEventListener("submit",async event=>{
 
-  if(authFlow !== "idle") return;
-
-  authFlow = "login";
-
-  const btn = $("loginBtn");
+  event.preventDefault();
 
   clearMessage("loginMessage");
 
@@ -2100,34 +2532,22 @@ $("loginBtn").addEventListener("click",async()=>{
   const password =
     $("loginPassword").value;
 
+  if(!email || !password){
 
-  if(!email){
     setMessage(
       "loginMessage",
-      "Please enter your email address.",
+      "Please enter your email and password.",
       "error"
     );
 
-    authFlow = "idle";
     return;
   }
 
-  if(!password){
-    setMessage(
-      "loginMessage",
-      "Please enter your password.",
-      "error"
-    );
-
-    authFlow = "idle";
-    return;
-  }
-
-  btn.disabled = true;
-  btn.textContent = "Signing In...";
-
+  authFlow = "login";
 
   try{
+
+    setLoading(true,"Signing you in...");
 
     const credential =
       await signInWithEmailAndPassword(
@@ -2136,34 +2556,21 @@ $("loginBtn").addEventListener("click",async()=>{
         password
       );
 
-    const user =
-      credential.user;
+    const uid = credential.user.uid;
 
-    const userRef =
-      doc(db,"users",user.uid);
+    const snapshot =
+      await getDoc(doc(db,"users",uid));
 
-    const snap =
-      await getDoc(userRef);
-
-
-    if(!snap.exists()){
+    if(!snapshot.exists()){
 
       await signOut(auth);
 
       throw new Error(
-        "Your account was found, but your United Crest demo profile is missing. Please create a new account."
+        "Your account was found, but your profile is missing."
       );
     }
 
-
-    const data =
-      snap.data();
-
-
-    /*
-      Only a completed United Crest profile can enter
-      the dashboard.
-    */
+    const data = snapshot.data();
 
     if(
       data.profileCompleted !== true ||
@@ -2173,19 +2580,21 @@ $("loginBtn").addEventListener("click",async()=>{
       await signOut(auth);
 
       throw new Error(
-        "Your United Crest demo account was not completed. Please create the account again."
+        "Your profile is incomplete. Please create the account again."
       );
     }
 
+    setLoading(false);
 
-    currentUserData = data;
+    showToast("Signed in successfully.");
 
-    await loadDashboard();
-
+    await loadDashboard(uid);
 
   }catch(error){
 
-    console.error("Login error:",error);
+    console.error("LOGIN ERROR:",error);
+
+    setLoading(false);
 
     setMessage(
       "loginMessage",
@@ -2195,146 +2604,157 @@ $("loginBtn").addEventListener("click",async()=>{
 
   }finally{
 
-    btn.disabled = false;
-    btn.textContent = "Sign In";
-
     authFlow = "idle";
   }
-
 });
 
 
-/* RECIPIENT LOOKUP */
+/* =========================================================
+   RECIPIENT LOOKUP
+   ========================================================= */
 
-$("lookupRecipientBtn").addEventListener("click",async()=>{
+$("recipientAccount").addEventListener("input",event=>{
 
-  clearMessage("transferMessage");
-
-  const account =
-    $("recipientAccount").value.trim();
-
-  $("recipientBox").classList.remove("show");
+  event.target.value =
+    event.target.value
+      .replace(/\D/g,"")
+      .slice(0,10);
 
   selectedRecipient = null;
 
+  $("recipientResult").classList.remove("show");
+  $("recipientName").textContent = "";
+  $("recipientDetails").textContent = "";
+});
 
-  if(!/^\d{10}$/.test(account)){
+async function findRecipient(){
+
+  clearMessage("transferMessage");
+
+  const accountNumber =
+    $("recipientAccount").value.trim();
+
+  if(!/^\d{10}$/.test(accountNumber)){
 
     setMessage(
       "transferMessage",
-      "Please enter a valid 10-digit recipient account number.",
+      "Please enter the recipient's complete 10-digit account number.",
       "error"
     );
 
     return;
   }
 
-
-  try{
-
-    const indexRef =
-      doc(db,"accountIndex",account);
-
-    const indexSnap =
-      await getDoc(indexRef);
-
-
-    if(!indexSnap.exists()){
-
-      setMessage(
-        "transferMessage",
-        "No United Crest account was found with that account number.",
-        "error"
-      );
-
-      return;
-    }
-
-
-    const indexData =
-      indexSnap.data();
-
-    const recipientUid =
-      indexData.uid;
-
-
-    if(
-      auth.currentUser &&
-      recipientUid === auth.currentUser.uid
-    ){
-
-      setMessage(
-        "transferMessage",
-        "You cannot transfer demo credits to your own account.",
-        "error"
-      );
-
-      return;
-    }
-
-
-    const recipientRef =
-      doc(db,"users",recipientUid);
-
-    const recipientSnap =
-      await getDoc(recipientRef);
-
-
-    if(!recipientSnap.exists()){
-
-      setMessage(
-        "transferMessage",
-        "Recipient profile could not be found.",
-        "error"
-      );
-
-      return;
-    }
-
-
-    const recipientData =
-      recipientSnap.data();
-
-
-    if(
-      recipientData.profileCompleted !== true ||
-      recipientData.dashboardReached !== true
-    ){
-
-      setMessage(
-        "transferMessage",
-        "This recipient account is not active.",
-        "error"
-      );
-
-      return;
-    }
-
-
-    selectedRecipient = {
-      uid:recipientUid,
-      accountNumber:account,
-      name:recipientData.name || "United Crest User",
-      email:recipientData.email || "",
-      currency:recipientData.currency || "USD"
-    };
-
-
-    $("recipientName").textContent =
-      recipientData.name || "United Crest User";
-
-    $("recipientBox").classList.add("show");
-
+  if(!auth.currentUser){
 
     setMessage(
       "transferMessage",
-      "Recipient found. You can now enter the amount.",
-      "success"
+      "Please sign in first.",
+      "error"
+    );
+
+    return;
+  }
+
+  try{
+
+    setLoading(true,"Finding recipient...");
+
+    const indexSnapshot =
+      await getDoc(
+        doc(db,"accountIndex",accountNumber)
+      );
+
+    if(!indexSnapshot.exists()){
+
+      throw new Error(
+        "No United Crest account was found with that account number."
+      );
+    }
+
+    const indexData =
+      indexSnapshot.data();
+
+    if(
+      !indexData.uid ||
+      indexData.profileCompleted !== true ||
+      indexData.dashboardReached !== true
+    ){
+
+      throw new Error(
+        "This account is not ready to receive transfers."
+      );
+    }
+
+    /*
+     * Read the recipient profile so the displayed name comes
+     * directly from the recipient's Firebase profile.
+     */
+    const userSnapshot =
+      await getDoc(
+        doc(db,"users",indexData.uid)
+      );
+
+    if(!userSnapshot.exists()){
+
+      throw new Error(
+        "The recipient's  profile could not be found."
+      );
+    }
+
+    const recipient =
+      userSnapshot.data();
+
+    if(
+      recipient.profileCompleted !== true ||
+      recipient.dashboardReached !== true
+    ){
+
+      throw new Error(
+        "The recipient's  account is not ready."
+      );
+    }
+
+    if(
+      auth.currentUser.uid === indexData.uid
+    ){
+
+      throw new Error(
+        "You cannot transfer  credits to your own account."
+      );
+    }
+
+    selectedRecipient = {
+      uid:indexData.uid,
+      accountNumber,
+      name:recipient.name || indexData.name || "United Crest User",
+      email:recipient.email || indexData.email || "",
+      currency:recipient.currency || "USD"
+    };
+
+    $("recipientName").textContent =
+      selectedRecipient.name;
+
+    $("recipientDetails").textContent =
+      `Account ending ${accountNumber.slice(-4)}`;
+
+    $("recipientResult").classList.add("show");
+
+    setLoading(false);
+
+    showToast(
+      `Recipient found: ${selectedRecipient.name}`
     );
 
   }catch(error){
 
-    console.error("Recipient lookup error:",error);
+    console.error("RECIPIENT LOOKUP ERROR:",error);
+
+    setLoading(false);
+
+    selectedRecipient = null;
+
+    $("recipientResult").classList.remove("show");
 
     setMessage(
       "transferMessage",
@@ -2342,51 +2762,63 @@ $("lookupRecipientBtn").addEventListener("click",async()=>{
       "error"
     );
   }
+}
 
-});
+$("lookupRecipientBtn").addEventListener(
+  "click",
+  findRecipient
+);
 
 
-/* TRANSFER */
+/* =========================================================
+   CROSS-DEVICE TRANSFER
+   ========================================================= */
 
-$("transferBtn").addEventListener("click",async()=>{
+async function sendDemoTransfer(){
 
   clearMessage("transferMessage");
 
-  const user =
-    auth.currentUser;
-
-  if(!user || !currentUserData){
+  if(!auth.currentUser){
 
     setMessage(
       "transferMessage",
-      "Please sign in again.",
+      "Please sign in before sending a transfer.",
       "error"
     );
 
     return;
   }
 
+  if(!currentUserData){
+
+    setMessage(
+      "transferMessage",
+      "Your account is still loading. Please try again.",
+      "error"
+    );
+
+    return;
+  }
 
   if(!selectedRecipient){
 
     setMessage(
       "transferMessage",
-      "Please find the recipient before sending the transfer.",
+      "Please find and confirm the recipient first.",
       "error"
     );
 
     return;
   }
 
-
   const amount =
     Number($("transferAmount").value);
 
-  const reference =
-    $("transferReference").value.trim();
+  const description =
+    $("transferReference").value.trim() ||
+    "transfer";
 
-
-  if(!amount || amount <= 0){
+  if(!Number.isFinite(amount) || amount <= 0){
 
     setMessage(
       "transferMessage",
@@ -2397,289 +2829,441 @@ $("transferBtn").addEventListener("click",async()=>{
     return;
   }
 
+  const balance =
+    toNumber(currentUserData.balance);
 
-  if(amount > Number(currentUserData.balance || 0)){
+  if(amount > balance){
 
     setMessage(
       "transferMessage",
-      "Insufficient demo balance.",
+      "Your balance is not enough for this transfer.",
       "error"
     );
 
     return;
   }
 
-
-  const transferButton =
-    $("transferBtn");
-
-  transferButton.disabled = true;
-  transferButton.textContent = "Sending...";
-
-
-  try{
-
-    const senderRef =
-      doc(db,"users",user.uid);
-
-    const recipientRef =
-      doc(db,"users",selectedRecipient.uid);
-
-    const transferRef =
-      doc(collection(db,"transfers"));
-
-
-    const senderSnap =
-      await getDoc(senderRef);
-
-    const recipientSnap =
-      await getDoc(recipientRef);
-
-
-    if(!senderSnap.exists() || !recipientSnap.exists()){
-      throw new Error("One of the demo accounts could not be found.");
-    }
-
-
-    const sender =
-      senderSnap.data();
-
-    const recipient =
-      recipientSnap.data();
-
-
-    if(
-      recipient.profileCompleted !== true ||
-      recipient.dashboardReached !== true
-    ){
-      throw new Error("Recipient account is not active.");
-    }
-
-
-    if(Number(sender.balance || 0) < amount){
-      throw new Error("Insufficient demo balance.");
-    }
-
-
-    const transactionId =
-      transferRef.id;
-
-
-    const newSenderBalance =
-      Number(sender.balance || 0) - amount;
-
-
-    const senderActivity = {
-      id:transactionId,
-      type:"Transfer",
-      direction:"sent",
-      amount,
-      currency:sender.currency || "USD",
-      description:reference || "Demo transfer",
-      recipientName:recipient.name || "",
-      recipientAccount:recipient.accountNumber || "",
-      transactionId,
-      createdAt:new Date().toISOString()
-    };
-
-
-    const batch =
-      writeBatch(db);
-
-
-    batch.update(
-      senderRef,
-      {
-        balance:newSenderBalance,
-        activities:[
-          ...(Array.isArray(sender.activities)
-            ? sender.activities
-            : []
-          ),
-          senderActivity
-        ],
-        updatedAt:serverTimestamp()
-      }
-    );
-
-
-    batch.set(
-      transferRef,
-      {
-        transactionId,
-
-        senderUid:user.uid,
-        senderName:sender.name || "",
-        senderAccount:sender.accountNumber || "",
-
-        recipientUid:recipient.uid,
-        recipientName:recipient.name || "",
-        recipientAccount:recipient.accountNumber || "",
-
-        amount,
-        currency:sender.currency || "USD",
-
-        description:reference || "Demo transfer",
-
-        status:"completed",
-
-        createdAt:serverTimestamp()
-      }
-    );
-
-
-    await batch.commit();
-
-
-    /*
-      Credit the recipient.
-    */
-
-    await runTransaction(
-      db,
-      async transaction=>{
-
-        const freshRecipient =
-          await transaction.get(recipientRef);
-
-        if(!freshRecipient.exists()){
-          throw new Error("Recipient account was not found.");
-        }
-
-        const freshData =
-          freshRecipient.data();
-
-        const recipientBalance =
-          Number(freshData.balance || 0);
-
-        const recipientActivity = {
-          id:transactionId,
-          type:"Transfer",
-          direction:"received",
-          amount,
-          currency:freshData.currency || sender.currency || "USD",
-          description:reference || "Demo transfer",
-          senderName:sender.name || "",
-          senderAccount:sender.accountNumber || "",
-          transactionId,
-          createdAt:new Date().toISOString()
-        };
-
-
-        transaction.update(
-          recipientRef,
-          {
-            balance:recipientBalance + amount,
-
-            activities:[
-              ...(Array.isArray(freshData.activities)
-                ? freshData.activities
-                : []
-              ),
-              recipientActivity
-            ],
-
-            updatedAt:serverTimestamp()
-          }
-        );
-      }
-    );
-
-
-    currentUserData.balance =
-      newSenderBalance;
-
-    currentUserData.activities =
-      [
-        ...(Array.isArray(currentUserData.activities)
-          ? currentUserData.activities
-          : []
-        ),
-        senderActivity
-      ];
-
-
-    populateDashboard();
-
-
-    $("transferAmount").value = "";
-    $("transferReference").value = "";
-
-
-    const receiptData = {
-
-      transactionId,
-
-      date:new Date().toLocaleString(),
-
-      amount:formatMoney(
-        amount,
-        sender.currency || "USD"
-      ),
-
-      currency:
-        sender.currency || "USD",
-
-      type:"Internal Demo Transfer",
-
-      description:
-        reference || "Demo transfer",
-
-      sender:
-        sender.name || "",
-
-      senderAccount:
-        sender.accountNumber || "",
-
-      recipient:
-        recipient.name || "",
-
-      recipientAccount:
-        recipient.accountNumber || ""
-    };
-
-
-    showReceipt(receiptData);
-
-
-    selectedRecipient = null;
-    $("recipientBox").classList.remove("show");
-    $("recipientAccount").value = "";
-
+  if(
+    selectedRecipient.uid === auth.currentUser.uid
+  ){
 
     setMessage(
       "transferMessage",
-      "Demo transfer completed successfully.",
-      "success"
+      "You cannot transfer  credits to yourself.",
+      "error"
     );
 
+    return;
+  }
+
+  const senderUid =
+    auth.currentUser.uid;
+
+  const senderRef =
+    doc(db,"users",senderUid);
+
+  const transferRef =
+    doc(collection(db,"transfers"));
+
+  const transactionId =
+    makeTransactionId();
+
+  const senderCurrency =
+    currentUserData.currency || "USD";
+
+  const receiptData = {
+    transactionId,
+    createdAt:new Date().toISOString(),
+    amount,
+    currency:senderCurrency,
+    type:"Internal Transfer",
+    description,
+    senderName:currentUserData.name || "United Crest User",
+    senderAccount:currentUserData.accountNumber || "",
+    recipientName:selectedRecipient.name,
+    recipientAccount:selectedRecipient.accountNumber
+  };
+
+  try{
+
+    setLoading(true,"Sending transfer...");
+
+    /*
+     * IMPORTANT:
+     *
+     * The sender balance deduction and creation of the
+     * pending transfer happen in ONE Firestore transaction.
+     *
+     * This prevents the sender from being charged twice if
+     * the browser retries the operation.
+     */
+    await runTransaction(db,async transaction=>{
+
+      const senderSnapshot =
+        await transaction.get(senderRef);
+
+      if(!senderSnapshot.exists()){
+        throw new Error(
+          "Your account could not be found."
+        );
+      }
+
+      const sender =
+        senderSnapshot.data();
+
+      const senderBalance =
+        toNumber(sender.balance);
+
+      if(senderBalance < amount){
+
+        throw new Error(
+          "Your balance is not enough for this transfer."
+        );
+      }
+
+      const activities =
+        Array.isArray(sender.activities)
+          ? [...sender.activities]
+          : [];
+
+      activities.unshift({
+        transactionId,
+        type:"transfer",
+        direction:"sent",
+        amount,
+        currency:senderCurrency,
+        description,
+        recipientName:selectedRecipient.name,
+        recipientAccount:selectedRecipient.accountNumber,
+        createdAt:new Date().toISOString()
+      });
+
+      /*
+       * Keep activity history from becoming excessively large.
+       */
+      const trimmedActivities =
+        activities.slice(0,100);
+
+      transaction.update(
+        senderRef,
+        {
+          balance:senderBalance - amount,
+          activities:trimmedActivities,
+          updatedAt:serverTimestamp()
+        }
+      );
+
+      transaction.set(
+        transferRef,
+        {
+          transactionId,
+
+          senderUid,
+          senderName:currentUserData.name || "United Crest User",
+          senderAccount:currentUserData.accountNumber || "",
+          senderEmail:currentUserData.email || "",
+
+          recipientUid:selectedRecipient.uid,
+          recipientName:selectedRecipient.name,
+          recipientAccount:selectedRecipient.accountNumber,
+          recipientEmail:selectedRecipient.email || "",
+
+          amount,
+          currency:senderCurrency,
+          description,
+
+          status:"pending",
+
+          createdAt:serverTimestamp()
+        }
+      );
+    });
+
+    /*
+     * Clear the transfer form only after Firebase confirms
+     * the sender-side operation succeeded.
+     */
+    $("recipientAccount").value = "";
+    $("transferAmount").value = "";
+    $("transferReference").value = "";
+
+    selectedRecipient = null;
+
+    $("recipientResult").classList.remove("show");
+
+    setLoading(false);
+
+    showReceipt(receiptData);
+
+    showToast(
+      " transfer sent successfully."
+    );
 
   }catch(error){
 
-    console.error("Transfer error:",error);
+    console.error("TRANSFER ERROR:",error);
+
+    setLoading(false);
 
     setMessage(
       "transferMessage",
       firebaseErrorMessage(error),
       "error"
     );
+  }
+}
 
-  }finally{
+$("sendTransferBtn").addEventListener(
+  "click",
+  sendDemoTransfer
+);
 
-    transferButton.disabled = false;
-    transferButton.textContent = "Send Demo Transfer";
+
+/* =========================================================
+   INCOMING TRANSFER LISTENER
+   ========================================================= */
+
+function startTransferListeners(uid){
+
+  if(unsubscribeIncomingTransfers){
+    unsubscribeIncomingTransfers();
+    unsubscribeIncomingTransfers = null;
   }
 
-});
+  /*
+   * Only query by recipientUid.
+   *
+   * We intentionally do NOT combine recipientUid + status
+   * in the query, so the transfer system does not require a
+   * composite Firestore index.
+   */
+  const transferQuery =
+    query(
+      collection(db,"transfers"),
+      where("recipientUid","==",uid),
+      limit(100)
+    );
+
+  unsubscribeIncomingTransfers =
+    onSnapshot(
+      transferQuery,
+      snapshot=>{
+
+        snapshot.docChanges().forEach(change=>{
+
+          if(
+            change.type === "added" ||
+            change.type === "modified"
+          ){
+
+            const transfer = {
+              id:change.doc.id,
+              ...change.doc.data()
+            };
+
+            if(transfer.status === "pending"){
+              processIncomingTransfer(transfer);
+            }
+          }
+
+        });
+      },
+      error=>{
+
+        console.error(
+          "INCOMING TRANSFER LISTENER ERROR:",
+          error
+        );
+
+        showToast(
+          firebaseErrorMessage(error)
+        );
+      }
+    );
+}
 
 
-/* DEPOSIT REVIEW */
+/* =========================================================
+   PROCESS INCOMING TRANSFER
+   ========================================================= */
 
-$("makeDeposit").addEventListener("click",reviewDeposit);
+async function processIncomingTransfer(transfer){
+
+  if(!auth.currentUser){
+    return;
+  }
+
+  const uid =
+    auth.currentUser.uid;
+
+  if(transfer.recipientUid !== uid){
+    return;
+  }
+
+  if(transfer.status !== "pending"){
+    return;
+  }
+
+  const transferRef =
+    doc(db,"transfers",transfer.id);
+
+  const recipientRef =
+    doc(db,"users",uid);
+
+  try{
+
+    await runTransaction(db,async transaction=>{
+
+      /*
+       * Re-read the transfer inside the transaction.
+       *
+       * This is important when the same account is open on
+       * multiple devices/tabs.
+       */
+      const transferSnapshot =
+        await transaction.get(transferRef);
+
+      if(!transferSnapshot.exists()){
+        return;
+      }
+
+      const freshTransfer =
+        transferSnapshot.data();
+
+      if(
+        freshTransfer.status !== "pending" ||
+        freshTransfer.recipientUid !== uid
+      ){
+        return;
+      }
+
+      const recipientSnapshot =
+        await transaction.get(recipientRef);
+
+      if(!recipientSnapshot.exists()){
+        throw new Error(
+          "Recipient profile could not be found."
+        );
+      }
+
+      const recipient =
+        recipientSnapshot.data();
+
+      const amount =
+        toNumber(freshTransfer.amount);
+
+      if(amount <= 0){
+        throw new Error(
+          "Invalid transfer amount."
+        );
+      }
+
+      const existingActivities =
+        Array.isArray(recipient.activities)
+          ? [...recipient.activities]
+          : [];
+
+      /*
+       * Idempotency protection:
+       * If the transaction was already recorded in the
+       * recipient activity list, don't credit it again.
+       */
+      const alreadyReceived =
+        existingActivities.some(activity=>
+          activity.transactionId === freshTransfer.transactionId &&
+          activity.direction === "received"
+        );
+
+      if(alreadyReceived){
+
+        transaction.update(
+          transferRef,
+          {
+            status:"completed",
+            completedAt:serverTimestamp()
+          }
+        );
+
+        return;
+      }
+
+      const currency =
+        recipient.currency ||
+        freshTransfer.currency ||
+        "USD";
+
+      existingActivities.unshift({
+        transactionId:freshTransfer.transactionId,
+        type:"transfer",
+        direction:"received",
+        amount,
+        currency,
+        description:
+          freshTransfer.description ||
+          "Bank transfer received",
+
+        senderName:
+          freshTransfer.senderName ||
+          "United Crest User",
+
+        senderAccount:
+          freshTransfer.senderAccount ||
+          "",
+
+        createdAt:new Date().toISOString()
+      });
+
+      const trimmedActivities =
+        existingActivities.slice(0,100);
+
+      transaction.update(
+        recipientRef,
+        {
+          balance:
+            toNumber(recipient.balance) + amount,
+
+          activities:
+            trimmedActivities,
+
+          updatedAt:serverTimestamp()
+        }
+      );
+
+      transaction.update(
+        transferRef,
+        {
+          status:"completed",
+          completedAt:serverTimestamp()
+        }
+      );
+    });
+
+  }catch(error){
+
+    console.error(
+      "PROCESS INCOMING TRANSFER ERROR:",
+      error
+    );
+  }
+}
+
+
+/* =========================================================
+   DEPOSIT
+   ========================================================= */
 
 function reviewDeposit(){
 
   clearMessage("depositMessage");
+
+  const email =
+    $("depositEmail").value.trim();
+
+  const name =
+    $("depositName").value.trim();
+
+  const phone =
+    $("depositPhone").value.trim();
 
   const amount =
     Number($("depositAmount").value);
@@ -2687,8 +3271,18 @@ function reviewDeposit(){
   const pin =
     $("depositPin").value.trim();
 
+  if(!email || !name || !phone){
 
-  if(!amount || amount <= 0){
+    setMessage(
+      "depositMessage",
+      "Please complete your deposit details.",
+      "error"
+    );
+
+    return;
+  }
+
+  if(!Number.isFinite(amount) || amount <= 0){
 
     setMessage(
       "depositMessage",
@@ -2699,52 +3293,49 @@ function reviewDeposit(){
     return;
   }
 
-
   if(!/^\d{4}$/.test(pin)){
 
     setMessage(
       "depositMessage",
-      "Please enter a valid 4-digit PIN.",
+      "Deposit PIN must contain exactly 4 digits.",
       "error"
     );
 
     return;
   }
 
-
   depositReviewData = {
+    email,
+    name,
+    phone,
     amount,
     pin
   };
 
-
-  $("reviewDepositAccount").textContent =
-    currentUserData.accountNumber || "";
+  $("reviewDepositName").textContent = name;
+  $("reviewDepositEmail").textContent = email;
+  $("reviewDepositPhone").textContent = phone;
 
   $("reviewDepositAmount").textContent =
-    formatMoney(
+    money(
       amount,
-      currentUserData.currency || "USD"
+      currentUserData?.currency || "USD"
     );
 
-  $("reviewDepositCurrency").textContent =
-    currentUserData.currency || "USD";
-
-
-  $("depositReview").classList.remove("hidden");
-
-
-  setMessage(
-    "depositMessage",
-    "Please review the demo deposit before confirming.",
-    "info"
-  );
+  show($("depositReview"));
 }
 
+$("reviewDepositBtn").addEventListener(
+  "click",
+  reviewDeposit
+);
 
-/* CONFIRM DEPOSIT */
 
-$("confirmDepositBtn").addEventListener("click",async()=>{
+/* =========================================================
+   CONFIRM DEPOSIT
+   ========================================================= */
+
+async function confirmDeposit(){
 
   clearMessage("depositMessage");
 
@@ -2759,11 +3350,7 @@ $("confirmDepositBtn").addEventListener("click",async()=>{
     return;
   }
 
-
-  const user =
-    auth.currentUser;
-
-  if(!user){
+  if(!auth.currentUser || !currentUserData){
 
     setMessage(
       "depositMessage",
@@ -2774,296 +3361,128 @@ $("confirmDepositBtn").addEventListener("click",async()=>{
     return;
   }
 
-
-  const btn =
-    $("confirmDepositBtn");
-
-  btn.disabled = true;
-  btn.textContent = "Processing...";
-
-
   try{
 
+    setLoading(true,"Adding credits...");
+
+    const uid =
+      auth.currentUser.uid;
+
     const userRef =
-      doc(db,"users",user.uid);
+      doc(db,"users",uid);
 
+    const transactionId =
+      makeTransactionId();
 
-    await runTransaction(
-      db,
-      async transaction=>{
+    await runTransaction(db,async transaction=>{
 
-        const snap =
-          await transaction.get(userRef);
+      const snapshot =
+        await transaction.get(userRef);
 
-        if(!snap.exists()){
-          throw new Error("Demo profile not found.");
-        }
-
-
-        const data =
-          snap.data();
-
-
-        const oldBalance =
-          Number(data.balance || 0);
-
-        const amount =
-          Number(depositReviewData.amount);
-
-
-        const newBalance =
-          oldBalance + amount;
-
-
-        const transactionId =
-          "DEP-" +
-          Date.now() +
-          "-" +
-          randomDigits(5);
-
-
-        const activity = {
-
-          id:transactionId,
-
-          type:"Deposit",
-
-          direction:"received",
-
-          amount,
-
-          currency:
-            data.currency || "USD",
-
-          description:"Demo deposit",
-
-          transactionId,
-
-          createdAt:
-            new Date().toISOString()
-        };
-
-
-        transaction.update(
-          userRef,
-          {
-            balance:newBalance,
-
-            activities:[
-              ...(Array.isArray(data.activities)
-                ? data.activities
-                : []
-              ),
-              activity
-            ],
-
-            updatedAt:
-              serverTimestamp()
-          }
+      if(!snapshot.exists()){
+        throw new Error(
+          "Your profile could not be found."
         );
       }
-    );
 
+      const data =
+        snapshot.data();
+
+      const activities =
+        Array.isArray(data.activities)
+          ? [...data.activities]
+          : [];
+
+      activities.unshift({
+        transactionId,
+        type:"deposit",
+        direction:"received",
+        amount:depositReviewData.amount,
+        currency:data.currency || "USD",
+        description:"Bank deposit",
+        createdAt:new Date().toISOString()
+      });
+
+      transaction.update(
+        userRef,
+        {
+          balance:
+            toNumber(data.balance) +
+            depositReviewData.amount,
+
+          activities:
+            activities.slice(0,100),
+
+          updatedAt:serverTimestamp()
+        }
+      );
+    });
+
+    const currency =
+      currentUserData.currency || "USD";
 
     depositReviewData = null;
 
     $("depositAmount").value = "";
     $("depositPin").value = "";
 
-    $("depositReview").classList.add("hidden");
+    hide($("depositReview"));
 
+    setLoading(false);
 
-    const refreshed =
-      await getDoc(
-        doc(db,"users",user.uid)
-      );
-
-    if(refreshed.exists()){
-      currentUserData =
-        refreshed.data();
-
-      populateDashboard();
-    }
-
-
-    setMessage(
-      "depositMessage",
-      "Demo deposit completed successfully. No real payment was processed.",
-      "success"
+    showToast(
+      `Bank deposit added: ${money(
+        Number($("depositAmount").value) || 0,
+        currency
+      )}`
     );
 
+    /*
+     * The live user listener updates the balance automatically.
+     */
 
   }catch(error){
 
-    console.error("Deposit error:",error);
+    console.error(
+      "DEPOSIT ERROR:",
+      error
+    );
+
+    setLoading(false);
 
     setMessage(
       "depositMessage",
       firebaseErrorMessage(error),
       "error"
     );
-
-  }finally{
-
-    btn.disabled = false;
-    btn.textContent = "Confirm Demo Deposit";
   }
-
-});
-
-
-/* ACTIVITY LISTENER */
-
-function startActivityListener(){
-
-  if(!auth.currentUser) return;
-
-  const userRef =
-    doc(db,"users",auth.currentUser.uid);
-
-
-  unsubscribeActivities =
-    onSnapshot(
-      userRef,
-      snap=>{
-
-        if(!snap.exists()) return;
-
-        const data =
-          snap.data();
-
-        currentUserData =
-          data;
-
-        renderActivities(
-          Array.isArray(data.activities)
-            ? data.activities
-            : []
-        );
-
-        populateDashboard();
-      },
-      error=>{
-        console.error(
-          "Activity listener error:",
-          error
-        );
-      }
-    );
 }
 
+$("confirmDepositBtn").addEventListener(
+  "click",
+  confirmDeposit
+);
 
-function renderActivities(activities){
-
-  const container =
-    $("activityList");
-
-  if(!activities.length){
-
-    container.innerHTML =
-      `<div class="empty-state">
-        No activity yet.
-      </div>`;
-
-    return;
+$("cancelDepositBtn").addEventListener(
+  "click",
+  ()=>{
+    depositReviewData = null;
+    hide($("depositReview"));
   }
+);
 
 
-  const sorted =
-    [...activities].reverse();
+/* =========================================================
+   PROFILE
+   ========================================================= */
 
-
-  container.innerHTML =
-    sorted.map(activity=>{
-
-      const direction =
-        activity.direction || "";
-
-      const sign =
-        direction === "sent"
-          ? "-"
-          : "+";
-
-
-      const amount =
-        formatMoney(
-          activity.amount || 0,
-          activity.currency || currentUserData.currency || "USD"
-        );
-
-
-      return `
-        <div class="activity-item">
-
-          <div class="activity-main">
-
-            <div class="activity-title">
-              ${escapeHtml(activity.type || "Activity")}
-            </div>
-
-            <div class="activity-meta">
-              ${escapeHtml(activity.description || "Demo transaction")}
-            </div>
-
-            <div class="activity-meta">
-              ${escapeHtml(
-                activity.transactionId || ""
-              )}
-            </div>
-
-            <div class="activity-meta">
-              ${escapeHtml(
-                formatDate(activity.createdAt)
-              )}
-            </div>
-
-          </div>
-
-          <div class="activity-amount">
-            ${sign}${escapeHtml(amount)}
-          </div>
-
-        </div>
-      `;
-
-    }).join("");
-}
-
-
-/* TRANSFER LISTENER */
-
-function startTransferListeners(){
-
-  cleanupListenersExceptReceipt();
-
-  /*
-    Transfer changes are already reflected through the user
-    profile/activity listener. This listener is kept available
-    for future demo transfer status updates.
-  */
-}
-
-
-/* PROFILE SAVE */
-
-$("saveProfile").addEventListener("click",async()=>{
+async function saveProfile(){
 
   clearMessage("profileMessage");
 
-  const user =
-    auth.currentUser;
-
-  if(!user){
-
-    setMessage(
-      "profileMessage",
-      "Please sign in again.",
-      "error"
-    );
-
+  if(!auth.currentUser){
     return;
   }
-
 
   const name =
     $("profileName").value.trim();
@@ -3074,54 +3493,26 @@ $("saveProfile").addEventListener("click",async()=>{
   const address =
     $("profileAddress").value.trim();
 
-
-  if(!name){
+  if(!name || !phone || !address){
 
     setMessage(
       "profileMessage",
-      "Please enter your full name.",
+      "Please complete your profile.",
       "error"
     );
 
     return;
   }
-
-
-  if(!phone){
-
-    setMessage(
-      "profileMessage",
-      "Please enter your phone number.",
-      "error"
-    );
-
-    return;
-  }
-
-
-  if(!address){
-
-    setMessage(
-      "profileMessage",
-      "Please enter your address.",
-      "error"
-    );
-
-    return;
-  }
-
-
-  const btn =
-    $("saveProfile");
-
-  btn.disabled = true;
-  btn.textContent = "Saving...";
-
 
   try{
 
+    setLoading(true,"Saving profile...");
+
+    const uid =
+      auth.currentUser.uid;
+
     await updateDoc(
-      doc(db,"users",user.uid),
+      doc(db,"users",uid),
       {
         name,
         phone,
@@ -3130,199 +3521,163 @@ $("saveProfile").addEventListener("click",async()=>{
       }
     );
 
+    if(currentUserData?.accountNumber){
 
-    currentUserData.name =
-      name;
+      await updateDoc(
+        doc(
+          db,
+          "accountIndex",
+          currentUserData.accountNumber
+        ),
+        {
+          name,
+          updatedAt:serverTimestamp()
+        }
+      );
+    }
 
-    currentUserData.phone =
-      phone;
-
-    currentUserData.address =
-      address;
-
-
-    populateDashboard();
-
+    setLoading(false);
 
     setMessage(
       "profileMessage",
-      "Profile updated successfully.",
+      "Your profile has been saved successfully.",
       "success"
     );
 
+    showToast("Profile updated.");
+
   }catch(error){
 
-    console.error(
-      "Profile update error:",
-      error
-    );
+    console.error(error);
+
+    setLoading(false);
 
     setMessage(
       "profileMessage",
       firebaseErrorMessage(error),
       "error"
     );
-
-  }finally{
-
-    btn.disabled = false;
-    btn.textContent = "Save Profile";
   }
+}
 
-});
+$("saveProfileBtn").addEventListener(
+  "click",
+  saveProfile
+);
 
 
-/* CURRENCY */
+/* =========================================================
+   CURRENCY
+   ========================================================= */
 
-$("saveCurrencyBtn").addEventListener("click",async()=>{
+async function saveCurrency(){
 
   clearMessage("settingsMessage");
 
-  const user =
-    auth.currentUser;
-
-  if(!user){
-
-    setMessage(
-      "settingsMessage",
-      "Please sign in again.",
-      "error"
-    );
-
+  if(!auth.currentUser){
     return;
   }
-
 
   const currency =
     $("currencySelect").value;
 
-
-  const btn =
-    $("saveCurrencyBtn");
-
-  btn.disabled = true;
-  btn.textContent = "Saving...";
-
-
   try{
 
+    setLoading(true,"Saving currency...");
+
     await updateDoc(
-      doc(db,"users",user.uid),
+      doc(db,"users",auth.currentUser.uid),
       {
         currency,
         updatedAt:serverTimestamp()
       }
     );
 
-
-    currentUserData.currency =
-      currency;
-
-
-    populateDashboard();
-
+    setLoading(false);
 
     setMessage(
       "settingsMessage",
-      "Currency preference saved.",
+      "Currency preference saved successfully.",
       "success"
     );
 
+    showToast("Currency updated.");
+
   }catch(error){
 
-    console.error(
-      "Currency error:",
-      error
-    );
+    console.error(error);
+
+    setLoading(false);
 
     setMessage(
       "settingsMessage",
       firebaseErrorMessage(error),
       "error"
     );
-
-  }finally{
-
-    btn.disabled = false;
-    btn.textContent = "Save Currency";
   }
+}
 
-});
+$("saveCurrencyBtn").addEventListener(
+  "click",
+  saveCurrency
+);
 
 
-/* RECEIPT */
+/* =========================================================
+   RECEIPT
+   ========================================================= */
 
 function showReceipt(data){
 
-  $("receiptContent").innerHTML = `
+  $("receiptTransactionId").textContent =
+    data.transactionId || "—";
 
-    <div class="receipt-row">
-      <span>Transaction ID</span>
-      <span>${escapeHtml(data.transactionId)}</span>
-    </div>
+  $("receiptDate").textContent =
+    formatDate(data.createdAt);
 
-    <div class="receipt-row">
-      <span>Date / Time</span>
-      <span>${escapeHtml(data.date)}</span>
-    </div>
+  $("receiptAmount").textContent =
+    money(
+      data.amount,
+      data.currency || "USD"
+    );
 
-    <div class="receipt-row">
-      <span>Amount</span>
-      <span>${escapeHtml(data.amount)}</span>
-    </div>
+  $("receiptCurrency").textContent =
+    data.currency || "USD";
 
-    <div class="receipt-row">
-      <span>Currency</span>
-      <span>${escapeHtml(data.currency)}</span>
-    </div>
+  $("receiptType").textContent =
+    data.type || "Internal Bank Transfer";
 
-    <div class="receipt-row">
-      <span>Type</span>
-      <span>${escapeHtml(data.type)}</span>
-    </div>
+  $("receiptDescription").textContent =
+    data.description || "Bank transfer";
 
-    <div class="receipt-row">
-      <span>Description</span>
-      <span>${escapeHtml(data.description)}</span>
-    </div>
+  $("receiptSender").textContent =
+    data.senderName || "—";
 
-    <div class="receipt-row">
-      <span>Sender</span>
-      <span>${escapeHtml(data.sender)}</span>
-    </div>
+  $("receiptSenderAccount").textContent =
+    data.senderAccount || "—";
 
-    <div class="receipt-row">
-      <span>Sender Account</span>
-      <span>${escapeHtml(data.senderAccount)}</span>
-    </div>
+  $("receiptRecipient").textContent =
+    data.recipientName || "—";
 
-    <div class="receipt-row">
-      <span>Recipient</span>
-      <span>${escapeHtml(data.recipient)}</span>
-    </div>
-
-    <div class="receipt-row">
-      <span>Recipient Account</span>
-      <span>${escapeHtml(data.recipientAccount)}</span>
-    </div>
-
-  `;
+  $("receiptRecipientAccount").textContent =
+    data.recipientAccount || "—";
 
   $("receiptModal").classList.add("show");
 }
 
-
 function closeReceipt(){
-
   $("receiptModal").classList.remove("show");
 }
-
 
 $("closeReceiptBtn").addEventListener(
   "click",
   closeReceipt
 );
 
+$("doneReceiptBtn").addEventListener(
+  "click",
+  closeReceipt
+);
 
 $("receiptModal").addEventListener(
   "click",
@@ -3334,65 +3689,63 @@ $("receiptModal").addEventListener(
 );
 
 
-/* ESCAPE HTML */
+/* =========================================================
+   SIGN OUT
+   ========================================================= */
 
-function escapeHtml(value){
+$("signOutBtn").addEventListener(
+  "click",
+  async ()=>{
 
-  return String(value ?? "")
-    .replaceAll("&","&amp;")
-    .replaceAll("<","&lt;")
-    .replaceAll(">","&gt;")
-    .replaceAll('"',"&quot;")
-    .replaceAll("'","&#039;");
-}
+    try{
 
+      setLoading(true,"Signing out...");
 
-/* SIGN OUT */
+      cleanupListeners();
 
-$("signOutBtn").addEventListener("click",async()=>{
+      currentUserData = null;
+      selectedRecipient = null;
+      depositReviewData = null;
 
-  try{
+      await signOut(auth);
 
-    cleanupListeners();
+      setLoading(false);
 
-    currentUserData = null;
-    selectedRecipient = null;
-    depositReviewData = null;
+      show($("authScreen"));
+      hide($("appScreen"));
 
-    await signOut(auth);
+      $("signupForm").reset();
+      $("loginForm").reset();
 
-    showLogin();
+      showSignup();
 
-  }catch(error){
+    }catch(error){
 
-    console.error(
-      "Sign out error:",
-      error
-    );
+      setLoading(false);
+
+      showToast(
+        firebaseErrorMessage(error)
+      );
+    }
   }
+);
 
-});
 
-
-/* AUTH STATE */
+/* =========================================================
+   AUTH STATE
+   ========================================================= */
 
 onAuthStateChanged(
   auth,
   async user=>{
 
     /*
-      During signup/login we handle the authentication manually.
-      This prevents the auth-state event from interrupting the
-      account creation flow.
-    */
-
-    if(
-      authFlow === "signup" ||
-      authFlow === "login"
-    ){
+     * During explicit signup/login operations, those functions
+     * control the UI themselves.
+     */
+    if(authFlow !== "idle"){
       return;
     }
-
 
     if(!user){
 
@@ -3400,83 +3753,31 @@ onAuthStateChanged(
 
       currentUserData = null;
 
-      hideElement("app");
-
-      if(
-        document.getElementById("loginPage").classList.contains("hidden") &&
-        document.getElementById("signupPage").classList.contains("hidden")
-      ){
-        showLogin();
-      }
+      show($("authScreen"));
+      hide($("appScreen"));
 
       return;
     }
 
-
     try{
 
-      const userRef =
-        doc(db,"users",user.uid);
-
-      const snap =
-        await getDoc(userRef);
-
-
-      if(!snap.exists()){
-
-        await signOut(auth);
-
-        showLogin();
-
-        setMessage(
-          "loginMessage",
-          "Your account was found, but your United Crest demo profile is missing.",
-          "error"
-        );
-
-        return;
-      }
-
-
-      const data =
-        snap.data();
-
-
-      if(
-        data.profileCompleted !== true ||
-        data.dashboardReached !== true
-      ){
-
-        await signOut(auth);
-
-        showLogin();
-
-        setMessage(
-          "loginMessage",
-          "Your United Crest demo account was not completed. Please create the account again.",
-          "error"
-        );
-
-        return;
-      }
-
-
-      currentUserData =
-        data;
-
-
-      await loadDashboard();
+      await loadDashboard(user.uid);
 
     }catch(error){
 
       console.error(
-        "Auth state error:",
+        "AUTH STATE ERROR:",
         error
       );
+
+      cleanupListeners();
 
       try{
         await signOut(auth);
       }catch{}
+
+      show($("authScreen"));
+      hide($("appScreen"));
 
       showLogin();
 
@@ -3486,12 +3787,13 @@ onAuthStateChanged(
         "error"
       );
     }
-
   }
 );
 
 
-/* INITIAL PAGE */
+/* =========================================================
+   INITIAL STATE
+   ========================================================= */
 
 showSignup();
 
