@@ -35,7 +35,8 @@ body{
 
 button,
 input,
-select{
+select,
+textarea{
   font:inherit;
 }
 
@@ -131,7 +132,8 @@ button{
 }
 
 .field input,
-.field select{
+.field select,
+.field textarea{
   width:100%;
   padding:13px 14px;
   border:1px solid var(--border);
@@ -142,8 +144,14 @@ button{
   transition:.2s;
 }
 
+.field textarea{
+  min-height:100px;
+  resize:vertical;
+}
+
 .field input:focus,
-.field select:focus{
+.field select:focus,
+.field textarea:focus{
   border-color:#1769aa;
   box-shadow:0 0 0 3px rgba(23,105,170,.10);
 }
@@ -667,6 +675,51 @@ button{
   font-size:13px;
 }
 
+/* ================= CONVERTER ================= */
+
+.converter-result{
+  margin-top:18px;
+  padding:18px;
+  border-radius:15px;
+  background:#f2f7fd;
+  border:1px solid #dce8f5;
+}
+
+.converter-result-label{
+  color:#718096;
+  font-size:11px;
+  font-weight:800;
+}
+
+.converter-result-value{
+  color:#0b2a5b;
+  font-size:24px;
+  font-weight:900;
+  margin-top:6px;
+}
+
+/* ================= TRANSLATOR ================= */
+
+.translate-arrow{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:24px;
+  color:#1769aa;
+  margin:5px 0 15px;
+}
+
+.translation-result{
+  min-height:100px;
+  padding:14px;
+  background:#f5f8fc;
+  border:1px solid var(--border);
+  border-radius:12px;
+  color:#172033;
+  line-height:1.6;
+  white-space:pre-wrap;
+}
+
 /* ================= MODALS ================= */
 
 .modal{
@@ -764,6 +817,65 @@ button{
 
 .receipt .info-note{
   margin:0 23px 22px;
+}
+
+/* ================= PIN MODAL ================= */
+
+.pin-box{
+  width:100%;
+  max-width:430px;
+  background:#fff;
+  border-radius:20px;
+  padding:25px;
+  box-shadow:0 25px 70px rgba(0,0,0,.28);
+}
+
+.pin-box h2{
+  color:#0b2a5b;
+  font-size:21px;
+}
+
+.pin-box p{
+  color:#718096;
+  font-size:13px;
+  line-height:1.5;
+  margin-top:7px;
+}
+
+.pin-summary{
+  background:#f4f7fb;
+  border-radius:13px;
+  padding:14px;
+  margin:18px 0;
+}
+
+.pin-summary-row{
+  display:flex;
+  justify-content:space-between;
+  gap:10px;
+  padding:7px 0;
+}
+
+.pin-summary-row span:first-child{
+  color:#718096;
+  font-size:11px;
+}
+
+.pin-summary-row span:last-child{
+  color:#172033;
+  font-size:12px;
+  font-weight:800;
+  text-align:right;
+}
+
+.pin-actions{
+  display:flex;
+  gap:10px;
+  margin-top:15px;
+}
+
+.pin-actions button{
+  flex:1;
 }
 
 /* ================= TOAST ================= */
@@ -913,7 +1025,8 @@ button{
     padding:17px;
   }
 
-  .receipt-actions{
+  .receipt-actions,
+  .pin-actions{
     flex-direction:column;
   }
 
@@ -934,1251 +1047,1209 @@ button{
 
 <section id="authScreen">
 
-  <div class="auth-card">
+<div class="auth-card">
 
-    <div class="brand">
-      <div class="brand-logo">UC</div>
-      <h1>UNITED CREST</h1>
-      <p>United Crest Account</p>
-      <span class="brand-badge">UNITED CREST</span>
-    </div>
+<div class="brand">
+<div class="brand-logo">UC</div>
+<h1>UNITED CREST</h1>
+<p>United Crest Account</p>
+<span class="brand-badge">UNITED CREST</span>
+</div>
 
-    <!-- SIGN UP -->
+<div id="signupBox">
 
-    <div id="signupBox">
+<h2 class="auth-title">Create Account</h2>
 
-      <h2 class="auth-title">Create Account</h2>
+<div id="signupMessage" class="form-message"></div>
 
-      <div id="signupMessage" class="form-message"></div>
+<form id="signupForm">
 
-      <form id="signupForm">
+<div class="field">
+<label>Full Name</label>
+<input id="signupName" type="text" autocomplete="name" required>
+</div>
 
-        <div class="field">
-          <label>Full Name</label>
-          <input id="signupName" type="text" autocomplete="name" required>
-        </div>
+<div class="field">
+<label>Phone Number</label>
+<input id="signupPhone" type="tel" autocomplete="tel" required>
+</div>
 
-        <div class="field">
-          <label>Phone Number</label>
-          <input id="signupPhone" type="tel" autocomplete="tel" required>
-        </div>
+<div class="field">
+<label>Email Address</label>
+<input id="signupEmail" type="email" autocomplete="email" required>
+</div>
 
-        <div class="field">
-          <label>Email Address</label>
-          <input id="signupEmail" type="email" autocomplete="email" required>
-        </div>
+<div class="field">
+<label>Password</label>
+<input id="signupPassword" type="password" autocomplete="new-password" minlength="6" required>
+</div>
 
-        <div class="field">
-          <label>Password</label>
-          <input id="signupPassword" type="password" autocomplete="new-password" minlength="6" required>
-        </div>
+<div class="field">
+<label>Confirm Password</label>
+<input id="signupConfirmPassword" type="password" autocomplete="new-password" minlength="6" required>
+</div>
 
-        <div class="field">
-          <label>Confirm Password</label>
-          <input id="signupConfirmPassword" type="password" autocomplete="new-password" minlength="6" required>
-        </div>
+<div class="field">
+<label>Address</label>
+<input id="signupAddress" type="text" autocomplete="street-address" required>
+</div>
 
-        <div class="field">
-          <label>Address</label>
-          <input id="signupAddress" type="text" autocomplete="street-address" required>
-        </div>
+<div class="field">
+<label>Language</label>
+<select id="authLanguageSelect">
+<option value="en">English</option>
+<option value="zh">Mandarin Chinese</option>
+<option value="hi">Hindi</option>
+<option value="es">Spanish</option>
+<option value="fr">French</option>
+<option value="ar">Arabic</option>
+<option value="bn">Bengali</option>
+<option value="ru">Russian</option>
+<option value="pt">Portuguese</option>
+<option value="ur">Urdu</option>
+</select>
+</div>
 
-        <div class="field">
-          <label>Language</label>
-          <select id="authLanguageSelect">
-            <option value="en">English</option>
-            <option value="zh">Mandarin Chinese</option>
-            <option value="hi">Hindi</option>
-            <option value="es">Spanish</option>
-            <option value="fr">French</option>
-            <option value="ar">Arabic</option>
-            <option value="bn">Bengali</option>
-            <option value="ru">Russian</option>
-            <option value="pt">Portuguese</option>
-            <option value="ur">Urdu</option>
-          </select>
-        </div>
+<button class="primary-btn" type="submit">Create Account</button>
 
-        <button class="primary-btn" type="submit">
-          Create Account
-        </button>
+</form>
 
-      </form>
+<div class="auth-switch">
+Already have an account?
+<button type="button" id="showLoginBtn">Sign In</button>
+</div>
 
-      <div class="auth-switch">
-        Already have an account?
-        <button type="button" id="showLoginBtn">Sign In</button>
-      </div>
+<div class="info-note">
+Your account information is securely saved for your account.
+</div>
 
-      <div class="info-note">
-        Your account information is securely saved for your account.
-      </div>
+</div>
 
-    </div>
+<div id="loginBox" class="hidden">
 
-    <!-- LOGIN -->
+<h2 class="auth-title">Welcome Back</h2>
 
-    <div id="loginBox" class="hidden">
+<div id="loginMessage" class="form-message"></div>
 
-      <h2 class="auth-title">Welcome Back</h2>
+<form id="loginForm">
 
-      <div id="loginMessage" class="form-message"></div>
+<div class="field">
+<label>Email Address</label>
+<input id="loginEmail" type="email" autocomplete="email" required>
+</div>
 
-      <form id="loginForm">
+<div class="field">
+<label>Password</label>
+<input id="loginPassword" type="password" autocomplete="current-password" required>
+</div>
 
-        <div class="field">
-          <label>Email Address</label>
-          <input id="loginEmail" type="email" autocomplete="email" required>
-        </div>
+<div class="field">
+<label>Language</label>
+<select id="loginLanguageSelect">
+<option value="en">English</option>
+<option value="zh">Mandarin Chinese</option>
+<option value="hi">Hindi</option>
+<option value="es">Spanish</option>
+<option value="fr">French</option>
+<option value="ar">Arabic</option>
+<option value="bn">Bengali</option>
+<option value="ru">Russian</option>
+<option value="pt">Portuguese</option>
+<option value="ur">Urdu</option>
+</select>
+</div>
 
-        <div class="field">
-          <label>Password</label>
-          <input id="loginPassword" type="password" autocomplete="current-password" required>
-        </div>
+<button class="primary-btn" type="submit">Sign In</button>
 
-        <div class="field">
-          <label>Language</label>
-          <select id="loginLanguageSelect">
-            <option value="en">English</option>
-            <option value="zh">Mandarin Chinese</option>
-            <option value="hi">Hindi</option>
-            <option value="es">Spanish</option>
-            <option value="fr">French</option>
-            <option value="ar">Arabic</option>
-            <option value="bn">Bengali</option>
-            <option value="ru">Russian</option>
-            <option value="pt">Portuguese</option>
-            <option value="ur">Urdu</option>
-          </select>
-        </div>
+</form>
 
-        <button class="primary-btn" type="submit">
-          Sign In
-        </button>
+<div class="auth-switch">
+Don't have an account?
+<button type="button" id="showSignupBtn">Create Account</button>
+</div>
 
-      </form>
+<div class="info-note">
+Your balance and activity are saved securely for your account.
+</div>
 
-      <div class="auth-switch">
-        Don't have an account?
-        <button type="button" id="showSignupBtn">Create Account</button>
-      </div>
+</div>
 
-      <div class="info-note">
-        Your balance and activity are saved securely for your account.
-      </div>
-
-    </div>
-
-  </div>
-
+</div>
 </section>
 
 <!-- ================= APP ================= -->
 
 <section id="appScreen" class="hidden">
 
-  <aside class="sidebar" id="sidebar">
+<aside class="sidebar" id="sidebar">
 
-    <div class="sidebar-brand">
-      <div class="sidebar-logo">UC</div>
-      <div>
-        <strong>UNITED CREST</strong>
-        <small>UNITED CREST ACCOUNT</small>
-      </div>
-    </div>
+<div class="sidebar-brand">
+<div class="sidebar-logo">UC</div>
+<div>
+<strong>UNITED CREST</strong>
+<small>UNITED CREST ACCOUNT</small>
+</div>
+</div>
 
-    <button class="nav-item active" data-page="dashboardPage">
-      Dashboard
-    </button>
+<button class="nav-item active" data-page="dashboardPage">Dashboard</button>
+<button class="nav-item" data-page="transferPage">Transfer</button>
+<button class="nav-item" data-page="depositPage">Deposit</button>
+<button class="nav-item" data-page="withdrawPage">Withdraw</button>
+<button class="nav-item" data-page="activityPage">Activity</button>
+<button class="nav-item" data-page="profilePage">Profile</button>
+<button class="nav-item" data-page="settingsPage">Settings</button>
+<button class="nav-item" data-page="converterPage">Currency Converter</button>
+<button class="nav-item" data-page="translatorPage">Language Translator</button>
 
-    <button class="nav-item" data-page="transferPage">
-      Transfer
-    </button>
+<button class="nav-item signout" id="sidebarSignOutBtn">Sign Out</button>
 
-    <button class="nav-item" data-page="depositPage">
-      Deposit
-    </button>
+</aside>
 
-    <button class="nav-item" data-page="withdrawPage">
-      Withdraw
-    </button>
+<main class="main">
 
-    <button class="nav-item" data-page="activityPage">
-      Activity
-    </button>
+<header class="topbar">
 
-    <button class="nav-item" data-page="profilePage">
-      Profile
-    </button>
+<div class="topbar-left">
 
-    <button class="nav-item" data-page="settingsPage">
-      Settings
-    </button>
+<button class="menu-btn" id="menuBtn">☰</button>
 
-    <button class="nav-item signout" id="sidebarSignOutBtn">
-      Sign Out
-    </button>
+<div>
+<div class="greeting" id="greetingText">Hi</div>
+<div class="top-account" id="topAccountText">Account</div>
+</div>
 
-  </aside>
+</div>
 
-  <main class="main">
+<div class="user-avatar" id="userAvatar">U</div>
 
-    <header class="topbar">
+</header>
 
-      <div class="topbar-left">
+<div class="content">
 
-        <button class="menu-btn" id="menuBtn">
-          ☰
-        </button>
+<!-- ================= DASHBOARD ================= -->
 
-        <div>
-          <div class="greeting" id="greetingText">
-            Hi
-          </div>
+<section id="dashboardPage" class="page active">
 
-          <div class="top-account" id="topAccountText">
-            Account
-          </div>
-        </div>
+<div class="page-heading">
+<h2>Dashboard</h2>
+<p id="dashboardWelcome">Welcome to your United Crest account.</p>
+</div>
 
-      </div>
+<div class="balance-card">
 
-      <div class="user-avatar" id="userAvatar">
-        U
-      </div>
+<div class="balance-label">BALANCE</div>
 
-    </header>
+<div class="balance-row">
 
-    <div class="content">
+<div class="balance-amount" id="balanceAmount">$0.00</div>
 
-      <!-- ================= DASHBOARD ================= -->
+<button class="eye-btn" id="toggleBalanceBtn">◉</button>
 
-      <section id="dashboardPage" class="page active">
+</div>
 
-        <div class="page-heading">
-          <h2>Dashboard</h2>
-          <p id="dashboardWelcome">
-            Welcome to your United Crest account.
-          </p>
-        </div>
+<div class="account-number">
+Account Number:
+<strong id="accountNumberText">Loading...</strong>
+</div>
 
-        <div class="balance-card">
+<div class="dashboard-note">
+Your account balance and activity are securely stored.
+</div>
 
-          <div class="balance-label">
-            BALANCE
-          </div>
+</div>
 
-          <div class="balance-row">
+<div class="quick-grid">
 
-            <div class="balance-amount" id="balanceAmount">
-              $0.00
-            </div>
+<div class="quick-card" data-page-link="transferPage">
+<div class="quick-icon">↗</div>
+<h3>Transfer</h3>
+<p>Send to another account.</p>
+</div>
 
-            <button class="eye-btn" id="toggleBalanceBtn">
-              ◉
-            </button>
+<div class="quick-card" data-page-link="depositPage">
+<div class="quick-icon">+</div>
+<h3>Deposit</h3>
+<p>Add credits to your account.</p>
+</div>
 
-          </div>
+<div class="quick-card" data-page-link="withdrawPage">
+<div class="quick-icon">↓</div>
+<h3>Withdraw</h3>
+<p>Contact a manager for support.</p>
+</div>
 
-          <div class="account-number">
-            Account Number:
-            <strong id="accountNumberText">
-              Loading...
-            </strong>
-          </div>
+<div class="quick-card" data-page-link="activityPage">
+<div class="quick-icon">≡</div>
+<h3>Activity</h3>
+<p>View your account activity.</p>
+</div>
 
-          <div class="dashboard-note">
-            Your account balance and activity are securely stored.
-          </div>
+</div>
 
-        </div>
+<div class="two-column" style="margin-top:20px;">
 
-        <div class="quick-grid">
+<div class="panel">
 
-          <div class="quick-card" data-page-link="transferPage">
-            <div class="quick-icon">↗</div>
-            <h3>Transfer</h3>
-            <p>Send to another account.</p>
-          </div>
+<h3 class="panel-title">Account Information</h3>
 
-          <div class="quick-card" data-page-link="depositPage">
-            <div class="quick-icon">+</div>
-            <h3>Deposit</h3>
-            <p>Add credits to your account.</p>
-          </div>
+<div class="info-row">
+<label>FULL NAME</label>
+<strong id="dashboardName">—</strong>
+</div>
 
-          <div class="quick-card" data-page-link="withdrawPage">
-            <div class="quick-icon">↓</div>
-            <h3>Withdraw</h3>
-            <p>Contact a manager for support.</p>
-          </div>
+<div class="info-row">
+<label>EMAIL</label>
+<strong id="dashboardEmail">—</strong>
+</div>
 
-          <div class="quick-card" data-page-link="activityPage">
-            <div class="quick-icon">≡</div>
-            <h3>Activity</h3>
-            <p>View your account activity.</p>
-          </div>
+<div class="info-row">
+<label>PHONE</label>
+<strong id="dashboardPhone">—</strong>
+</div>
 
-        </div>
+<div class="info-row">
+<label>CURRENCY</label>
+<strong id="dashboardCurrency">USD</strong>
+</div>
 
-        <div class="two-column" style="margin-top:20px;">
+</div>
 
-          <div class="panel">
+<div class="panel">
 
-            <h3 class="panel-title">
-              Account Information
-            </h3>
+<h3 class="panel-title">Quick Support</h3>
 
-            <div class="info-row">
-              <label>FULL NAME</label>
-              <strong id="dashboardName">—</strong>
-            </div>
+<div class="info-row">
+<label>TRANSFER</label>
+<strong>Recipient confirmation required</strong>
+</div>
 
-            <div class="info-row">
-              <label>EMAIL</label>
-              <strong id="dashboardEmail">—</strong>
-            </div>
+<div class="info-row">
+<label>WITHDRAW</label>
+<strong>Contact Manager</strong>
+</div>
 
-            <div class="info-row">
-              <label>PHONE</label>
-              <strong id="dashboardPhone">—</strong>
-            </div>
+<div class="info-row">
+<label>SECURITY</label>
+<strong>Sign in required for account access</strong>
+</div>
 
-            <div class="info-row">
-              <label>CURRENCY</label>
-              <strong id="dashboardCurrency">USD</strong>
-            </div>
+</div>
 
-          </div>
-
-          <div class="panel">
-
-            <h3 class="panel-title">
-              Quick Support
-            </h3>
-
-            <div class="info-row">
-              <label>TRANSFER</label>
-              <strong>Recipient confirmation required</strong>
-            </div>
-
-            <div class="info-row">
-              <label>WITHDRAW</label>
-              <strong>Contact Manager</strong>
-            </div>
-
-            <div class="info-row">
-              <label>SECURITY</label>
-              <strong>Sign in required for account access</strong>
-            </div>
-
-          </div>
-
-        </div>
-
-      </section>
-
-      <!-- ================= TRANSFER ================= -->
-
-      <section id="transferPage" class="page">
-
-        <div class="page-heading">
-          <h2>Transfer</h2>
-          <p>Send funds to another registered United Crest account.</p>
-        </div>
-
-        <div class="two-column">
-
-          <div class="panel">
-
-            <h3 class="panel-title">
-              Send Transfer
-            </h3>
-
-            <div id="transferMessage" class="form-message"></div>
-
-            <div class="field">
-              <label>Recipient Account Number</label>
-
-              <input
-                id="recipientAccount"
-                type="text"
-                inputmode="numeric"
-                maxlength="10"
-                placeholder="Enter 10-digit account number"
-              >
-            </div>
-
-            <button
-              class="secondary-btn"
-              id="lookupRecipientBtn"
-              type="button"
-            >
-              Find Recipient
-            </button>
-
-            <div class="recipient-result" id="recipientResult">
-
-              <div class="recipient-result-title">
-                RECIPIENT FOUND
-              </div>
-
-              <div
-                class="recipient-result-name"
-                id="recipientName"
-              >
-                —
-              </div>
-
-              <div
-                class="recipient-result-details"
-                id="recipientDetails"
-              >
-                —
-              </div>
-
-            </div>
-
-            <div class="field">
-              <label>Amount</label>
-
-              <input
-                id="transferAmount"
-                type="number"
-                min="0.01"
-                step="0.01"
-                placeholder="0.00"
-              >
-            </div>
-
-            <div class="field">
-              <label>Description / Reference</label>
-
-              <input
-                id="transferReference"
-                type="text"
-                maxlength="80"
-                placeholder="e.g. payment"
-              >
-            </div>
-
-            <div class="amount-preview">
-              Your current balance:
-              <strong id="transferBalancePreview">
-                $0.00
-              </strong>
-            </div>
-
-            <button
-              class="action-btn"
-              id="sendTransferBtn"
-              type="button"
-            >
-              Send Transfer
-            </button>
-
-            <div class="info-note">
-              Transfers are between United Crest accounts only.
-            </div>
-
-          </div>
-
-          <div class="panel">
-
-            <h3 class="panel-title">
-              How It Works
-            </h3>
-
-            <div class="info-row">
-              <label>STEP 1</label>
-              <strong>
-                Enter the recipient's account number.
-              </strong>
-            </div>
-
-            <div class="info-row">
-              <label>STEP 2</label>
-              <strong>
-                The registered recipient name is displayed.
-              </strong>
-            </div>
-
-            <div class="info-row">
-              <label>STEP 3</label>
-              <strong>
-                Confirm the recipient, then enter the amount and optional reference.
-              </strong>
-            </div>
-
-            <div class="info-row">
-              <label>STEP 4</label>
-              <strong>
-                Send the transfer.
-              </strong>
-            </div>
-
-            <div class="info-row">
-              <label>STEP 5</label>
-              <strong>
-                The recipient receives the transaction through United Crest, including across devices.
-              </strong>
-            </div>
-
-          </div>
-
-        </div>
-
-      </section>
-
-      <!-- ================= DEPOSIT ================= -->
-
-      <section id="depositPage" class="page">
-
-        <div class="page-heading">
-          <h2>Deposit</h2>
-          <p>Add credits to your United Crest account.</p>
-        </div>
-
-        <div class="two-column">
-
-          <div class="panel">
-
-            <h3 class="panel-title">
-              Deposit
-            </h3>
-
-            <div id="depositMessage" class="form-message"></div>
-
-            <div class="field">
-              <label>Email Address</label>
-              <input id="depositEmail" type="email">
-            </div>
-
-            <div class="field">
-              <label>Full Name</label>
-              <input id="depositName" type="text">
-            </div>
-
-            <div class="field">
-              <label>Phone Number</label>
-              <input id="depositPhone" type="tel">
-            </div>
-
-            <div class="field">
-              <label>Amount</label>
-
-              <input
-                id="depositAmount"
-                type="number"
-                min="0.01"
-                step="0.01"
-                placeholder="0.00"
-              >
-            </div>
-
-            <div class="field">
-              <label>4-Digit PIN</label>
-
-              <input
-                id="depositPin"
-                type="password"
-                inputmode="numeric"
-                maxlength="4"
-                placeholder="••••"
-              >
-            </div>
-
-            <button
-              class="action-btn"
-              id="reviewDepositBtn"
-              type="button"
-            >
-              Review Deposit
-            </button>
-
-            <div class="info-note">
-              This feature adds credits to your account.
-            </div>
-
-          </div>
-
-          <div
-            class="panel hidden"
-            id="depositReview"
-          >
-
-            <h3 class="panel-title">
-              Review Deposit
-            </h3>
-
-            <div class="info-row">
-              <label>NAME</label>
-              <strong id="reviewDepositName">—</strong>
-            </div>
-
-            <div class="info-row">
-              <label>EMAIL</label>
-              <strong id="reviewDepositEmail">—</strong>
-            </div>
-
-            <div class="info-row">
-              <label>PHONE</label>
-              <strong id="reviewDepositPhone">—</strong>
-            </div>
-
-            <div class="info-row">
-              <label>AMOUNT</label>
-              <strong id="reviewDepositAmount">—</strong>
-            </div>
-
-            <div style="margin-top:18px;">
-
-              <button
-                class="action-btn"
-                id="confirmDepositBtn"
-                type="button"
-              >
-                Confirm Deposit
-              </button>
-
-            </div>
-
-            <div style="margin-top:9px;">
-
-              <button
-                class="secondary-btn"
-                id="cancelDepositBtn"
-                type="button"
-              >
-                Cancel
-              </button>
-
-            </div>
-
-          </div>
-
-        </div>
-
-      </section>
-
-      <!-- ================= WITHDRAW ================= -->
-
-      <section id="withdrawPage" class="page">
-
-        <div class="page-heading">
-          <h2>Withdraw</h2>
-
-          <p>
-            Contact a United Crest manager to request withdrawal support.
-          </p>
-
-        </div>
-
-        <div class="two-column">
-
-          <div class="panel">
-
-            <h3 class="panel-title">
-              Withdrawal Request
-            </h3>
-
-            <div class="info-row">
-              <label>ACCOUNT</label>
-              <strong id="withdrawAccountNumber">—</strong>
-            </div>
-
-            <div class="info-row">
-              <label>AVAILABLE BALANCE</label>
-              <strong id="withdrawBalance">$0.00</strong>
-            </div>
-
-            <div class="info-note">
-              Withdrawal requests require manager assistance.
-            </div>
-
-            <button
-              class="action-btn"
-              id="contactManagerBtn"
-              type="button"
-              style="margin-top:14px;"
-            >
-              Contact Manager
-            </button>
-
-          </div>
-
-          <div class="panel">
-
-            <h3 class="panel-title">
-              Manager Support
-            </h3>
-
-            <div class="info-row">
-              <label>STATUS</label>
-              <strong>Manager assistance required</strong>
-            </div>
-
-            <div class="info-row">
-              <label>WHAT HAPPENS NEXT</label>
-              <strong>
-                A manager will guide you through the withdrawal request.
-              </strong>
-            </div>
-
-            <div class="info-note">
-              United Crest account support only.
-            </div>
-
-          </div>
-
-        </div>
-
-      </section>
-
-      <!-- ================= ACTIVITY ================= -->
-
-      <section id="activityPage" class="page">
-
-        <div class="page-heading">
-          <h2>Activity</h2>
-
-          <p>
-            Your United Crest account activity.
-          </p>
-        </div>
-
-        <div class="panel">
-
-          <h3 class="panel-title">
-            Recent Activity
-          </h3>
-
-          <div
-            id="activityList"
-            class="activity-list"
-          >
-            <div class="empty-state">
-              No activity yet.
-            </div>
-          </div>
-
-        </div>
-
-      </section>
-
-      <!-- ================= PROFILE ================= -->
-
-      <section id="profilePage" class="page">
-
-        <div class="page-heading">
-
-          <h2>Profile</h2>
-
-          <p>
-            View and update your account information.
-          </p>
-
-        </div>
-
-        <div class="two-column">
-
-          <div class="panel">
-
-            <h3 class="panel-title">
-              Personal Information
-            </h3>
-
-            <div id="profileMessage" class="form-message"></div>
-
-            <div class="field">
-              <label>Full Name</label>
-
-              <input
-                id="profileName"
-                type="text"
-              >
-            </div>
-
-            <div class="field">
-              <label>Phone Number</label>
-
-              <input
-                id="profilePhone"
-                type="tel"
-              >
-            </div>
-
-            <div class="field">
-              <label>Email Address</label>
-
-              <input
-                id="profileEmail"
-                type="email"
-                disabled
-              >
-            </div>
-
-            <div class="field">
-              <label>Address</label>
-
-              <input
-                id="profileAddress"
-                type="text"
-              >
-            </div>
-
-            <button
-              class="action-btn"
-              id="saveProfileBtn"
-              type="button"
-            >
-              Save Profile
-            </button>
-
-          </div>
-
-          <div class="panel">
-
-            <h3 class="panel-title">
-              Account Details
-            </h3>
-
-            <div class="info-row">
-              <label>ACCOUNT NUMBER</label>
-              <strong id="profileAccountNumber">—</strong>
-            </div>
-
-            <div class="info-row">
-              <label>CURRENCY</label>
-              <strong id="profileCurrency">USD</strong>
-            </div>
-
-            <div class="info-row">
-              <label>LANGUAGE</label>
-              <strong id="profileLanguage">English</strong>
-            </div>
-
-            <div class="info-row">
-              <label>ACCOUNT STATUS</label>
-              <strong>Active</strong>
-            </div>
-
-          </div>
-
-        </div>
-
-      </section>
-
-      <!-- ================= SETTINGS ================= -->
-
-      <section id="settingsPage" class="page">
-
-        <div class="page-heading">
-
-          <h2>Settings</h2>
-
-          <p>
-            Manage your account preferences.
-          </p>
-
-        </div>
-
-        <div class="two-column">
-
-          <div class="panel">
-
-            <h3 class="panel-title">
-              Currency
-            </h3>
-
-            <div id="settingsMessage" class="form-message"></div>
-
-            <div class="field">
-
-              <label>
-                Display Currency
-              </label>
-
-              <select id="currencySelect">
-
-                <option value="USD">USD — US Dollar</option>
-                <option value="EUR">EUR — Euro</option>
-                <option value="GBP">GBP — Pound Sterling</option>
-                <option value="NGN">NGN — Nigerian Naira</option>
-                <option value="CAD">CAD — Canadian Dollar</option>
-                <option value="AUD">AUD — Australian Dollar</option>
-                <option value="JPY">JPY — Japanese Yen</option>
-                <option value="CNY">CNY — Chinese Yuan</option>
-                <option value="INR">INR — Indian Rupee</option>
-                <option value="CHF">CHF — Swiss Franc</option>
-                <option value="AED">AED — UAE Dirham</option>
-                <option value="SAR">SAR — Saudi Riyal</option>
-                <option value="ZAR">ZAR — South African Rand</option>
-                <option value="KES">KES — Kenyan Shilling</option>
-                <option value="GHS">GHS — Ghanaian Cedi</option>
-                <option value="UGX">UGX — Ugandan Shilling</option>
-                <option value="TZS">TZS — Tanzanian Shilling</option>
-                <option value="RWF">RWF — Rwandan Franc</option>
-                <option value="XOF">XOF — West African CFA Franc</option>
-                <option value="XAF">XAF — Central African CFA Franc</option>
-                <option value="MAD">MAD — Moroccan Dirham</option>
-                <option value="EGP">EGP — Egyptian Pound</option>
-                <option value="DZD">DZD — Algerian Dinar</option>
-                <option value="TND">TND — Tunisian Dinar</option>
-                <option value="LYD">LYD — Libyan Dinar</option>
-                <option value="ETB">ETB — Ethiopian Birr</option>
-                <option value="GMD">GMD — Gambian Dalasi</option>
-                <option value="SLL">SLL — Sierra Leonean Leone</option>
-                <option value="LRD">LRD — Liberian Dollar</option>
-                <option value="GNF">GNF — Guinean Franc</option>
-                <option value="CVE">CVE — Cape Verdean Escudo</option>
-                <option value="BWP">BWP — Botswana Pula</option>
-                <option value="NAD">NAD — Namibian Dollar</option>
-                <option value="MZN">MZN — Mozambican Metical</option>
-                <option value="MWK">MWK — Malawian Kwacha</option>
-                <option value="ZMW">ZMW — Zambian Kwacha</option>
-                <option value="BIF">BIF — Burundian Franc</option>
-                <option value="SOS">SOS — Somali Shilling</option>
-                <option value="SDG">SDG — Sudanese Pound</option>
-                <option value="SSP">SSP — South Sudanese Pound</option>
-                <option value="DJF">DJF — Djiboutian Franc</option>
-                <option value="KMF">KMF — Comorian Franc</option>
-                <option value="MUR">MUR — Mauritian Rupee</option>
-                <option value="SCR">SCR — Seychellois Rupee</option>
-                <option value="MGA">MGA — Malagasy Ariary</option>
-                <option value="AOA">AOA — Angolan Kwanza</option>
-                <option value="CDF">CDF — Congolese Franc</option>
-                <option value="CNY">CNY — Chinese Yuan</option>
-                <option value="HKD">HKD — Hong Kong Dollar</option>
-                <option value="SGD">SGD — Singapore Dollar</option>
-                <option value="MYR">MYR — Malaysian Ringgit</option>
-                <option value="THB">THB — Thai Baht</option>
-                <option value="IDR">IDR — Indonesian Rupiah</option>
-                <option value="PHP">PHP — Philippine Peso</option>
-                <option value="KRW">KRW — South Korean Won</option>
-                <option value="VND">VND — Vietnamese Dong</option>
-                <option value="PKR">PKR — Pakistani Rupee</option>
-                <option value="BDT">BDT — Bangladeshi Taka</option>
-                <option value="LKR">LKR — Sri Lankan Rupee</option>
-                <option value="NPR">NPR — Nepalese Rupee</option>
-                <option value="BTN">BTN — Bhutanese Ngultrum</option>
-                <option value="BND">BND — Brunei Dollar</option>
-                <option value="KHR">KHR — Cambodian Riel</option>
-                <option value="LAK">LAK — Lao Kip</option>
-                <option value="MMK">MMK — Myanmar Kyat</option>
-                <option value="MNT">MNT — Mongolian Tugrik</option>
-                <option value="KZT">KZT — Kazakhstani Tenge</option>
-                <option value="UZS">UZS — Uzbekistani Som</option>
-                <option value="AZN">AZN — Azerbaijani Manat</option>
-                <option value="GEL">GEL — Georgian Lari</option>
-                <option value="AMD">AMD — Armenian Dram</option>
-                <option value="TRY">TRY — Turkish Lira</option>
-                <option value="ILS">ILS — Israeli New Shekel</option>
-                <option value="JOD">JOD — Jordanian Dinar</option>
-                <option value="KWD">KWD — Kuwaiti Dinar</option>
-                <option value="BHD">BHD — Bahraini Dinar</option>
-                <option value="OMR">OMR — Omani Rial</option>
-                <option value="QAR">QAR — Qatari Riyal</option>
-                <option value="YER">YER — Yemeni Rial</option>
-                <option value="GBP">GBP — British Pound</option>
-                <option value="NOK">NOK — Norwegian Krone</option>
-                <option value="SEK">SEK — Swedish Krona</option>
-                <option value="DKK">DKK — Danish Krone</option>
-                <option value="ISK">ISK — Icelandic Krona</option>
-                <option value="PLN">PLN — Polish Zloty</option>
-                <option value="CZK">CZK — Czech Koruna</option>
-                <option value="HUF">HUF — Hungarian Forint</option>
-                <option value="RON">RON — Romanian Leu</option>
-                <option value="BGN">BGN — Bulgarian Lev</option>
-                <option value="RSD">RSD — Serbian Dinar</option>
-                <option value="UAH">UAH — Ukrainian Hryvnia</option>
-                <option value="RUB">RUB — Russian Ruble</option>
-                <option value="BYN">BYN — Belarusian Ruble</option>
-                <option value="MDL">MDL — Moldovan Leu</option>
-                <option value="ALL">ALL — Albanian Lek</option>
-                <option value="BAM">BAM — Bosnia Convertible Mark</option>
-                <option value="MKD">MKD — Macedonian Denar</option>
-                <option value="CHF">CHF — Swiss Franc</option>
-                <option value="MXN">MXN — Mexican Peso</option>
-                <option value="BRL">BRL — Brazilian Real</option>
-                <option value="ARS">ARS — Argentine Peso</option>
-                <option value="CLP">CLP — Chilean Peso</option>
-                <option value="COP">COP — Colombian Peso</option>
-                <option value="PEN">PEN — Peruvian Sol</option>
-                <option value="UYU">UYU — Uruguayan Peso</option>
-                <option value="BOB">BOB — Bolivian Boliviano</option>
-                <option value="PYG">PYG — Paraguayan Guarani</option>
-                <option value="VES">VES — Venezuelan Bolívar</option>
-                <option value="DOP">DOP — Dominican Peso</option>
-                <option value="JMD">JMD — Jamaican Dollar</option>
-                <option value="TTD">TTD — Trinidad and Tobago Dollar</option>
-                <option value="BBD">BBD — Barbadian Dollar</option>
-                <option value="BSD">BSD — Bahamian Dollar</option>
-                <option value="BZD">BZD — Belize Dollar</option>
-                <option value="XCD">XCD — East Caribbean Dollar</option>
-                <option value="FJD">FJD — Fiji Dollar</option>
-                <option value="PGK">PGK — Papua New Guinean Kina</option>
-
-              </select>
-
-            </div>
-
-            <button
-              class="action-btn"
-              id="saveCurrencyBtn"
-              type="button"
-            >
-              Save Currency
-            </button>
-
-            <div class="field" style="margin-top:18px;">
-
-              <label>
-                Language
-              </label>
-
-              <select id="languageSelect">
-                <option value="en">English</option>
-                <option value="zh">Mandarin Chinese</option>
-                <option value="hi">Hindi</option>
-                <option value="es">Spanish</option>
-                <option value="fr">French</option>
-                <option value="ar">Arabic</option>
-                <option value="bn">Bengali</option>
-                <option value="ru">Russian</option>
-                <option value="pt">Portuguese</option>
-                <option value="ur">Urdu</option>
-              </select>
-
-            </div>
-
-            <button
-              class="action-btn"
-              id="saveLanguageBtn"
-              type="button"
-            >
-              Save Language
-            </button>
-
-            <div class="info-note">
-              Currency selection changes the display currency used by this account.
-            </div>
-
-          </div>
-
-          <div class="panel">
-
-            <h3 class="panel-title">
-              Account Preferences
-            </h3>
-
-            <div class="info-row">
-              <label>LANGUAGE</label>
-              <strong id="settingsCurrentLanguage">
-                English
-              </strong>
-            </div>
-
-            <div class="info-row">
-              <label>CURRENCY</label>
-              <strong id="settingsCurrentCurrency">
-                USD
-              </strong>
-            </div>
-
-            <div class="info-row">
-              <label>ACCOUNT NUMBER</label>
-              <strong id="settingsAccountNumber">
-                —
-              </strong>
-            </div>
-
-            <div class="info-row">
-              <label>STATUS</label>
-              <strong>Active</strong>
-            </div>
-
-          </div>
-
-        </div>
-
-      </section>
-
-    </div>
-
-  </main>
+</div>
 
 </section>
 
-<!-- ================= WITHDRAW MANAGER MODAL ================= -->
+<!-- ================= TRANSFER ================= -->
+
+<section id="transferPage" class="page">
+
+<div class="page-heading">
+<h2>Transfer</h2>
+<p>Send funds to another registered United Crest account.</p>
+</div>
+
+<div class="two-column">
+
+<div class="panel">
+
+<h3 class="panel-title">Send Transfer</h3>
+
+<div id="transferMessage" class="form-message"></div>
+
+<div class="field">
+<label>Recipient Account Number</label>
+<input
+id="recipientAccount"
+type="text"
+inputmode="numeric"
+maxlength="10"
+placeholder="Enter 10-digit account number"
+>
+</div>
+
+<button class="secondary-btn" id="lookupRecipientBtn" type="button">
+Find Recipient
+</button>
+
+<div class="recipient-result" id="recipientResult">
+
+<div class="recipient-result-title">RECIPIENT FOUND</div>
+
+<div class="recipient-result-name" id="recipientName">—</div>
+
+<div class="recipient-result-details" id="recipientDetails">—</div>
+
+</div>
+
+<div class="field">
+<label>Amount</label>
+<input
+id="transferAmount"
+type="number"
+min="0.01"
+step="0.01"
+placeholder="0.00"
+>
+</div>
+
+<div class="field">
+<label>Description / Reference</label>
+<input
+id="transferReference"
+type="text"
+maxlength="80"
+placeholder="e.g. payment"
+>
+</div>
+
+<div class="amount-preview">
+Your current balance:
+<strong id="transferBalancePreview">$0.00</strong>
+</div>
+
+<button class="action-btn" id="sendTransferBtn" type="button">
+Confirm Payment
+</button>
+
+<div class="info-note">
+Enter the recipient account number first. The registered account name will appear before payment confirmation.
+</div>
+
+</div>
+
+<div class="panel">
+
+<h3 class="panel-title">How It Works</h3>
+
+<div class="info-row">
+<label>STEP 1</label>
+<strong>Enter the recipient's account number.</strong>
+</div>
+
+<div class="info-row">
+<label>STEP 2</label>
+<strong>The registered recipient name appears immediately when the account is found.</strong>
+</div>
+
+<div class="info-row">
+<label>STEP 3</label>
+<strong>Enter the amount and reference.</strong>
+</div>
+
+<div class="info-row">
+<label>STEP 4</label>
+<strong>Confirm the payment and enter your 4-digit confirmation PIN.</strong>
+</div>
+
+<div class="info-row">
+<label>STEP 5</label>
+<strong>The transfer is recorded and the recipient can receive it across devices.</strong>
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+<!-- ================= DEPOSIT ================= -->
+
+<section id="depositPage" class="page">
+
+<div class="page-heading">
+<h2>Deposit</h2>
+<p>Add credits to your United Crest account.</p>
+</div>
+
+<div class="two-column">
+
+<div class="panel">
+
+<h3 class="panel-title">Deposit</h3>
+
+<div id="depositMessage" class="form-message"></div>
+
+<div class="field">
+<label>Email Address</label>
+<input id="depositEmail" type="email">
+</div>
+
+<div class="field">
+<label>Full Name</label>
+<input id="depositName" type="text">
+</div>
+
+<div class="field">
+<label>Phone Number</label>
+<input id="depositPhone" type="tel">
+</div>
+
+<div class="field">
+<label>Amount</label>
+<input id="depositAmount" type="number" min="0.01" step="0.01" placeholder="0.00">
+</div>
+
+<div class="field">
+<label>4-Digit PIN</label>
+<input id="depositPin" type="password" inputmode="numeric" maxlength="4" placeholder="••••">
+</div>
+
+<button class="action-btn" id="reviewDepositBtn" type="button">
+Review Deposit
+</button>
+
+<div class="info-note">
+This feature adds credits to your account.
+</div>
+
+</div>
+
+<div class="panel hidden" id="depositReview">
+
+<h3 class="panel-title">Review Deposit</h3>
+
+<div class="info-row">
+<label>NAME</label>
+<strong id="reviewDepositName">—</strong>
+</div>
+
+<div class="info-row">
+<label>EMAIL</label>
+<strong id="reviewDepositEmail">—</strong>
+</div>
+
+<div class="info-row">
+<label>PHONE</label>
+<strong id="reviewDepositPhone">—</strong>
+</div>
+
+<div class="info-row">
+<label>AMOUNT</label>
+<strong id="reviewDepositAmount">—</strong>
+</div>
+
+<div style="margin-top:18px;">
+<button class="action-btn" id="confirmDepositBtn" type="button">
+Confirm Deposit
+</button>
+</div>
+
+<div style="margin-top:9px;">
+<button class="secondary-btn" id="cancelDepositBtn" type="button">
+Cancel
+</button>
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+<!-- ================= WITHDRAW ================= -->
+
+<section id="withdrawPage" class="page">
+
+<div class="page-heading">
+<h2>Withdraw</h2>
+<p>Contact a United Crest manager to request withdrawal support.</p>
+</div>
+
+<div class="two-column">
+
+<div class="panel">
+
+<h3 class="panel-title">Withdrawal Request</h3>
+
+<div class="info-row">
+<label>ACCOUNT</label>
+<strong id="withdrawAccountNumber">—</strong>
+</div>
+
+<div class="info-row">
+<label>AVAILABLE BALANCE</label>
+<strong id="withdrawBalance">$0.00</strong>
+</div>
+
+<div class="info-note">
+Withdrawal requests require manager assistance.
+</div>
+
+<button class="action-btn" id="contactManagerBtn" type="button" style="margin-top:14px;">
+Contact Manager
+</button>
+
+</div>
+
+<div class="panel">
+
+<h3 class="panel-title">Manager Support</h3>
+
+<div class="info-row">
+<label>STATUS</label>
+<strong>Manager assistance required</strong>
+</div>
+
+<div class="info-row">
+<label>WHAT HAPPENS NEXT</label>
+<strong>A manager will guide you through the withdrawal request.</strong>
+</div>
+
+<div class="info-note">
+United Crest account support only.
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+<!-- ================= ACTIVITY ================= -->
+
+<section id="activityPage" class="page">
+
+<div class="page-heading">
+<h2>Activity</h2>
+<p>Your United Crest account activity.</p>
+</div>
+
+<div class="panel">
+
+<h3 class="panel-title">Recent Activity</h3>
+
+<div id="activityList" class="activity-list">
+<div class="empty-state">No activity yet.</div>
+</div>
+
+</div>
+
+</section>
+
+<!-- ================= PROFILE ================= -->
+
+<section id="profilePage" class="page">
+
+<div class="page-heading">
+<h2>Profile</h2>
+<p>View and update your account information.</p>
+</div>
+
+<div class="two-column">
+
+<div class="panel">
+
+<h3 class="panel-title">Personal Information</h3>
+
+<div id="profileMessage" class="form-message"></div>
+
+<div class="field">
+<label>Full Name</label>
+<input id="profileName" type="text">
+</div>
+
+<div class="field">
+<label>Phone Number</label>
+<input id="profilePhone" type="tel">
+</div>
+
+<div class="field">
+<label>Email Address</label>
+<input id="profileEmail" type="email" disabled>
+</div>
+
+<div class="field">
+<label>Address</label>
+<input id="profileAddress" type="text">
+</div>
+
+<button class="action-btn" id="saveProfileBtn" type="button">
+Save Profile
+</button>
+
+</div>
+
+<div class="panel">
+
+<h3 class="panel-title">Account Details</h3>
+
+<div class="info-row">
+<label>ACCOUNT NUMBER</label>
+<strong id="profileAccountNumber">—</strong>
+</div>
+
+<div class="info-row">
+<label>CURRENCY</label>
+<strong id="profileCurrency">USD</strong>
+</div>
+
+<div class="info-row">
+<label>LANGUAGE</label>
+<strong id="profileLanguage">English</strong>
+</div>
+
+<div class="info-row">
+<label>ACCOUNT STATUS</label>
+<strong>Active</strong>
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+<!-- ================= SETTINGS ================= -->
+
+<section id="settingsPage" class="page">
+
+<div class="page-heading">
+<h2>Settings</h2>
+<p>Manage your account preferences.</p>
+</div>
+
+<div class="two-column">
+
+<div class="panel">
+
+<h3 class="panel-title">Currency & Language</h3>
+
+<div id="settingsMessage" class="form-message"></div>
+
+<div class="field">
+
+<label>Display Currency</label>
+
+<select id="currencySelect">
+
+<option value="USD">USD — US Dollar</option>
+<option value="EUR">EUR — Euro</option>
+<option value="GBP">GBP — Pound Sterling</option>
+<option value="NGN">NGN — Nigerian Naira</option>
+<option value="CAD">CAD — Canadian Dollar</option>
+<option value="AUD">AUD — Australian Dollar</option>
+<option value="JPY">JPY — Japanese Yen</option>
+<option value="CNY">CNY — Chinese Yuan</option>
+<option value="INR">INR — Indian Rupee</option>
+<option value="CHF">CHF — Swiss Franc</option>
+<option value="AED">AED — UAE Dirham</option>
+<option value="SAR">SAR — Saudi Riyal</option>
+<option value="ZAR">ZAR — South African Rand</option>
+<option value="KES">KES — Kenyan Shilling</option>
+<option value="GHS">GHS — Ghanaian Cedi</option>
+<option value="UGX">UGX — Ugandan Shilling</option>
+<option value="TZS">TZS — Tanzanian Shilling</option>
+<option value="XOF">XOF — West African CFA Franc</option>
+<option value="XAF">XAF — Central African CFA Franc</option>
+<option value="MAD">MAD — Moroccan Dirham</option>
+<option value="EGP">EGP — Egyptian Pound</option>
+<option value="DZD">DZD — Algerian Dinar</option>
+<option value="TND">TND — Tunisian Dinar</option>
+<option value="LYD">LYD — Libyan Dinar</option>
+<option value="ETB">ETB — Ethiopian Birr</option>
+<option value="GMD">GMD — Gambian Dalasi</option>
+<option value="SLL">SLL — Sierra Leonean Leone</option>
+<option value="LRD">LRD — Liberian Dollar</option>
+<option value="GNF">GNF — Guinean Franc</option>
+<option value="BWP">BWP — Botswana Pula</option>
+<option value="NAD">NAD — Namibian Dollar</option>
+<option value="MZN">MZN — Mozambican Metical</option>
+<option value="MWK">MWK — Malawian Kwacha</option>
+<option value="ZMW">ZMW — Zambian Kwacha</option>
+<option value="BIF">BIF — Burundian Franc</option>
+<option value="SOS">SOS — Somali Shilling</option>
+<option value="SDG">SDG — Sudanese Pound</option>
+<option value="SSP">SSP — South Sudanese Pound</option>
+<option value="HKD">HKD — Hong Kong Dollar</option>
+<option value="SGD">SGD — Singapore Dollar</option>
+<option value="MYR">MYR — Malaysian Ringgit</option>
+<option value="THB">THB — Thai Baht</option>
+<option value="IDR">IDR — Indonesian Rupiah</option>
+<option value="PHP">PHP — Philippine Peso</option>
+<option value="KRW">KRW — South Korean Won</option>
+<option value="VND">VND — Vietnamese Dong</option>
+<option value="PKR">PKR — Pakistani Rupee</option>
+<option value="BDT">BDT — Bangladeshi Taka</option>
+<option value="LKR">LKR — Sri Lankan Rupee</option>
+<option value="NPR">NPR — Nepalese Rupee</option>
+<option value="TRY">TRY — Turkish Lira</option>
+<option value="ILS">ILS — Israeli New Shekel</option>
+<option value="JOD">JOD — Jordanian Dinar</option>
+<option value="KWD">KWD — Kuwaiti Dinar</option>
+<option value="BHD">BHD — Bahraini Dinar</option>
+<option value="OMR">OMR — Omani Rial</option>
+<option value="QAR">QAR — Qatari Riyal</option>
+<option value="YER">YER — Yemeni Rial</option>
+<option value="NOK">NOK — Norwegian Krone</option>
+<option value="SEK">SEK — Swedish Krona</option>
+<option value="DKK">DKK — Danish Krone</option>
+<option value="ISK">ISK — Icelandic Krona</option>
+<option value="PLN">PLN — Polish Zloty</option>
+<option value="CZK">CZK — Czech Koruna</option>
+<option value="HUF">HUF — Hungarian Forint</option>
+<option value="RON">RON — Romanian Leu</option>
+<option value="BGN">BGN — Bulgarian Lev</option>
+<option value="RSD">RSD — Serbian Dinar</option>
+<option value="UAH">UAH — Ukrainian Hryvnia</option>
+<option value="RUB">RUB — Russian Ruble</option>
+<option value="MXN">MXN — Mexican Peso</option>
+<option value="BRL">BRL — Brazilian Real</option>
+<option value="ARS">ARS — Argentine Peso</option>
+<option value="CLP">CLP — Chilean Peso</option>
+<option value="COP">COP — Colombian Peso</option>
+<option value="PEN">PEN — Peruvian Sol</option>
+<option value="UYU">UYU — Uruguayan Peso</option>
+<option value="BOB">BOB — Bolivian Boliviano</option>
+<option value="PYG">PYG — Paraguayan Guarani</option>
+<option value="DOP">DOP — Dominican Peso</option>
+<option value="JMD">JMD — Jamaican Dollar</option>
+<option value="TTD">TTD — Trinidad and Tobago Dollar</option>
+<option value="BBD">BBD — Barbadian Dollar</option>
+<option value="BSD">BSD — Bahamian Dollar</option>
+<option value="XCD">XCD — East Caribbean Dollar</option>
+<option value="FJD">FJD — Fiji Dollar</option>
+<option value="PGK">PGK — Papua New Guinean Kina</option>
+
+</select>
+
+</div>
+
+<button class="action-btn" id="saveCurrencyBtn" type="button">
+Save Currency
+</button>
+
+<div class="field" style="margin-top:18px;">
+
+<label>Language</label>
+
+<select id="languageSelect">
+<option value="en">English</option>
+<option value="zh">Mandarin Chinese</option>
+<option value="hi">Hindi</option>
+<option value="es">Spanish</option>
+<option value="fr">French</option>
+<option value="ar">Arabic</option>
+<option value="bn">Bengali</option>
+<option value="ru">Russian</option>
+<option value="pt">Portuguese</option>
+<option value="ur">Urdu</option>
+</select>
+
+</div>
+
+<button class="action-btn" id="saveLanguageBtn" type="button">
+Save Language
+</button>
+
+</div>
+
+<div class="panel">
+
+<h3 class="panel-title">Account Preferences</h3>
+
+<div class="info-row">
+<label>LANGUAGE</label>
+<strong id="settingsCurrentLanguage">English</strong>
+</div>
+
+<div class="info-row">
+<label>CURRENCY</label>
+<strong id="settingsCurrentCurrency">USD</strong>
+</div>
+
+<div class="info-row">
+<label>ACCOUNT NUMBER</label>
+<strong id="settingsAccountNumber">—</strong>
+</div>
+
+<div class="info-row">
+<label>STATUS</label>
+<strong>Active</strong>
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+<!-- ================= CURRENCY CONVERTER ================= -->
+
+<section id="converterPage" class="page">
+
+<div class="page-heading">
+<h2>Currency Converter</h2>
+<p>Convert an amount between supported currencies.</p>
+</div>
+
+<div class="two-column">
+
+<div class="panel">
+
+<h3 class="panel-title">Convert Currency</h3>
+
+<div id="converterMessage" class="form-message"></div>
+
+<div class="field">
+<label>Amount</label>
+<input id="converterAmount" type="number" min="0" step="any" placeholder="Enter amount">
+</div>
+
+<div class="field">
+<label>From Currency</label>
+<select id="converterFrom"></select>
+</div>
+
+<div class="field">
+<label>To Currency</label>
+<select id="converterTo"></select>
+</div>
+
+<button class="action-btn" id="convertCurrencyBtn" type="button">
+Convert
+</button>
+
+<div class="converter-result">
+
+<div class="converter-result-label">
+CONVERTED AMOUNT
+</div>
+
+<div class="converter-result-value" id="converterResult">
+—
+</div>
+
+</div>
+
+</div>
+
+<div class="panel">
+
+<h3 class="panel-title">Conversion</h3>
+
+<div class="info-row">
+<label>FROM</label>
+<strong id="converterFromSummary">—</strong>
+</div>
+
+<div class="info-row">
+<label>TO</label>
+<strong id="converterToSummary">—</strong>
+</div>
+
+<div class="info-row">
+<label>RATE</label>
+<strong id="converterRateSummary">—</strong>
+</div>
+
+<div class="info-note">
+Conversion rates are retrieved when available. If the live rate service is unavailable, the converter uses its built-in reference rates.
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+<!-- ================= LANGUAGE TRANSLATOR ================= -->
+
+<section id="translatorPage" class="page">
+
+<div class="page-heading">
+<h2>Language Translator</h2>
+<p>Translate text between supported languages.</p>
+</div>
+
+<div class="two-column">
+
+<div class="panel">
+
+<h3 class="panel-title">Translate</h3>
+
+<div id="translatorMessage" class="form-message"></div>
+
+<div class="field">
+<label>From Language</label>
+
+<select id="translatorFrom">
+<option value="en">English</option>
+<option value="zh">Chinese</option>
+<option value="hi">Hindi</option>
+<option value="es">Spanish</option>
+<option value="fr">French</option>
+<option value="ar">Arabic</option>
+<option value="bn">Bengali</option>
+<option value="ru">Russian</option>
+<option value="pt">Portuguese</option>
+<option value="ur">Urdu</option>
+</select>
+
+</div>
+
+<div class="field">
+<label>Text</label>
+
+<textarea
+id="translatorText"
+placeholder="Type or paste text here..."
+></textarea>
+
+</div>
+
+<div class="translate-arrow">↓</div>
+
+<div class="field">
+<label>To Language</label>
+
+<select id="translatorTo">
+<option value="en">English</option>
+<option value="zh">Chinese</option>
+<option value="hi">Hindi</option>
+<option value="es">Spanish</option>
+<option value="fr">French</option>
+<option value="ar">Arabic</option>
+<option value="bn">Bengali</option>
+<option value="ru">Russian</option>
+<option value="pt">Portuguese</option>
+<option value="ur">Urdu</option>
+</select>
+
+</div>
+
+<button class="action-btn" id="translateBtn" type="button">
+Translate
+</button>
+
+</div>
+
+<div class="panel">
+
+<h3 class="panel-title">Translation</h3>
+
+<div
+id="translationResult"
+class="translation-result"
+>
+Your translated text will appear here.
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+</div>
+</main>
+</section>
+
+<!-- ================= MANAGER MODAL ================= -->
 
 <div class="modal" id="managerModal">
 
-  <div class="receipt">
+<div class="receipt">
 
-    <div class="receipt-head">
+<div class="receipt-head">
 
-      <h2>United Crest</h2>
+<h2>United Crest</h2>
 
-      <p>
-        Manager Support
-      </p>
+<p>Manager Support</p>
 
-      <span class="receipt-status">
-        CONTACT MANAGER
-      </span>
+<span class="receipt-status">CONTACT MANAGER</span>
 
-    </div>
+</div>
 
-    <div class="receipt-body">
+<div class="receipt-body">
 
-      <div class="receipt-row">
-        <span>Account</span>
-        <span id="managerAccount">—</span>
-      </div>
+<div class="receipt-row">
+<span>Account</span>
+<span id="managerAccount">—</span>
+</div>
 
-      <div class="receipt-row">
-        <span>Request</span>
-        <span>Withdrawal Support</span>
-      </div>
+<div class="receipt-row">
+<span>Request</span>
+<span>Withdrawal Support</span>
+</div>
 
-      <div class="receipt-row">
-        <span>Status</span>
-        <span>Manager assistance required</span>
-      </div>
+<div class="receipt-row">
+<span>Status</span>
+<span>Manager assistance required</span>
+</div>
 
-    </div>
+</div>
 
-    <div class="receipt-actions">
+<div class="receipt-actions">
 
-      <button
-        class="secondary-btn"
-        id="closeManagerBtn"
-        type="button"
-      >
-        Close
-      </button>
+<button class="secondary-btn" id="closeManagerBtn" type="button">
+Close
+</button>
 
-      <button
-        class="primary-btn"
-        id="managerDoneBtn"
-        type="button"
-      >
-        Okay
-      </button>
+<button class="primary-btn" id="managerDoneBtn" type="button">
+Okay
+</button>
 
-    </div>
+</div>
 
-    <div class="info-note">
-      This is a support message. No external payment is processed.
-    </div>
+<div class="info-note">
+This is a support message. No external payment is processed.
+</div>
 
-  </div>
+</div>
+</div>
 
+<!-- ================= TRANSFER PIN MODAL ================= -->
+
+<div class="modal" id="transferPinModal">
+
+<div class="pin-box">
+
+<h2>Confirm Payment</h2>
+
+<p>
+Review the payment details, then enter a 4-digit confirmation PIN to continue.
+</p>
+
+<div class="pin-summary">
+
+<div class="pin-summary-row">
+<span>RECIPIENT</span>
+<span id="pinRecipientName">—</span>
+</div>
+
+<div class="pin-summary-row">
+<span>ACCOUNT</span>
+<span id="pinRecipientAccount">—</span>
+</div>
+
+<div class="pin-summary-row">
+<span>AMOUNT</span>
+<span id="pinTransferAmount">—</span>
+</div>
+
+<div class="pin-summary-row">
+<span>REFERENCE</span>
+<span id="pinTransferReference">—</span>
+</div>
+
+</div>
+
+<div id="transferPinMessage" class="form-message"></div>
+
+<div class="field">
+<label>4-Digit PIN</label>
+<input
+id="transferPin"
+type="password"
+inputmode="numeric"
+maxlength="4"
+autocomplete="off"
+placeholder="••••"
+>
+</div>
+
+<div class="pin-actions">
+
+<button class="secondary-btn" id="cancelTransferPinBtn" type="button">
+Cancel
+</button>
+
+<button class="primary-btn" id="confirmTransferPinBtn" type="button">
+Confirm Payment
+</button>
+
+</div>
+
+</div>
 </div>
 
 <!-- ================= RECEIPT ================= -->
 
 <div class="modal" id="receiptModal">
 
-  <div class="receipt">
+<div class="receipt">
 
-    <div class="receipt-head">
+<div class="receipt-head">
 
-      <h2>United Crest</h2>
+<h2>United Crest</h2>
 
-      <p>
-        Transfer Receipt
-      </p>
+<p>Transfer Receipt</p>
 
-      <span class="receipt-status">
-        TRANSFER
-      </span>
+<span class="receipt-status">TRANSFER COMPLETED</span>
 
-    </div>
+</div>
 
-    <div class="receipt-body">
+<div class="receipt-body">
 
-      <div class="receipt-row">
-        <span>Transaction ID</span>
-        <span id="receiptTransactionId">—</span>
-      </div>
+<div class="receipt-row">
+<span>Transaction ID</span>
+<span id="receiptTransactionId">—</span>
+</div>
 
-      <div class="receipt-row">
-        <span>Date / Time</span>
-        <span id="receiptDate">—</span>
-      </div>
+<div class="receipt-row">
+<span>Date / Time</span>
+<span id="receiptDate">—</span>
+</div>
 
-      <div class="receipt-row">
-        <span>Amount</span>
-        <span id="receiptAmount">—</span>
-      </div>
+<div class="receipt-row">
+<span>Amount</span>
+<span id="receiptAmount">—</span>
+</div>
 
-      <div class="receipt-row">
-        <span>Currency</span>
-        <span id="receiptCurrency">—</span>
-      </div>
+<div class="receipt-row">
+<span>Currency</span>
+<span id="receiptCurrency">—</span>
+</div>
 
-      <div class="receipt-row">
-        <span>Type</span>
-        <span id="receiptType">
-          Account Transfer
-        </span>
-      </div>
+<div class="receipt-row">
+<span>Type</span>
+<span id="receiptType">Account Transfer</span>
+</div>
 
-      <div class="receipt-row">
-        <span>Description</span>
-        <span id="receiptDescription">—</span>
-      </div>
+<div class="receipt-row">
+<span>Description</span>
+<span id="receiptDescription">—</span>
+</div>
 
-      <div class="receipt-row">
-        <span>Sender</span>
-        <span id="receiptSender">—</span>
-      </div>
+<div class="receipt-row">
+<span>Sender</span>
+<span id="receiptSender">—</span>
+</div>
 
-      <div class="receipt-row">
-        <span>Sender Account</span>
-        <span id="receiptSenderAccount">—</span>
-      </div>
+<div class="receipt-row">
+<span>Sender Account</span>
+<span id="receiptSenderAccount">—</span>
+</div>
 
-      <div class="receipt-row">
-        <span>Recipient</span>
-        <span id="receiptRecipient">—</span>
-      </div>
+<div class="receipt-row">
+<span>Recipient</span>
+<span id="receiptRecipient">—</span>
+</div>
 
-      <div class="receipt-row">
-        <span>Recipient Account</span>
-        <span id="receiptRecipientAccount">—</span>
-      </div>
+<div class="receipt-row">
+<span>Recipient Account</span>
+<span id="receiptRecipientAccount">—</span>
+</div>
 
-    </div>
+</div>
 
-    <div class="receipt-actions">
+<div class="receipt-actions">
 
-      <button
-        class="secondary-btn"
-        id="closeReceiptBtn"
-        type="button"
-      >
-        Close
-      </button>
+<button class="secondary-btn" id="closeReceiptBtn" type="button">
+Close
+</button>
 
-      <button
-        class="primary-btn"
-        id="doneReceiptBtn"
-        type="button"
-      >
-        Done
-      </button>
+<button class="primary-btn" id="doneReceiptBtn" type="button">
+Done
+</button>
 
-    </div>
+</div>
 
-    <div class="info-note">
-      This receipt records the account transaction.
-    </div>
+<div class="info-note">
+This receipt records the account transaction.
+</div>
 
-  </div>
-
+</div>
 </div>
 
 <!-- ================= TOAST ================= -->
@@ -2187,16 +2258,12 @@ button{
 
 <!-- ================= LOADING ================= -->
 
-<div
-  class="loading-overlay"
-  id="loadingOverlay"
->
-  <div
-    class="loading-box"
-    id="loadingText"
-  >
-    Please wait...
-  </div>
+<div class="loading-overlay" id="loadingOverlay">
+
+<div class="loading-box" id="loadingText">
+Please wait...
+</div>
+
 </div>
 
 <!-- ================= FIREBASE ================= -->
@@ -2243,71 +2310,62 @@ from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
    ========================================================= */
 
 const firebaseConfig = {
-  apiKey: "AIzaSyC95OCYP5hOiLLVfc3IMzqbj9efbAugQ-4",
-  authDomain: "united-crest.firebaseapp.com",
-  projectId: "united-crest",
-  storageBucket: "united-crest.firebasestorage.app",
-  messagingSenderId: "949238476023",
-  appId: "1:949238476023:web:b1c216c46597d2bdd5b7f2"
+  apiKey:"AIzaSyC95OCYP5hOiLLVfc3IMzqbj9efbAugQ-4",
+  authDomain:"united-crest.firebaseapp.com",
+  projectId:"united-crest",
+  storageBucket:"united-crest.firebasestorage.app",
+  messagingSenderId:"949238476023",
+  appId:"1:949238476023:web:b1c216c46597d2bdd5b7f2"
 };
 
-const app =
-  initializeApp(firebaseConfig);
-
-const auth =
-  getAuth(app);
-
-const db =
-  getFirestore(app);
+const app=initializeApp(firebaseConfig);
+const auth=getAuth(app);
+const db=getFirestore(app);
 
 
 /* =========================================================
    STATE
    ========================================================= */
 
-let currentUserData = null;
-
-let selectedRecipient = null;
-
-let depositReviewData = null;
-
-let authFlow = "idle";
-
-let unsubscribeUser = null;
-
-let unsubscribeActivity = null;
-
-let unsubscribeIncomingTransfers = null;
-
-let balanceHidden = false;
+let currentUserData=null;
+let selectedRecipient=null;
+let depositReviewData=null;
+let pendingTransferData=null;
+let authFlow="idle";
+let unsubscribeUser=null;
+let unsubscribeActivity=null;
+let unsubscribeIncomingTransfers=null;
+let balanceHidden=false;
 
 
 /* =========================================================
    LANGUAGES
    ========================================================= */
 
-const LANGUAGES = {
-
+const LANGUAGES={
   en:"English",
-
   zh:"Mandarin Chinese",
-
   hi:"Hindi",
-
   es:"Spanish",
-
   fr:"French",
-
   ar:"Arabic",
-
   bn:"Bengali",
-
   ru:"Russian",
-
   pt:"Portuguese",
-
   ur:"Urdu"
+};
 
+const TRANSLATOR_CODES={
+  en:"en",
+  zh:"zh-CN",
+  hi:"hi",
+  es:"es",
+  fr:"fr",
+  ar:"ar",
+  bn:"bn",
+  ru:"ru",
+  pt:"pt",
+  ur:"ur"
 };
 
 function normalizeLanguage(value){
@@ -2316,32 +2374,27 @@ function normalizeLanguage(value){
     LANGUAGES,
     String(value)
   )
-    ? String(value)
-    : "en";
+  ? String(value)
+  : "en";
 
 }
 
 function applyLanguage(language){
 
-  const value =
-    normalizeLanguage(language);
+  const value=normalizeLanguage(language);
 
-  document.documentElement.lang =
-    value;
+  document.documentElement.lang=value;
 
   if($("authLanguageSelect")){
-    $("authLanguageSelect").value =
-      value;
+    $("authLanguageSelect").value=value;
   }
 
   if($("loginLanguageSelect")){
-    $("loginLanguageSelect").value =
-      value;
+    $("loginLanguageSelect").value=value;
   }
 
   if($("languageSelect")){
-    $("languageSelect").value =
-      value;
+    $("languageSelect").value=value;
   }
 
   localStorage.setItem(
@@ -2354,9 +2407,7 @@ function applyLanguage(language){
 function getSavedLanguage(){
 
   return normalizeLanguage(
-    localStorage.getItem(
-      "unitedCrestLanguage"
-    ) || "en"
+    localStorage.getItem("unitedCrestLanguage") || "en"
   );
 
 }
@@ -2366,196 +2417,108 @@ function getSavedLanguage(){
    HELPERS
    ========================================================= */
 
-const $ = id =>
-  document.getElementById(id);
-
+const $=id=>document.getElementById(id);
 
 function show(element){
-
-  if(element){
-    element.classList.remove("hidden");
-  }
-
+  if(element) element.classList.remove("hidden");
 }
-
 
 function hide(element){
-
-  if(element){
-    element.classList.add("hidden");
-  }
-
+  if(element) element.classList.add("hidden");
 }
 
+function setMessage(id,message,type="error"){
 
-function setMessage(
-  id,
-  message,
-  type="error"
-){
+  const el=$(id);
 
-  const el = $(id);
+  if(!el) return;
 
-  if(!el){
-    return;
-  }
-
-  el.textContent =
-    message || "";
-
-  el.className =
-    `form-message ${type}`;
+  el.textContent=message || "";
+  el.className=`form-message ${type}`;
 
 }
-
 
 function clearMessage(id){
 
-  const el = $(id);
+  const el=$(id);
 
-  if(!el){
-    return;
-  }
+  if(!el) return;
 
-  el.textContent = "";
-
-  el.className =
-    "form-message";
+  el.textContent="";
+  el.className="form-message";
 
 }
-
 
 function showToast(message){
 
-  const toast =
-    $("toast");
+  const toast=$("toast");
 
-  toast.textContent =
-    message;
-
+  toast.textContent=message;
   toast.classList.add("show");
 
-  clearTimeout(
-    window.__toastTimer
-  );
+  clearTimeout(window.__toastTimer);
 
-  window.__toastTimer =
-    setTimeout(()=>{
-
-      toast.classList.remove(
-        "show"
-      );
-
-    },3500);
+  window.__toastTimer=setTimeout(()=>{
+    toast.classList.remove("show");
+  },3500);
 
 }
 
+function setLoading(active,text="Please wait..."){
 
-function setLoading(
-  active,
-  text="Please wait..."
-){
+  $("loadingText").textContent=text;
 
-  const overlay =
-    $("loadingOverlay");
-
-  $("loadingText").textContent =
-    text;
-
-  overlay.classList.toggle(
+  $("loadingOverlay").classList.toggle(
     "show",
     active
   );
 
 }
 
-
 function escapeHTML(value){
 
   return String(value ?? "")
-
-    .replaceAll(
-      "&",
-      "&amp;"
-    )
-
-    .replaceAll(
-      "<",
-      "&lt;"
-    )
-
-    .replaceAll(
-      ">",
-      "&gt;"
-    )
-
-    .replaceAll(
-      '"',
-      "&quot;"
-    )
-
-    .replaceAll(
-      "'",
-      "&#039;"
-    );
+    .replaceAll("&","&amp;")
+    .replaceAll("<","&lt;")
+    .replaceAll(">","&gt;")
+    .replaceAll('"',"&quot;")
+    .replaceAll("'","&#039;");
 
 }
 
-
 function randomDigits(length){
 
-  let output = "";
+  let output="";
 
-  for(
-    let i=0;
-    i<length;
-    i++
-  ){
-
-    output +=
-      Math.floor(
-        Math.random()*10
-      );
-
+  for(let i=0;i<length;i++){
+    output+=Math.floor(Math.random()*10);
   }
 
   return output;
 
 }
 
-
 function getInitial(name){
 
-  return String(
-    name || "U"
-  )
+  return String(name || "U")
     .trim()
     .charAt(0)
-    .toUpperCase()
-    || "U";
+    .toUpperCase() || "U";
 
 }
 
-
 function makeTransactionId(){
 
-  return "UC-" +
-
-    Date.now()
-      .toString(36)
-      .toUpperCase() +
-
-    "-" +
-
+  return "UC-"+
+    Date.now().toString(36).toUpperCase()+
+    "-"+
     randomDigits(6);
 
 }
 
-
 function toNumber(value){
 
-  const number =
-    Number(value);
+  const number=Number(value);
 
   return Number.isFinite(number)
     ? number
@@ -2563,14 +2526,9 @@ function toNumber(value){
 
 }
 
+function money(value,currency){
 
-function money(
-  value,
-  currency
-){
-
-  const amount =
-    toNumber(value);
+  const amount=toNumber(value);
 
   try{
 
@@ -2578,58 +2536,35 @@ function money(
       undefined,
       {
         style:"currency",
-        currency:
-          currency || "USD",
+        currency:currency || "USD",
         maximumFractionDigits:2
       }
     ).format(amount);
 
   }catch{
 
-    return `${
-      currency || "USD"
-    } ${amount.toFixed(2)}`;
+    return `${currency || "USD"} ${amount.toFixed(2)}`;
 
   }
 
 }
 
-
 function formatDate(value){
 
-  if(!value){
-    return "Just now";
-  }
+  if(!value) return "Just now";
 
   let date;
 
   if(value?.toDate){
-
-    date =
-      value.toDate();
-
-  }else if(
-    value instanceof Date
-  ){
-
-    date =
-      value;
-
+    date=value.toDate();
+  }else if(value instanceof Date){
+    date=value;
   }else{
-
-    date =
-      new Date(value);
-
+    date=new Date(value);
   }
 
-  if(
-    Number.isNaN(
-      date.getTime()
-    )
-  ){
-
+  if(Number.isNaN(date.getTime())){
     return "Just now";
-
   }
 
   return date.toLocaleString();
@@ -2638,97 +2573,58 @@ function formatDate(value){
 
 
 /* =========================================================
-   USER-FRIENDLY ERROR HANDLING
+   ERROR HANDLING
    ========================================================= */
 
 function firebaseErrorMessage(error){
 
-  const code =
-    error?.code || "";
+  const code=error?.code || "";
+  const message=String(error?.message || "");
 
-  if(
-    code.includes(
-      "auth/email-already-in-use"
-    )
-  ){
-
+  if(code.includes("auth/email-already-in-use")){
     return "This email already has an account. Please use Sign In.";
-
   }
 
-  if(
-    code.includes(
-      "auth/invalid-email"
-    )
-  ){
-
+  if(code.includes("auth/invalid-email")){
     return "Please enter a valid email address.";
-
   }
 
-  if(
-    code.includes(
-      "auth/weak-password"
-    )
-  ){
-
+  if(code.includes("auth/weak-password")){
     return "Password must contain at least 6 characters.";
-
   }
 
   if(
-    code.includes(
-      "auth/invalid-credential"
-    ) ||
-    code.includes(
-      "auth/wrong-password"
-    ) ||
-    code.includes(
-      "auth/user-not-found"
-    )
+    code.includes("auth/invalid-credential") ||
+    code.includes("auth/wrong-password") ||
+    code.includes("auth/user-not-found")
   ){
-
     return "The email or password is incorrect.";
-
   }
 
-  if(
-    code.includes(
-      "auth/too-many-requests"
-    )
-  ){
-
+  if(code.includes("auth/too-many-requests")){
     return "Too many attempts. Please wait a moment and try again.";
-
   }
 
   if(
-    code.includes(
-      "permission-denied"
-    ) ||
-    code.includes(
-      "failed-precondition"
-    ) ||
-    code.includes(
-      "unauthenticated"
-    )
+    code.includes("permission-denied") ||
+    code.includes("failed-precondition") ||
+    code.includes("unauthenticated")
   ){
-
     return "Something went wrong. Please try again.";
+  }
 
+  if(code.includes("network-request-failed")){
+    return "Network connection failed. Please check your internet connection.";
   }
 
   if(
-    code.includes(
-      "network-request-failed"
-    )
+    message.toLowerCase().includes("account not found") ||
+    message.toLowerCase().includes("no united crest account")
   ){
-
-    return "Network connection failed. Please check your internet connection.";
-
+    return "Account not found.";
   }
 
-  return "Something went wrong. Please try again.";
+  return message || "Something went wrong. Please try again.";
 
 }
 
@@ -2740,233 +2636,118 @@ function firebaseErrorMessage(error){
 function cleanupListeners(){
 
   if(unsubscribeUser){
-
     unsubscribeUser();
-
-    unsubscribeUser =
-      null;
-
+    unsubscribeUser=null;
   }
 
   if(unsubscribeActivity){
-
     unsubscribeActivity();
-
-    unsubscribeActivity =
-      null;
-
+    unsubscribeActivity=null;
   }
 
-  if(
-    unsubscribeIncomingTransfers
-  ){
-
+  if(unsubscribeIncomingTransfers){
     unsubscribeIncomingTransfers();
-
-    unsubscribeIncomingTransfers =
-      null;
-
+    unsubscribeIncomingTransfers=null;
   }
 
 }
 
 
 /* =========================================================
-   PAGE NAVIGATION
+   NAVIGATION
    ========================================================= */
 
 function openPage(pageId){
 
-  document
-    .querySelectorAll(".page")
-    .forEach(page=>{
+  document.querySelectorAll(".page").forEach(page=>{
+    page.classList.toggle(
+      "active",
+      page.id===pageId
+    );
+  });
 
-      page.classList.toggle(
-        "active",
-        page.id === pageId
-      );
+  document.querySelectorAll(".nav-item").forEach(button=>{
+    button.classList.toggle(
+      "active",
+      button.dataset.page===pageId
+    );
+  });
 
-    });
-
-  document
-    .querySelectorAll(".nav-item")
-    .forEach(button=>{
-
-      button.classList.toggle(
-        "active",
-        button.dataset.page === pageId
-      );
-
-    });
-
-  if(
-    window.innerWidth <= 900
-  ){
-
-    $("sidebar")
-      ?.classList.remove(
-        "open"
-      );
-
+  if(window.innerWidth<=900){
+    $("sidebar")?.classList.remove("open");
   }
 
 }
 
-
-document
-  .querySelectorAll(
-    ".nav-item[data-page]"
-  )
-  .forEach(button=>{
-
-    button.addEventListener(
-      "click",
-      ()=>{
-
-        openPage(
-          button.dataset.page
-        );
-
-      }
-    );
-
+document.querySelectorAll(".nav-item[data-page]")
+.forEach(button=>{
+  button.addEventListener("click",()=>{
+    openPage(button.dataset.page);
   });
+});
 
-
-document
-  .querySelectorAll(
-    "[data-page-link]"
-  )
-  .forEach(element=>{
-
-    element.addEventListener(
-      "click",
-      ()=>{
-
-        openPage(
-          element.dataset.pageLink
-        );
-
-      }
-    );
-
+document.querySelectorAll("[data-page-link]")
+.forEach(element=>{
+  element.addEventListener("click",()=>{
+    openPage(element.dataset.pageLink);
   });
+});
 
-
-$("menuBtn")
-  ?.addEventListener(
-    "click",
-    ()=>{
-
-      $("sidebar")
-        ?.classList.toggle(
-          "open"
-        );
-
-    }
-  );
+$("menuBtn")?.addEventListener("click",()=>{
+  $("sidebar")?.classList.toggle("open");
+});
 
 
 /* =========================================================
-   AUTH SCREEN SWITCHING
+   AUTH SWITCH
    ========================================================= */
 
-$("showLoginBtn")
-  .addEventListener(
-    "click",
-    ()=>{
+$("showLoginBtn").addEventListener("click",()=>{
 
-      hide(
-        $("signupBox")
-      );
+  hide($("signupBox"));
+  show($("loginBox"));
 
-      show(
-        $("loginBox")
-      );
+  clearMessage("signupMessage");
+  clearMessage("loginMessage");
 
-      clearMessage(
-        "signupMessage"
-      );
+});
 
-      clearMessage(
-        "loginMessage"
-      );
+$("showSignupBtn").addEventListener("click",()=>{
 
-    }
-  );
+  hide($("loginBox"));
+  show($("signupBox"));
 
+  clearMessage("signupMessage");
+  clearMessage("loginMessage");
 
-$("showSignupBtn")
-  .addEventListener(
-    "click",
-    ()=>{
-
-      hide(
-        $("loginBox")
-      );
-
-      show(
-        $("signupBox")
-      );
-
-      clearMessage(
-        "signupMessage"
-      );
-
-      clearMessage(
-        "loginMessage"
-      );
-
-    }
-  );
+});
 
 
 /* =========================================================
    ACCOUNT NUMBER
    ========================================================= */
 
-async function createUniqueAccountNumber(
-  uid
-){
+async function createUniqueAccountNumber(){
 
-  for(
-    let attempt=0;
-    attempt<20;
-    attempt++
-  ){
+  for(let attempt=0;attempt<30;attempt++){
 
-    const accountNumber =
-      randomDigits(10);
+    const accountNumber=randomDigits(10);
 
-    if(
-      accountNumber.startsWith("0")
-    ){
-
+    if(accountNumber.startsWith("0")){
       continue;
-
     }
 
-    const accountRef =
-      doc(
-        db,
-        "accountIndex",
-        accountNumber
-      );
+    const accountRef=doc(
+      db,
+      "accountIndex",
+      accountNumber
+    );
 
-    const existing =
-      await getDoc(
-        accountRef
-      );
+    const existing=await getDoc(accountRef);
 
-    if(
-      existing.exists()
-    ){
-
-      continue;
-
+    if(!existing.exists()){
+      return accountNumber;
     }
-
-    return accountNumber;
 
   }
 
@@ -2978,7 +2759,7 @@ async function createUniqueAccountNumber(
 
 
 /* =========================================================
-   CREATE / COMPLETE PROFILE
+   CREATE PROFILE
    ========================================================= */
 
 async function createOrCompleteUserProfile({
@@ -2990,110 +2771,65 @@ async function createOrCompleteUserProfile({
   language
 }){
 
-  const userRef =
-    doc(
-      db,
-      "users",
-      uid
+  const userRef=doc(db,"users",uid);
+
+  const existingSnapshot=await getDoc(userRef);
+
+  let accountNumber="";
+  let existingData={};
+
+  if(existingSnapshot.exists()){
+
+    existingData=existingSnapshot.data();
+
+    accountNumber=String(
+      existingData.accountNumber || ""
     );
-
-  const existingSnapshot =
-    await getDoc(
-      userRef
-    );
-
-  let accountNumber = "";
-
-  let existingData = {};
-
-  if(
-    existingSnapshot.exists()
-  ){
-
-    existingData =
-      existingSnapshot.data();
-
-    accountNumber =
-      String(
-        existingData.accountNumber || ""
-      );
 
   }
 
-  if(
-    !/^\d{10}$/.test(
-      accountNumber
-    )
-  ){
+  if(!/^\d{10}$/.test(accountNumber)){
 
-    accountNumber =
-      await createUniqueAccountNumber(
-        uid
-      );
+    accountNumber=await createUniqueAccountNumber();
 
   }
 
-  const currentCurrency =
-    existingData.currency ||
-    "USD";
-
-  const currentActivities =
-    Array.isArray(
-      existingData.activities
-    )
-      ? existingData.activities
-      : [];
-
-  const profileData = {
+  const profileData={
 
     uid,
-
     name,
-
     phone,
-
     email,
-
     address,
-
     accountNumber,
 
-    balance:
-      toNumber(
-        existingData.balance
-      ),
+    balance:toNumber(existingData.balance),
 
-    currency:
-      currentCurrency,
+    currency:existingData.currency || "USD",
 
-    language:
-      normalizeLanguage(
-        language ||
-        existingData.language ||
-        "en"
-      ),
+    language:normalizeLanguage(
+      language ||
+      existingData.language ||
+      "en"
+    ),
 
-    activities:
-      currentActivities,
+    activities:Array.isArray(existingData.activities)
+      ? existingData.activities
+      : [],
 
     profileCompleted:true,
-
     dashboardReached:true,
-
-    updatedAt:
-      serverTimestamp()
+    updatedAt:serverTimestamp()
 
   };
 
-  const accountIndexRef =
-    doc(
-      db,
-      "accountIndex",
-      accountNumber
-    );
+  const accountIndexRef=doc(
+    db,
+    "accountIndex",
+    accountNumber
+  );
 
-  const batch =
-    writeBatch(db);
+  const batch=writeBatch(db);
 
   batch.set(
     userRef,
@@ -3110,27 +2846,19 @@ async function createOrCompleteUserProfile({
       email,
       profileCompleted:true,
       dashboardReached:true,
-      updatedAt:
-        serverTimestamp()
+      updatedAt:serverTimestamp()
     },
     {merge:true}
   );
 
   await batch.commit();
 
-  const finalSnapshot =
-    await getDoc(
-      userRef
-    );
+  const finalSnapshot=await getDoc(userRef);
 
-  if(
-    !finalSnapshot.exists()
-  ){
-
+  if(!finalSnapshot.exists()){
     throw new Error(
       "Your profile could not be saved. Please try again."
     );
-
   }
 
   return {
@@ -3148,57 +2876,35 @@ async function createOrCompleteUserProfile({
 function startUserListener(uid){
 
   if(unsubscribeUser){
-
     unsubscribeUser();
-
   }
 
-  unsubscribeUser =
-    onSnapshot(
-      doc(
-        db,
-        "users",
-        uid
-      ),
-      snapshot=>{
+  unsubscribeUser=onSnapshot(
+    doc(db,"users",uid),
+    snapshot=>{
 
-        if(
-          !snapshot.exists()
-        ){
+      if(!snapshot.exists()) return;
 
-          return;
+      currentUserData={
+        uid,
+        ...snapshot.data()
+      };
 
-        }
+      populateUserUI(currentUserData);
 
-        currentUserData = {
+      renderActivities(
+        currentUserData.activities || []
+      );
 
-          uid,
+    },
+    error=>{
 
-          ...snapshot.data()
+      console.error(error);
 
-        };
+      showToast(firebaseErrorMessage(error));
 
-        populateUserUI(
-          currentUserData
-        );
-
-        renderActivities(
-          currentUserData.activities || []
-        );
-
-      },
-      error=>{
-
-        console.error(error);
-
-        showToast(
-          firebaseErrorMessage(
-            error
-          )
-        );
-
-      }
-    );
+    }
+  );
 
 }
 
@@ -3207,21 +2913,16 @@ function startUserListener(uid){
    ACTIVITY
    ========================================================= */
 
-function renderActivities(
-  activities
-){
+function renderActivities(activities){
 
-  const list =
-    $("activityList");
+  const list=$("activityList");
 
   if(
-    !Array.isArray(
-      activities
-    ) ||
-    activities.length === 0
+    !Array.isArray(activities) ||
+    activities.length===0
   ){
 
-    list.innerHTML = `
+    list.innerHTML=`
       <div class="empty-state">
         No activity yet.
       </div>
@@ -3231,420 +2932,252 @@ function renderActivities(
 
   }
 
-  const sorted =
-    [...activities]
-      .sort(
-        (a,b)=>{
+  const sorted=[...activities]
+    .sort((a,b)=>{
 
-          const da =
-            new Date(
-              a.createdAt || 0
-            ).getTime();
+      return new Date(b.createdAt || 0).getTime()-
+             new Date(a.createdAt || 0).getTime();
 
-          const db =
-            new Date(
-              b.createdAt || 0
-            ).getTime();
+    })
+    .slice(0,100);
 
-          return db - da;
+  list.innerHTML=sorted.map(activity=>{
 
-        }
-      )
-      .slice(0,100);
+    const received=
+      activity.direction==="received" ||
+      activity.type==="deposit";
 
-  list.innerHTML =
-    sorted
-      .map(
-        activity=>{
+    const amount=toNumber(activity.amount);
 
-          const received =
-            activity.direction ===
-              "received" ||
-            activity.type ===
-              "deposit";
+    const currency=
+      activity.currency ||
+      currentUserData?.currency ||
+      "USD";
 
-          const amount =
-            toNumber(
-              activity.amount
-            );
+    const amountText=received
+      ? `+${money(amount,currency)}`
+      : `-${money(amount,currency)}`;
 
-          const currency =
-            activity.currency ||
-            currentUserData?.currency ||
-            "USD";
+    const title=
+      activity.type==="deposit"
+        ? "Deposit"
+        : activity.type==="transfer"
+          ? (
+              received
+                ? "Transfer Received"
+                : "Transfer Sent"
+            )
+          : activity.title || "Account Activity";
 
-          const amountText =
-            received
+    const icon=
+      activity.type==="deposit"
+        ? "+"
+        : received
+          ? "↓"
+          : "↑";
 
-              ? `+${money(
-                  amount,
-                  currency
-                )}`
+    return `
 
-              : `-${money(
-                  amount,
-                  currency
-                )}`;
+      <div class="activity-item">
 
-          const title =
-            activity.type ===
-              "deposit"
+        <div class="activity-left">
 
-              ? "Deposit"
+          <div class="activity-icon">
+            ${escapeHTML(icon)}
+          </div>
 
-              : activity.type ===
-                "transfer"
+          <div class="activity-info">
 
-                ? (
-                    received
-                      ? "Transfer Received"
-                      : "Transfer Sent"
-                  )
+            <strong>
+              ${escapeHTML(title)}
+            </strong>
 
-                : activity.title ||
-                  "Account Activity";
+            <span>
 
-          const icon =
-            activity.type ===
-              "deposit"
+              ${escapeHTML(
+                activity.description ||
+                "Account transaction"
+              )}
 
-              ? "+"
+              <br>
 
-              : received
-                ? "↓"
-                : "↑";
+              ${escapeHTML(
+                formatDate(activity.createdAt)
+              )}
 
-          return `
+              ${
+                activity.transactionId
+                ? `
+                  <br>
+                  ID:
+                  ${escapeHTML(
+                    activity.transactionId
+                  )}
+                `
+                : ""
+              }
 
-            <div class="activity-item">
+            </span>
 
-              <div class="activity-left">
+          </div>
 
-                <div class="activity-icon">
-                  ${escapeHTML(icon)}
-                </div>
+        </div>
 
-                <div class="activity-info">
+        <div class="activity-amount ${
+          received ? "positive" : "negative"
+        }">
 
-                  <strong>
-                    ${escapeHTML(title)}
-                  </strong>
+          ${escapeHTML(amountText)}
 
-                  <span>
+        </div>
 
-                    ${escapeHTML(
-                      activity.description ||
-                      "Account transaction"
-                    )}
+      </div>
 
-                    <br>
+    `;
 
-                    ${escapeHTML(
-                      formatDate(
-                        activity.createdAt
-                      )
-                    )}
-
-                    ${
-                      activity.transactionId
-
-                      ? `
-                        <br>
-                        ID:
-                        ${escapeHTML(
-                          activity.transactionId
-                        )}
-                      `
-
-                      : ""
-                    }
-
-                  </span>
-
-                </div>
-
-              </div>
-
-              <div
-                class="activity-amount ${
-                  received
-                    ? "positive"
-                    : "negative"
-                }"
-              >
-                ${escapeHTML(
-                  amountText
-                )}
-              </div>
-
-            </div>
-
-          `;
-
-        }
-      )
-      .join("");
+  }).join("");
 
 }
 
 
 /* =========================================================
-   POPULATE USER UI
+   USER UI
    ========================================================= */
 
-function populateUserUI(
-  data
-){
+function populateUserUI(data){
 
-  const name =
-    data.name ||
-    "United Crest User";
+  const name=data.name || "United Crest User";
+  const accountNumber=data.accountNumber || "Loading...";
+  const currency=data.currency || "USD";
+  const language=normalizeLanguage(data.language || "en");
 
-  const accountNumber =
-    data.accountNumber ||
-    "Loading...";
+  $("greetingText").textContent=`Hi ${name}`;
+  $("topAccountText").textContent=`Account ${accountNumber}`;
+  $("userAvatar").textContent=getInitial(name);
 
-  const currency =
-    data.currency ||
-    "USD";
-
-  const language =
-    normalizeLanguage(
-      data.language ||
-      "en"
-    );
-
-  $("greetingText").textContent =
-    `Hi ${name}`;
-
-  $("topAccountText").textContent =
-    `Account ${accountNumber}`;
-
-  $("userAvatar").textContent =
-    getInitial(name);
-
-  $("dashboardWelcome").textContent =
+  $("dashboardWelcome").textContent=
     `Welcome to your United Crest account, ${name}.`;
 
-  $("accountNumberText").textContent =
-    accountNumber;
+  $("accountNumberText").textContent=accountNumber;
+  $("dashboardName").textContent=name;
+  $("dashboardEmail").textContent=data.email || "—";
+  $("dashboardPhone").textContent=data.phone || "—";
+  $("dashboardCurrency").textContent=currency;
 
-  $("dashboardName").textContent =
-    name;
+  $("profileName").value=data.name || "";
+  $("profilePhone").value=data.phone || "";
+  $("profileEmail").value=data.email || "";
+  $("profileAddress").value=data.address || "";
 
-  $("dashboardEmail").textContent =
-    data.email || "—";
+  $("profileAccountNumber").textContent=accountNumber;
+  $("profileCurrency").textContent=currency;
+  $("profileLanguage").textContent=LANGUAGES[language] || "English";
 
-  $("dashboardPhone").textContent =
-    data.phone || "—";
+  $("withdrawAccountNumber").textContent=accountNumber;
 
-  $("dashboardCurrency").textContent =
-    currency;
+  $("withdrawBalance").textContent=
+    money(data.balance || 0,currency);
 
-  $("profileName").value =
-    data.name || "";
+  $("transferBalancePreview").textContent=
+    money(data.balance || 0,currency);
 
-  $("profilePhone").value =
-    data.phone || "";
+  $("currencySelect").value=currency;
+  $("languageSelect").value=language;
 
-  $("profileEmail").value =
-    data.email || "";
+  $("settingsCurrentLanguage").textContent=
+    LANGUAGES[language] || "English";
 
-  $("profileAddress").value =
-    data.address || "";
-
-  $("profileAccountNumber").textContent =
-    accountNumber;
-
-  $("profileCurrency").textContent =
-    currency;
-
-  $("profileLanguage").textContent =
-    LANGUAGES[language] ||
-    "English";
-
-  $("withdrawAccountNumber").textContent =
-    accountNumber;
-
-  $("withdrawBalance").textContent =
-    money(
-      data.balance || 0,
-      currency
-    );
-
-  $("transferBalancePreview").textContent =
-    money(
-      data.balance || 0,
-      currency
-    );
-
-  $("currencySelect").value =
-    currency;
-
-  $("languageSelect").value =
-    language;
-
-  $("settingsCurrentLanguage").textContent =
-    LANGUAGES[language] ||
-    "English";
-
-  $("settingsCurrentCurrency").textContent =
-    currency;
-
-  $("settingsAccountNumber").textContent =
-    accountNumber;
+  $("settingsCurrentCurrency").textContent=currency;
+  $("settingsAccountNumber").textContent=accountNumber;
 
   updateBalanceDisplay();
-
-  applyLanguage(
-    language
-  );
+  applyLanguage(language);
 
 }
 
 
 /* =========================================================
-   BALANCE DISPLAY
+   BALANCE
    ========================================================= */
 
 function updateBalanceDisplay(){
 
-  if(!currentUserData){
-    return;
-  }
+  if(!currentUserData) return;
 
-  const currency =
-    currentUserData.currency ||
-    "USD";
+  const currency=currentUserData.currency || "USD";
 
-  const balance =
-    toNumber(
-      currentUserData.balance
-    );
+  const balance=toNumber(
+    currentUserData.balance
+  );
 
-  if(balanceHidden){
-
-    $("balanceAmount").textContent =
-      "••••••";
-
-  }else{
-
-    $("balanceAmount").textContent =
-      money(
-        balance,
-        currency
-      );
-
-  }
+  $("balanceAmount").textContent=
+    balanceHidden
+      ? "••••••"
+      : money(balance,currency);
 
 }
 
+$("toggleBalanceBtn").addEventListener("click",()=>{
 
-$("toggleBalanceBtn")
-  .addEventListener(
-    "click",
-    ()=>{
+  balanceHidden=!balanceHidden;
 
-      balanceHidden =
-        !balanceHidden;
+  $("toggleBalanceBtn").textContent=
+    balanceHidden ? "○" : "◉";
 
-      $("toggleBalanceBtn").textContent =
-        balanceHidden
-          ? "○"
-          : "◉";
+  updateBalanceDisplay();
 
-      updateBalanceDisplay();
-
-    }
-  );
+});
 
 
 /* =========================================================
    LOAD DASHBOARD
    ========================================================= */
 
-async function loadDashboard(
-  uid
-){
+async function loadDashboard(uid){
 
-  const snapshot =
-    await getDoc(
-      doc(
-        db,
-        "users",
-        uid
-      )
-    );
+  const snapshot=await getDoc(
+    doc(db,"users",uid)
+  );
 
-  if(
-    !snapshot.exists()
-  ){
-
+  if(!snapshot.exists()){
     throw new Error(
       "Your profile could not be found. Please create your account again."
     );
-
   }
 
-  const data =
-    snapshot.data();
+  const data=snapshot.data();
 
-  if(
-    !/^\d{10}$/.test(
-      String(
-        data.accountNumber || ""
-      )
-    )
-  ){
-
+  if(!/^\d{10}$/.test(
+    String(data.accountNumber || "")
+  )){
     throw new Error(
       "Your account number could not be found. Please try again."
     );
-
   }
 
   if(
-    data.profileCompleted !== true ||
-    data.dashboardReached !== true
+    data.profileCompleted!==true ||
+    data.dashboardReached!==true
   ){
-
     throw new Error(
       "Your profile is incomplete. Please try again."
     );
-
   }
 
-  currentUserData = {
-
+  currentUserData={
     uid,
-
     ...data
-
   };
 
-  hide(
-    $("authScreen")
-  );
+  hide($("authScreen"));
+  show($("appScreen"));
 
-  show(
-    $("appScreen")
-  );
+  populateUserUI(currentUserData);
 
-  populateUserUI(
-    currentUserData
-  );
+  startUserListener(uid);
+  startTransferListeners(uid);
 
-  startUserListener(
-    uid
-  );
-
-  startTransferListeners(
-    uid
-  );
-
-  openPage(
-    "dashboardPage"
-  );
+  openPage("dashboardPage");
 
 }
 
@@ -3653,513 +3186,357 @@ async function loadDashboard(
    SIGN UP
    ========================================================= */
 
-$("signupForm")
-  .addEventListener(
-    "submit",
-    async event=>{
+$("signupForm").addEventListener(
+"submit",
+async event=>{
 
-      event.preventDefault();
+  event.preventDefault();
 
-      clearMessage(
-        "signupMessage"
-      );
+  clearMessage("signupMessage");
 
-      const name =
-        $("signupName")
-          .value
-          .trim();
+  const name=$("signupName").value.trim();
+  const phone=$("signupPhone").value.trim();
+  const email=$("signupEmail").value.trim().toLowerCase();
+  const password=$("signupPassword").value;
+  const confirmPassword=$("signupConfirmPassword").value;
+  const address=$("signupAddress").value.trim();
 
-      const phone =
-        $("signupPhone")
-          .value
-          .trim();
+  if(!name || !phone || !email || !password || !address){
 
-      const email =
-        $("signupEmail")
-          .value
-          .trim()
-          .toLowerCase();
+    setMessage(
+      "signupMessage",
+      "Please complete all fields.",
+      "error"
+    );
 
-      const password =
-        $("signupPassword")
-          .value;
+    return;
 
-      const confirmPassword =
-        $("signupConfirmPassword")
-          .value;
+  }
 
-      const address =
-        $("signupAddress")
-          .value
-          .trim();
+  if(password!==confirmPassword){
 
-      if(
-        !name ||
-        !phone ||
-        !email ||
-        !password ||
-        !address
-      ){
+    setMessage(
+      "signupMessage",
+      "The passwords do not match.",
+      "error"
+    );
 
-        setMessage(
-          "signupMessage",
-          "Please complete all fields.",
-          "error"
+    return;
+
+  }
+
+  if(password.length<6){
+
+    setMessage(
+      "signupMessage",
+      "Password must contain at least 6 characters.",
+      "error"
+    );
+
+    return;
+
+  }
+
+  authFlow="signup";
+
+  let createdAuthUser=null;
+
+  try{
+
+    setLoading(true,"Creating your account...");
+
+    let credential;
+
+    try{
+
+      credential=
+        await createUserWithEmailAndPassword(
+          auth,
+          email,
+          password
         );
 
-        return;
+      createdAuthUser=credential.user;
 
+    }catch(error){
+
+      if(error?.code!=="auth/email-already-in-use"){
+        throw error;
       }
 
-      if(
-        password !==
-        confirmPassword
-      ){
-
-        setMessage(
-          "signupMessage",
-          "The passwords do not match.",
-          "error"
-        );
-
-        return;
-
-      }
-
-      if(
-        password.length < 6
-      ){
-
-        setMessage(
-          "signupMessage",
-          "Password must contain at least 6 characters.",
-          "error"
-        );
-
-        return;
-
-      }
-
-      authFlow =
-        "signup";
-
-      let createdAuthUser =
-        null;
+      let existingCredential;
 
       try{
 
-        setLoading(
-          true,
-          "Creating your account..."
-        );
-
-        let credential;
-
-        try{
-
-          credential =
-            await createUserWithEmailAndPassword(
-              auth,
-              email,
-              password
-            );
-
-          createdAuthUser =
-            credential.user;
-
-        }catch(error){
-
-          if(
-            error?.code !==
-            "auth/email-already-in-use"
-          ){
-
-            throw error;
-
-          }
-
-          let existingCredential;
-
-          try{
-
-            existingCredential =
-              await signInWithEmailAndPassword(
-                auth,
-                email,
-                password
-              );
-
-          }catch{
-
-            throw new Error(
-              "This email already has an account. Please use Sign In."
-            );
-
-          }
-
-          const existingSnapshot =
-            await getDoc(
-              doc(
-                db,
-                "users",
-                existingCredential.user.uid
-              )
-            );
-
-          if(
-            existingSnapshot.exists() &&
-            existingSnapshot.data()
-              .profileCompleted === true &&
-            existingSnapshot.data()
-              .dashboardReached === true
-          ){
-
-            await signOut(
-              auth
-            );
-
-            throw new Error(
-              "This email already has a completed United Crest account. Please use Sign In."
-            );
-
-          }
-
-          credential =
-            existingCredential;
-
-          createdAuthUser =
-            existingCredential.user;
-
-        }
-
-        const uid =
-          credential.user.uid;
-
-        const selectedLanguage =
-          normalizeLanguage(
-            $("authLanguageSelect")
-              ?.value ||
-            getSavedLanguage()
-          );
-
-        const savedProfile =
-          await createOrCompleteUserProfile({
-
-            uid,
-
-            name,
-
-            phone,
-
-            email,
-
-            address,
-
-            language:
-              selectedLanguage
-
-          });
-
-        currentUserData = {
-
-          uid,
-
-          ...savedProfile
-
-        };
-
-        applyLanguage(
-          selectedLanguage
-        );
-
-        try{
-
-          if(
-            !credential.user.emailVerified
-          ){
-
-            await sendEmailVerification(
-              credential.user
-            );
-
-          }
-
-        }catch(
-          verificationError
-        ){
-
-          console.warn(
-            "Verification email was not sent:",
-            verificationError
-          );
-
-        }
-
-        setLoading(
-          false
-        );
-
-        showToast(
-          "Your United Crest account has been created."
-        );
-
-        await loadDashboard(
-          uid
-        );
-
-      }catch(error){
-
-        console.error(
-          "SIGNUP ERROR:",
-          error
-        );
-
-        if(
-          createdAuthUser &&
-          error?.code !==
-            "auth/email-already-in-use"
-        ){
-
-          try{
-
-            const profileCheck =
-              await getDoc(
-                doc(
-                  db,
-                  "users",
-                  createdAuthUser.uid
-                )
-              );
-
-            const complete =
-              profileCheck.exists() &&
-              profileCheck.data()
-                .profileCompleted === true &&
-              profileCheck.data()
-                .dashboardReached === true;
-
-            if(!complete){
-
-              await deleteUser(
-                createdAuthUser
-              );
-
-            }
-
-          }catch(
-            cleanupError
-          ){
-
-            console.warn(
-              "Signup cleanup failed:",
-              cleanupError
-            );
-
-          }
-
-        }
-
-        setLoading(
-          false
-        );
-
-        setMessage(
-          "signupMessage",
-          firebaseErrorMessage(
-            error
-          ),
-          "error"
-        );
-
-      }finally{
-
-        authFlow =
-          "idle";
-
-      }
-
-    }
-  );
-
-
-/* =========================================================
-   SIGN IN
-   ========================================================= */
-
-$("loginForm")
-  .addEventListener(
-    "submit",
-    async event=>{
-
-      event.preventDefault();
-
-      clearMessage(
-        "loginMessage"
-      );
-
-      const email =
-        $("loginEmail")
-          .value
-          .trim()
-          .toLowerCase();
-
-      const password =
-        $("loginPassword")
-          .value;
-
-      if(
-        !email ||
-        !password
-      ){
-
-        setMessage(
-          "loginMessage",
-          "Please enter your email and password.",
-          "error"
-        );
-
-        return;
-
-      }
-
-      authFlow =
-        "login";
-
-      try{
-
-        setLoading(
-          true,
-          "Signing you in..."
-        );
-
-        const credential =
+        existingCredential=
           await signInWithEmailAndPassword(
             auth,
             email,
             password
           );
 
-        const uid =
-          credential.user.uid;
+      }catch{
 
-        const snapshot =
-          await getDoc(
-            doc(
-              db,
-              "users",
-              uid
-            )
-          );
+        throw new Error(
+          "This email already has an account. Please use Sign In."
+        );
 
-        if(
-          !snapshot.exists()
-        ){
+      }
 
-          await signOut(
-            auth
-          );
+      const existingSnapshot=await getDoc(
+        doc(
+          db,
+          "users",
+          existingCredential.user.uid
+        )
+      );
 
-          throw new Error(
-            "Your account was found, but your profile is missing."
-          );
+      if(
+        existingSnapshot.exists() &&
+        existingSnapshot.data().profileCompleted===true &&
+        existingSnapshot.data().dashboardReached===true
+      ){
 
-        }
+        await signOut(auth);
 
-        const data =
-          snapshot.data();
+        throw new Error(
+          "This email already has a completed United Crest account. Please use Sign In."
+        );
 
-        if(
-          data.profileCompleted !== true ||
-          data.dashboardReached !== true
-        ){
+      }
 
-          await signOut(
-            auth
-          );
+      credential=existingCredential;
+      createdAuthUser=existingCredential.user;
 
-          throw new Error(
-            "Your profile is incomplete. Please try again."
-          );
+    }
 
-        }
+    const uid=credential.user.uid;
 
-        const selectedLanguage =
-          normalizeLanguage(
-            $("loginLanguageSelect")
-              ?.value ||
-            data.language ||
-            "en"
-          );
+    const selectedLanguage=normalizeLanguage(
+      $("authLanguageSelect")?.value ||
+      getSavedLanguage()
+    );
 
-        await updateDoc(
+    const savedProfile=
+      await createOrCompleteUserProfile({
+
+        uid,
+        name,
+        phone,
+        email,
+        address,
+        language:selectedLanguage
+
+      });
+
+    currentUserData={
+      uid,
+      ...savedProfile
+    };
+
+    applyLanguage(selectedLanguage);
+
+    try{
+
+      if(!credential.user.emailVerified){
+
+        await sendEmailVerification(
+          credential.user
+        );
+
+      }
+
+    }catch(verificationError){
+
+      console.warn(
+        "Verification email was not sent:",
+        verificationError
+      );
+
+    }
+
+    setLoading(false);
+
+    showToast(
+      "Your United Crest account has been created."
+    );
+
+    await loadDashboard(uid);
+
+  }catch(error){
+
+    console.error("SIGNUP ERROR:",error);
+
+    if(
+      createdAuthUser &&
+      error?.code!=="auth/email-already-in-use"
+    ){
+
+      try{
+
+        const profileCheck=await getDoc(
           doc(
             db,
             "users",
-            uid
-          ),
-          {
-            language:
-              selectedLanguage,
-            updatedAt:
-              serverTimestamp()
-          }
+            createdAuthUser.uid
+          )
         );
 
-        currentUserData = {
+        const complete=
+          profileCheck.exists() &&
+          profileCheck.data().profileCompleted===true &&
+          profileCheck.data().dashboardReached===true;
 
-          uid,
+        if(!complete){
+          await deleteUser(createdAuthUser);
+        }
 
-          ...data,
+      }catch(cleanupError){
 
-          language:
-            selectedLanguage
-
-        };
-
-        applyLanguage(
-          selectedLanguage
+        console.warn(
+          "Signup cleanup failed:",
+          cleanupError
         );
-
-        setLoading(
-          false
-        );
-
-        showToast(
-          "Signed in successfully."
-        );
-
-        await loadDashboard(
-          uid
-        );
-
-      }catch(error){
-
-        console.error(
-          "LOGIN ERROR:",
-          error
-        );
-
-        setLoading(
-          false
-        );
-
-        setMessage(
-          "loginMessage",
-          firebaseErrorMessage(
-            error
-          ),
-          "error"
-        );
-
-      }finally{
-
-        authFlow =
-          "idle";
 
       }
 
     }
-  );
+
+    setLoading(false);
+
+    setMessage(
+      "signupMessage",
+      firebaseErrorMessage(error),
+      "error"
+    );
+
+  }finally{
+
+    authFlow="idle";
+
+  }
+
+});
+
+
+/* =========================================================
+   SIGN IN
+   ========================================================= */
+
+$("loginForm").addEventListener(
+"submit",
+async event=>{
+
+  event.preventDefault();
+
+  clearMessage("loginMessage");
+
+  const email=$("loginEmail").value.trim().toLowerCase();
+  const password=$("loginPassword").value;
+
+  if(!email || !password){
+
+    setMessage(
+      "loginMessage",
+      "Please enter your email and password.",
+      "error"
+    );
+
+    return;
+
+  }
+
+  authFlow="login";
+
+  try{
+
+    setLoading(true,"Signing you in...");
+
+    const credential=
+      await signInWithEmailAndPassword(
+        auth,
+        email,
+        password
+      );
+
+    const uid=credential.user.uid;
+
+    const snapshot=await getDoc(
+      doc(db,"users",uid)
+    );
+
+    if(!snapshot.exists()){
+
+      await signOut(auth);
+
+      throw new Error(
+        "Your account was found, but your profile is missing."
+      );
+
+    }
+
+    const data=snapshot.data();
+
+    if(
+      data.profileCompleted!==true ||
+      data.dashboardReached!==true
+    ){
+
+      await signOut(auth);
+
+      throw new Error(
+        "Your profile is incomplete. Please try again."
+      );
+
+    }
+
+    const selectedLanguage=normalizeLanguage(
+      $("loginLanguageSelect")?.value ||
+      data.language ||
+      "en"
+    );
+
+    await updateDoc(
+      doc(db,"users",uid),
+      {
+        language:selectedLanguage,
+        updatedAt:serverTimestamp()
+      }
+    );
+
+    currentUserData={
+      uid,
+      ...data,
+      language:selectedLanguage
+    };
+
+    applyLanguage(selectedLanguage);
+
+    setLoading(false);
+
+    showToast("Signed in successfully.");
+
+    await loadDashboard(uid);
+
+  }catch(error){
+
+    console.error("LOGIN ERROR:",error);
+
+    setLoading(false);
+
+    setMessage(
+      "loginMessage",
+      firebaseErrorMessage(error),
+      "error"
+    );
+
+  }finally{
+
+    authFlow="idle";
+
+  }
+
+});
 
 
 /* =========================================================
@@ -4170,125 +3547,79 @@ async function performSignOut(){
 
   try{
 
-    setLoading(
-      true,
-      "Signing you out..."
-    );
+    setLoading(true,"Signing you out...");
 
     cleanupListeners();
 
-    await signOut(
-      auth
-    );
+    await signOut(auth);
 
-    currentUserData =
-      null;
+    currentUserData=null;
+    selectedRecipient=null;
+    depositReviewData=null;
+    pendingTransferData=null;
 
-    selectedRecipient =
-      null;
+    hide($("appScreen"));
+    show($("authScreen"));
 
-    depositReviewData =
-      null;
+    show($("signupBox"));
+    hide($("loginBox"));
 
-    hide(
-      $("appScreen")
-    );
+    $("loginForm")?.reset();
+    $("signupForm")?.reset();
 
-    show(
-      $("authScreen")
-    );
-
-    show(
-      $("signupBox")
-    );
-
-    hide(
-      $("loginBox")
-    );
-
-    $("loginForm")
-      ?.reset();
-
-    $("signupForm")
-      ?.reset();
-
-    setLoading(
-      false
-    );
+    setLoading(false);
 
   }catch(error){
 
-    console.error(
-      "SIGN OUT ERROR:",
-      error
-    );
+    console.error("SIGN OUT ERROR:",error);
 
-    setLoading(
-      false
-    );
+    setLoading(false);
 
-    showToast(
-      firebaseErrorMessage(
-        error
-      )
-    );
+    showToast(firebaseErrorMessage(error));
 
   }
 
 }
 
-
-$("sidebarSignOutBtn")
-  .addEventListener(
-    "click",
-    performSignOut
-  );
+$("sidebarSignOutBtn").addEventListener(
+  "click",
+  performSignOut
+);
 
 
 /* =========================================================
    RECIPIENT LOOKUP
    ========================================================= */
 
-$("recipientAccount")
-  .addEventListener(
-    "input",
-    ()=>{
+$("recipientAccount").addEventListener(
+"input",
+()=>{
 
-      selectedRecipient =
-        null;
+  selectedRecipient=null;
 
-      $("recipientResult")
-        .classList
-        .remove("show");
+  $("recipientResult")
+    .classList
+    .remove("show");
 
-      clearMessage(
-        "transferMessage"
-      );
+  clearMessage("transferMessage");
 
-    }
-  );
+});
 
 
 async function findRecipient(){
 
-  clearMessage(
-    "transferMessage"
-  );
+  clearMessage("transferMessage");
 
-  const accountNumber =
+  const accountNumber=
     $("recipientAccount")
       .value
       .trim();
 
-  if(
-    !/^\d{10}$/.test(
-      accountNumber
-    )
-  ){
+  if(!/^\d{10}$/.test(accountNumber)){
 
     setMessage(
       "transferMessage",
-      "Please enter the recipient's complete 10-digit account number.",
+      "Please enter the complete 10-digit account number.",
       "error"
     );
 
@@ -4296,9 +3627,7 @@ async function findRecipient(){
 
   }
 
-  if(
-    !auth.currentUser
-  ){
+  if(!auth.currentUser){
 
     setMessage(
       "transferMessage",
@@ -4312,81 +3641,36 @@ async function findRecipient(){
 
   try{
 
-    setLoading(
-      true,
-      "Finding recipient..."
+    setLoading(true,"Finding recipient...");
+
+    const indexSnapshot=await getDoc(
+      doc(
+        db,
+        "accountIndex",
+        accountNumber
+      )
     );
 
-    const indexSnapshot =
-      await getDoc(
-        doc(
-          db,
-          "accountIndex",
-          accountNumber
-        )
-      );
+    if(!indexSnapshot.exists()){
 
-    if(
-      !indexSnapshot.exists()
-    ){
-
-      throw new Error(
-        "No United Crest account was found with that account number."
-      );
+      throw new Error("Account not found.");
 
     }
 
-    const indexData =
-      indexSnapshot.data();
+    const indexData=indexSnapshot.data();
 
     if(
       !indexData.uid ||
-      indexData.profileCompleted !== true ||
-      indexData.dashboardReached !== true
+      indexData.profileCompleted!==true ||
+      indexData.dashboardReached!==true
     ){
 
-      throw new Error(
-        "This account is not ready to receive transfers."
-      );
-
-    }
-
-    const userSnapshot =
-      await getDoc(
-        doc(
-          db,
-          "users",
-          indexData.uid
-        )
-      );
-
-    if(
-      !userSnapshot.exists()
-    ){
-
-      throw new Error(
-        "The recipient's profile could not be found."
-      );
-
-    }
-
-    const recipient =
-      userSnapshot.data();
-
-    if(
-      recipient.profileCompleted !== true ||
-      recipient.dashboardReached !== true
-    ){
-
-      throw new Error(
-        "The recipient's account is not ready."
-      );
+      throw new Error("Account not found.");
 
     }
 
     if(
-      auth.currentUser.uid ===
-      indexData.uid
+      auth.currentUser.uid===indexData.uid
     ){
 
       throw new Error(
@@ -4395,10 +3679,34 @@ async function findRecipient(){
 
     }
 
-    selectedRecipient = {
+    const userSnapshot=await getDoc(
+      doc(
+        db,
+        "users",
+        indexData.uid
+      )
+    );
 
-      uid:
-        indexData.uid,
+    if(!userSnapshot.exists()){
+
+      throw new Error("Account not found.");
+
+    }
+
+    const recipient=userSnapshot.data();
+
+    if(
+      recipient.profileCompleted!==true ||
+      recipient.dashboardReached!==true
+    ){
+
+      throw new Error("Account not found.");
+
+    }
+
+    selectedRecipient={
+
+      uid:indexData.uid,
 
       accountNumber,
 
@@ -4418,28 +3726,20 @@ async function findRecipient(){
 
     };
 
-    $("recipientName")
-      .textContent =
+    $("recipientName").textContent=
       selectedRecipient.name;
 
-    $("recipientDetails")
-      .textContent =
-      `Account ending ${
-        accountNumber.slice(-4)
-      }`;
+    $("recipientDetails").textContent=
+      `Account Number: ${accountNumber}`;
 
     $("recipientResult")
       .classList
       .add("show");
 
-    setLoading(
-      false
-    );
+    setLoading(false);
 
     showToast(
-      `Recipient found: ${
-        selectedRecipient.name
-      }`
+      `Recipient found: ${selectedRecipient.name}`
     );
 
   }catch(error){
@@ -4449,12 +3749,9 @@ async function findRecipient(){
       error
     );
 
-    setLoading(
-      false
-    );
+    setLoading(false);
 
-    selectedRecipient =
-      null;
+    selectedRecipient=null;
 
     $("recipientResult")
       .classList
@@ -4462,9 +3759,7 @@ async function findRecipient(){
 
     setMessage(
       "transferMessage",
-      firebaseErrorMessage(
-        error
-      ),
+      firebaseErrorMessage(error),
       "error"
     );
 
@@ -4472,27 +3767,22 @@ async function findRecipient(){
 
 }
 
-
-$("lookupRecipientBtn")
-  .addEventListener(
-    "click",
-    findRecipient
-  );
+$("lookupRecipientBtn").addEventListener(
+  "click",
+  findRecipient
+);
 
 
 /* =========================================================
-   TRANSFER
+   OPEN TRANSFER PIN CONFIRMATION
    ========================================================= */
 
-async function sendTransfer(){
+function openTransferPin(){
 
-  clearMessage(
-    "transferMessage"
-  );
+  clearMessage("transferMessage");
+  clearMessage("transferPinMessage");
 
-  if(
-    !auth.currentUser
-  ){
+  if(!auth.currentUser){
 
     setMessage(
       "transferMessage",
@@ -4504,9 +3794,7 @@ async function sendTransfer(){
 
   }
 
-  if(
-    !currentUserData
-  ){
+  if(!currentUserData){
 
     setMessage(
       "transferMessage",
@@ -4518,13 +3806,11 @@ async function sendTransfer(){
 
   }
 
-  if(
-    !selectedRecipient
-  ){
+  if(!selectedRecipient){
 
     setMessage(
       "transferMessage",
-      "Please find and confirm the recipient first.",
+      "Please find the recipient first.",
       "error"
     );
 
@@ -4532,22 +3818,15 @@ async function sendTransfer(){
 
   }
 
-  const amount =
-    Number(
-      $("transferAmount")
-        .value
-    );
+  const amount=Number(
+    $("transferAmount").value
+  );
 
-  const description =
-    $("transferReference")
-      .value
-      .trim() ||
-    "transfer";
+  const description=
+    $("transferReference").value.trim() ||
+    "Transfer";
 
-  if(
-    !Number.isFinite(amount) ||
-    amount <= 0
-  ){
+  if(!Number.isFinite(amount) || amount<=0){
 
     setMessage(
       "transferMessage",
@@ -4559,14 +3838,7 @@ async function sendTransfer(){
 
   }
 
-  const balance =
-    toNumber(
-      currentUserData.balance
-    );
-
-  if(
-    amount > balance
-  ){
+  if(amount>toNumber(currentUserData.balance)){
 
     setMessage(
       "transferMessage",
@@ -4578,14 +3850,55 @@ async function sendTransfer(){
 
   }
 
-  if(
-    selectedRecipient.uid ===
-    auth.currentUser.uid
-  ){
+  pendingTransferData={
+    amount,
+    description,
+    recipient:selectedRecipient
+  };
+
+  $("pinRecipientName").textContent=
+    selectedRecipient.name;
+
+  $("pinRecipientAccount").textContent=
+    selectedRecipient.accountNumber;
+
+  $("pinTransferAmount").textContent=
+    money(
+      amount,
+      currentUserData.currency || "USD"
+    );
+
+  $("pinTransferReference").textContent=
+    description;
+
+  $("transferPin").value="";
+
+  $("transferPinModal")
+    .classList
+    .add("show");
+
+}
+
+
+/* =========================================================
+   SEND TRANSFER
+   ========================================================= */
+
+async function sendTransfer(){
+
+  if(!pendingTransferData){
+    return;
+  }
+
+  clearMessage("transferPinMessage");
+
+  const pin=$("transferPin").value.trim();
+
+  if(!/^\d{4}$/.test(pin)){
 
     setMessage(
-      "transferMessage",
-      "You cannot transfer credits to yourself.",
+      "transferPinMessage",
+      "Please enter exactly 4 digits.",
       "error"
     );
 
@@ -4593,46 +3906,41 @@ async function sendTransfer(){
 
   }
 
-  const senderUid =
-    auth.currentUser.uid;
+  if(!auth.currentUser){
 
-  const senderRef =
-    doc(
-      db,
-      "users",
-      senderUid
+    setMessage(
+      "transferPinMessage",
+      "Your session has ended. Please sign in again.",
+      "error"
     );
 
-  const transferRef =
-    doc(
-      collection(
-        db,
-        "transfers"
-      )
-    );
+    return;
 
-  const transactionId =
-    makeTransactionId();
+  }
 
-  const senderCurrency =
-    currentUserData.currency ||
-    "USD";
+  const senderUid=auth.currentUser.uid;
+  const senderRef=doc(db,"users",senderUid);
 
-  const receiptData = {
+  const amount=pendingTransferData.amount;
+  const description=pendingTransferData.description;
+  const recipient=pendingTransferData.recipient;
+
+  const transactionId=makeTransactionId();
+
+  const senderCurrency=
+    currentUserData.currency || "USD";
+
+  const receiptData={
 
     transactionId,
 
-    createdAt:
-      new Date()
-        .toISOString(),
+    createdAt:new Date().toISOString(),
 
     amount,
 
-    currency:
-      senderCurrency,
+    currency:senderCurrency,
 
-    type:
-      "Account Transfer",
+    type:"Account Transfer",
 
     description,
 
@@ -4645,32 +3953,35 @@ async function sendTransfer(){
       "",
 
     recipientName:
-      selectedRecipient.name,
+      recipient.name,
 
     recipientAccount:
-      selectedRecipient.accountNumber
+      recipient.accountNumber
 
   };
 
   try{
 
-    setLoading(
-      true,
-      "Sending transfer..."
+    setLoading(true,"Sending transfer...");
+
+    /*
+     * The sender transaction is recorded immediately.
+     * The recipient is notified through the transfer document
+     * and their signed-in device processes it.
+     */
+
+    const transferRef=doc(
+      collection(db,"transfers")
     );
 
     await runTransaction(
       db,
       async transaction=>{
 
-        const senderSnapshot =
-          await transaction.get(
-            senderRef
-          );
+        const senderSnapshot=
+          await transaction.get(senderRef);
 
-        if(
-          !senderSnapshot.exists()
-        ){
+        if(!senderSnapshot.exists()){
 
           throw new Error(
             "Your account could not be found."
@@ -4678,17 +3989,12 @@ async function sendTransfer(){
 
         }
 
-        const sender =
-          senderSnapshot.data();
+        const sender=senderSnapshot.data();
 
-        const senderBalance =
-          toNumber(
-            sender.balance
-          );
+        const senderBalance=
+          toNumber(sender.balance);
 
-        if(
-          senderBalance < amount
-        ){
+        if(senderBalance<amount){
 
           throw new Error(
             "Your balance is not enough for this transfer."
@@ -4696,60 +4002,42 @@ async function sendTransfer(){
 
         }
 
-        const activities =
-          Array.isArray(
-            sender.activities
-          )
-            ? [
-                ...sender.activities
-              ]
-            : [];
+        const activities=
+          Array.isArray(sender.activities)
+          ? [...sender.activities]
+          : [];
 
         activities.unshift({
 
           transactionId,
 
-          type:
-            "transfer",
+          type:"transfer",
 
-          direction:
-            "sent",
+          direction:"sent",
 
           amount,
 
-          currency:
-            senderCurrency,
+          currency:senderCurrency,
 
           description,
 
-          recipientName:
-            selectedRecipient.name,
+          recipientName:recipient.name,
 
-          recipientAccount:
-            selectedRecipient.accountNumber,
+          recipientAccount:recipient.accountNumber,
 
-          createdAt:
-            new Date()
-              .toISOString()
+          createdAt:new Date().toISOString()
 
         });
-
-        const trimmedActivities =
-          activities.slice(
-            0,
-            100
-          );
 
         transaction.update(
           senderRef,
           {
 
             balance:
-              senderBalance -
-              amount,
+              senderBalance-amount,
 
             activities:
-              trimmedActivities,
+              activities.slice(0,100),
 
             updatedAt:
               serverTimestamp()
@@ -4778,27 +4066,25 @@ async function sendTransfer(){
               "",
 
             recipientUid:
-              selectedRecipient.uid,
+              recipient.uid,
 
             recipientName:
-              selectedRecipient.name,
+              recipient.name,
 
             recipientAccount:
-              selectedRecipient.accountNumber,
+              recipient.accountNumber,
 
             recipientEmail:
-              selectedRecipient.email ||
+              recipient.email ||
               "",
 
             amount,
 
-            currency:
-              senderCurrency,
+            currency:senderCurrency,
 
             description,
 
-            status:
-              "pending",
+            status:"pending",
 
             createdAt:
               serverTimestamp()
@@ -4809,29 +4095,25 @@ async function sendTransfer(){
       }
     );
 
-    $("recipientAccount")
-      .value = "";
+    $("transferPinModal")
+      .classList
+      .remove("show");
 
-    $("transferAmount")
-      .value = "";
+    $("recipientAccount").value="";
+    $("transferAmount").value="";
+    $("transferReference").value="";
+    $("transferPin").value="";
 
-    $("transferReference")
-      .value = "";
-
-    selectedRecipient =
-      null;
+    selectedRecipient=null;
+    pendingTransferData=null;
 
     $("recipientResult")
       .classList
       .remove("show");
 
-    setLoading(
-      false
-    );
+    setLoading(false);
 
-    showReceipt(
-      receiptData
-    );
+    showReceipt(receiptData);
 
     showToast(
       "Transfer sent successfully."
@@ -4844,15 +4126,11 @@ async function sendTransfer(){
       error
     );
 
-    setLoading(
-      false
-    );
+    setLoading(false);
 
     setMessage(
-      "transferMessage",
-      firebaseErrorMessage(
-        error
-      ),
+      "transferPinMessage",
+      firebaseErrorMessage(error),
       "error"
     );
 
@@ -4860,89 +4138,75 @@ async function sendTransfer(){
 
 }
 
+$("sendTransferBtn").addEventListener(
+  "click",
+  openTransferPin
+);
 
-$("sendTransferBtn")
-  .addEventListener(
-    "click",
-    sendTransfer
-  );
+$("confirmTransferPinBtn").addEventListener(
+  "click",
+  sendTransfer
+);
+
+$("cancelTransferPinBtn").addEventListener(
+  "click",
+  ()=>{
+
+    $("transferPinModal")
+      .classList
+      .remove("show");
+
+    $("transferPin").value="";
+    pendingTransferData=null;
+
+  }
+);
 
 
 /* =========================================================
-   INCOMING TRANSFER LISTENER
+   INCOMING TRANSFERS
    ========================================================= */
 
-function startTransferListeners(
-  uid
-){
+function startTransferListeners(uid){
 
-  if(
-    unsubscribeIncomingTransfers
-  ){
-
+  if(unsubscribeIncomingTransfers){
     unsubscribeIncomingTransfers();
-
-    unsubscribeIncomingTransfers =
-      null;
-
   }
 
-  const transferQuery =
-    query(
-      collection(
-        db,
-        "transfers"
-      ),
+  const transferQuery=query(
+    collection(db,"transfers"),
+    where("recipientUid","==",uid),
+    limit(100)
+  );
 
-      where(
-        "recipientUid",
-        "==",
-        uid
-      ),
-
-      limit(100)
-    );
-
-  unsubscribeIncomingTransfers =
+  unsubscribeIncomingTransfers=
     onSnapshot(
       transferQuery,
       snapshot=>{
 
-        snapshot.docChanges()
-          .forEach(
-            change=>{
+        snapshot.docChanges().forEach(change=>{
 
-              if(
-                change.type ===
-                  "added" ||
-                change.type ===
-                  "modified"
-              ){
+          if(
+            change.type==="added" ||
+            change.type==="modified"
+          ){
 
-                const transfer = {
+            const transfer={
+              id:change.doc.id,
+              ...change.doc.data()
+            };
 
-                  id:
-                    change.doc.id,
+            if(transfer.status==="pending"){
 
-                  ...change.doc.data()
-
-                };
-
-                if(
-                  transfer.status ===
-                  "pending"
-                ){
-
-                  processIncomingTransfer(
-                    transfer
-                  );
-
-                }
-
-              }
+              processIncomingTransfer(
+                transfer
+              );
 
             }
-          );
+
+          }
+
+        });
 
       },
       error=>{
@@ -4953,9 +4217,7 @@ function startTransferListeners(
         );
 
         showToast(
-          firebaseErrorMessage(
-            error
-          )
+          firebaseErrorMessage(error)
         );
 
       }
@@ -4968,52 +4230,33 @@ function startTransferListeners(
    PROCESS INCOMING TRANSFER
    ========================================================= */
 
-async function processIncomingTransfer(
-  transfer
-){
+async function processIncomingTransfer(transfer){
 
-  if(
-    !auth.currentUser
-  ){
-
+  if(!auth.currentUser){
     return;
-
   }
 
-  const uid =
-    auth.currentUser.uid;
+  const uid=auth.currentUser.uid;
 
-  if(
-    transfer.recipientUid !==
+  if(transfer.recipientUid!==uid){
+    return;
+  }
+
+  if(transfer.status!=="pending"){
+    return;
+  }
+
+  const transferRef=doc(
+    db,
+    "transfers",
+    transfer.id
+  );
+
+  const recipientRef=doc(
+    db,
+    "users",
     uid
-  ){
-
-    return;
-
-  }
-
-  if(
-    transfer.status !==
-    "pending"
-  ){
-
-    return;
-
-  }
-
-  const transferRef =
-    doc(
-      db,
-      "transfers",
-      transfer.id
-    );
-
-  const recipientRef =
-    doc(
-      db,
-      "users",
-      uid
-    );
+  );
 
   try{
 
@@ -5021,76 +4264,55 @@ async function processIncomingTransfer(
       db,
       async transaction=>{
 
-        const transferSnapshot =
+        const transferSnapshot=
           await transaction.get(
             transferRef
           );
 
-        if(
-          !transferSnapshot.exists()
-        ){
-
+        if(!transferSnapshot.exists()){
           return;
-
         }
 
-        const freshTransfer =
+        const freshTransfer=
           transferSnapshot.data();
 
-        if(
-          freshTransfer.status !==
-          "pending"
-        ){
-
+        if(freshTransfer.status!=="pending"){
           return;
-
         }
 
-        const recipientSnapshot =
+        const recipientSnapshot=
           await transaction.get(
             recipientRef
           );
 
-        if(
-          !recipientSnapshot.exists()
-        ){
-
+        if(!recipientSnapshot.exists()){
           return;
-
         }
 
-        const recipient =
+        const recipient=
           recipientSnapshot.data();
 
-        const amount =
-          toNumber(
-            freshTransfer.amount
-          );
+        const amount=
+          toNumber(freshTransfer.amount);
 
-        const currency =
+        const currency=
           recipient.currency ||
           freshTransfer.currency ||
           "USD";
 
-        const activities =
-          Array.isArray(
-            recipient.activities
-          )
-            ? [
-                ...recipient.activities
-              ]
-            : [];
+        const activities=
+          Array.isArray(recipient.activities)
+          ? [...recipient.activities]
+          : [];
 
         activities.unshift({
 
           transactionId:
             freshTransfer.transactionId,
 
-          type:
-            "transfer",
+          type:"transfer",
 
-          direction:
-            "received",
+          direction:"received",
 
           amount,
 
@@ -5109,8 +4331,7 @@ async function processIncomingTransfer(
             "",
 
           createdAt:
-            new Date()
-              .toISOString()
+            new Date().toISOString()
 
         });
 
@@ -5119,15 +4340,10 @@ async function processIncomingTransfer(
           {
 
             balance:
-              toNumber(
-                recipient.balance
-              ) + amount,
+              toNumber(recipient.balance)+amount,
 
             activities:
-              activities.slice(
-                0,
-                100
-              ),
+              activities.slice(0,100),
 
             updatedAt:
               serverTimestamp()
@@ -5139,8 +4355,7 @@ async function processIncomingTransfer(
           transferRef,
           {
 
-            status:
-              "completed",
+            status:"completed",
 
             completedAt:
               serverTimestamp()
@@ -5152,13 +4367,10 @@ async function processIncomingTransfer(
     );
 
     showToast(
-      `You received ${
-        money(
-          transfer.amount,
-          currentUserData?.currency ||
-          "USD"
-        )
-      } from ${
+      `You received ${money(
+        transfer.amount,
+        currentUserData?.currency || "USD"
+      )} from ${
         transfer.senderName ||
         "United Crest User"
       }.`
@@ -5172,9 +4384,7 @@ async function processIncomingTransfer(
     );
 
     showToast(
-      firebaseErrorMessage(
-        error
-      )
+      firebaseErrorMessage(error)
     );
 
   }
@@ -5188,42 +4398,15 @@ async function processIncomingTransfer(
 
 function reviewDeposit(){
 
-  clearMessage(
-    "depositMessage"
-  );
+  clearMessage("depositMessage");
 
-  const email =
-    $("depositEmail")
-      .value
-      .trim()
-      .toLowerCase();
+  const email=$("depositEmail").value.trim().toLowerCase();
+  const name=$("depositName").value.trim();
+  const phone=$("depositPhone").value.trim();
+  const amount=Number($("depositAmount").value);
+  const pin=$("depositPin").value.trim();
 
-  const name =
-    $("depositName")
-      .value
-      .trim();
-
-  const phone =
-    $("depositPhone")
-      .value
-      .trim();
-
-  const amount =
-    Number(
-      $("depositAmount")
-        .value
-    );
-
-  const pin =
-    $("depositPin")
-      .value
-      .trim();
-
-  if(
-    !email ||
-    !name ||
-    !phone
-  ){
+  if(!email || !name || !phone){
 
     setMessage(
       "depositMessage",
@@ -5235,10 +4418,7 @@ function reviewDeposit(){
 
   }
 
-  if(
-    !Number.isFinite(amount) ||
-    amount <= 0
-  ){
+  if(!Number.isFinite(amount) || amount<=0){
 
     setMessage(
       "depositMessage",
@@ -5250,9 +4430,7 @@ function reviewDeposit(){
 
   }
 
-  if(
-    !/^\d{4}$/.test(pin)
-  ){
+  if(!/^\d{4}$/.test(pin)){
 
     setMessage(
       "depositMessage",
@@ -5264,38 +4442,22 @@ function reviewDeposit(){
 
   }
 
-  depositReviewData = {
-
+  depositReviewData={
     email,
-
     name,
-
     phone,
-
     amount,
-
     pin
-
   };
 
-  $("reviewDepositName")
-    .textContent =
-    name;
+  $("reviewDepositName").textContent=name;
+  $("reviewDepositEmail").textContent=email;
+  $("reviewDepositPhone").textContent=phone;
 
-  $("reviewDepositEmail")
-    .textContent =
-    email;
-
-  $("reviewDepositPhone")
-    .textContent =
-    phone;
-
-  $("reviewDepositAmount")
-    .textContent =
+  $("reviewDepositAmount").textContent=
     money(
       amount,
-      currentUserData?.currency ||
-      "USD"
+      currentUserData?.currency || "USD"
     );
 
   $("depositReview")
@@ -5308,28 +4470,23 @@ function reviewDeposit(){
 
 }
 
+$("reviewDepositBtn").addEventListener(
+  "click",
+  reviewDeposit
+);
 
-$("reviewDepositBtn")
-  .addEventListener(
-    "click",
-    reviewDeposit
-  );
+$("cancelDepositBtn").addEventListener(
+  "click",
+  ()=>{
 
+    depositReviewData=null;
 
-$("cancelDepositBtn")
-  .addEventListener(
-    "click",
-    ()=>{
+    $("depositReview")
+      .classList
+      .add("hidden");
 
-      depositReviewData =
-        null;
-
-      $("depositReview")
-        .classList
-        .add("hidden");
-
-    }
-  );
+  }
+);
 
 
 /* =========================================================
@@ -5338,13 +4495,9 @@ $("cancelDepositBtn")
 
 async function confirmDeposit(){
 
-  clearMessage(
-    "depositMessage"
-  );
+  clearMessage("depositMessage");
 
-  if(
-    !auth.currentUser
-  ){
+  if(!auth.currentUser){
 
     setMessage(
       "depositMessage",
@@ -5356,9 +4509,7 @@ async function confirmDeposit(){
 
   }
 
-  if(
-    !depositReviewData
-  ){
+  if(!depositReviewData){
 
     setMessage(
       "depositMessage",
@@ -5370,53 +4521,28 @@ async function confirmDeposit(){
 
   }
 
-  if(
-    depositReviewData.pin.length !==
-    4
-  ){
+  const uid=auth.currentUser.uid;
 
-    setMessage(
-      "depositMessage",
-      "Please enter a valid 4-digit PIN.",
-      "error"
-    );
+  const userRef=doc(
+    db,
+    "users",
+    uid
+  );
 
-    return;
-
-  }
-
-  const uid =
-    auth.currentUser.uid;
-
-  const userRef =
-    doc(
-      db,
-      "users",
-      uid
-    );
-
-  const transactionId =
-    makeTransactionId();
+  const transactionId=makeTransactionId();
 
   try{
 
-    setLoading(
-      true,
-      "Processing deposit..."
-    );
+    setLoading(true,"Processing deposit...");
 
     await runTransaction(
       db,
       async transaction=>{
 
-        const snapshot =
-          await transaction.get(
-            userRef
-          );
+        const snapshot=
+          await transaction.get(userRef);
 
-        if(
-          !snapshot.exists()
-        ){
+        if(!snapshot.exists()){
 
           throw new Error(
             "Your account could not be found."
@@ -5424,47 +4550,35 @@ async function confirmDeposit(){
 
         }
 
-        const user =
-          snapshot.data();
+        const user=snapshot.data();
 
-        const amount =
-          toNumber(
-            depositReviewData.amount
-          );
+        const amount=
+          toNumber(depositReviewData.amount);
 
-        const currency =
-          user.currency ||
-          "USD";
+        const currency=
+          user.currency || "USD";
 
-        const activities =
-          Array.isArray(
-            user.activities
-          )
-            ? [
-                ...user.activities
-              ]
-            : [];
+        const activities=
+          Array.isArray(user.activities)
+          ? [...user.activities]
+          : [];
 
         activities.unshift({
 
           transactionId,
 
-          type:
-            "deposit",
+          type:"deposit",
 
-          direction:
-            "received",
+          direction:"received",
 
           amount,
 
           currency,
 
-          description:
-            "Account deposit",
+          description:"Account deposit",
 
           createdAt:
-            new Date()
-              .toISOString()
+            new Date().toISOString()
 
         });
 
@@ -5473,15 +4587,10 @@ async function confirmDeposit(){
           {
 
             balance:
-              toNumber(
-                user.balance
-              ) + amount,
+              toNumber(user.balance)+amount,
 
             activities:
-              activities.slice(
-                0,
-                100
-              ),
+              activities.slice(0,100),
 
             updatedAt:
               serverTimestamp()
@@ -5492,31 +4601,19 @@ async function confirmDeposit(){
       }
     );
 
-    $("depositEmail")
-      .value = "";
-
-    $("depositName")
-      .value = "";
-
-    $("depositPhone")
-      .value = "";
-
-    $("depositAmount")
-      .value = "";
-
-    $("depositPin")
-      .value = "";
+    $("depositEmail").value="";
+    $("depositName").value="";
+    $("depositPhone").value="";
+    $("depositAmount").value="";
+    $("depositPin").value="";
 
     $("depositReview")
       .classList
       .add("hidden");
 
-    depositReviewData =
-      null;
+    depositReviewData=null;
 
-    setLoading(
-      false
-    );
+    setLoading(false);
 
     showToast(
       "Deposit completed successfully."
@@ -5529,15 +4626,11 @@ async function confirmDeposit(){
       error
     );
 
-    setLoading(
-      false
-    );
+    setLoading(false);
 
     setMessage(
       "depositMessage",
-      firebaseErrorMessage(
-        error
-      ),
+      firebaseErrorMessage(error),
       "error"
     );
 
@@ -5545,419 +4638,299 @@ async function confirmDeposit(){
 
 }
 
-
-$("confirmDepositBtn")
-  .addEventListener(
-    "click",
-    confirmDeposit
-  );
+$("confirmDepositBtn").addEventListener(
+  "click",
+  confirmDeposit
+);
 
 
 /* =========================================================
    PROFILE
    ========================================================= */
 
-$("saveProfileBtn")
-  .addEventListener(
-    "click",
-    async ()=>{
+$("saveProfileBtn").addEventListener(
+"click",
+async ()=>{
 
-      clearMessage(
-        "profileMessage"
+  clearMessage("profileMessage");
+
+  if(!auth.currentUser){
+
+    setMessage(
+      "profileMessage",
+      "Please sign in first.",
+      "error"
+    );
+
+    return;
+
+  }
+
+  const name=$("profileName").value.trim();
+  const phone=$("profilePhone").value.trim();
+  const address=$("profileAddress").value.trim();
+
+  if(!name || !phone || !address){
+
+    setMessage(
+      "profileMessage",
+      "Please complete all profile fields.",
+      "error"
+    );
+
+    return;
+
+  }
+
+  try{
+
+    setLoading(true,"Saving profile...");
+
+    const uid=auth.currentUser.uid;
+
+    const userRef=doc(db,"users",uid);
+
+    const accountNumber=
+      currentUserData.accountNumber;
+
+    const batch=writeBatch(db);
+
+    batch.update(
+      userRef,
+      {
+        name,
+        phone,
+        address,
+        updatedAt:serverTimestamp()
+      }
+    );
+
+    if(/^\d{10}$/.test(String(accountNumber || ""))){
+
+      batch.set(
+        doc(
+          db,
+          "accountIndex",
+          accountNumber
+        ),
+        {
+          uid,
+          accountNumber,
+          name,
+          email:currentUserData.email || "",
+          profileCompleted:true,
+          dashboardReached:true,
+          updatedAt:serverTimestamp()
+        },
+        {merge:true}
       );
 
-      if(
-        !auth.currentUser
-      ){
-
-        setMessage(
-          "profileMessage",
-          "Please sign in first.",
-          "error"
-        );
-
-        return;
-
-      }
-
-      const name =
-        $("profileName")
-          .value
-          .trim();
-
-      const phone =
-        $("profilePhone")
-          .value
-          .trim();
-
-      const address =
-        $("profileAddress")
-          .value
-          .trim();
-
-      if(
-        !name ||
-        !phone ||
-        !address
-      ){
-
-        setMessage(
-          "profileMessage",
-          "Please complete all profile fields.",
-          "error"
-        );
-
-        return;
-
-      }
-
-      try{
-
-        setLoading(
-          true,
-          "Saving profile..."
-        );
-
-        const uid =
-          auth.currentUser.uid;
-
-        const userRef =
-          doc(
-            db,
-            "users",
-            uid
-          );
-
-        const accountNumber =
-          currentUserData.accountNumber;
-
-        const batch =
-          writeBatch(db);
-
-        batch.update(
-          userRef,
-          {
-
-            name,
-
-            phone,
-
-            address,
-
-            updatedAt:
-              serverTimestamp()
-
-          }
-        );
-
-        if(
-          /^\d{10}$/.test(
-            String(
-              accountNumber || ""
-            )
-          )
-        ){
-
-          batch.set(
-            doc(
-              db,
-              "accountIndex",
-              accountNumber
-            ),
-            {
-
-              uid,
-
-              accountNumber,
-
-              name,
-
-              email:
-                currentUserData.email ||
-                "",
-
-              profileCompleted:true,
-
-              dashboardReached:true,
-
-              updatedAt:
-                serverTimestamp()
-
-            },
-            {merge:true}
-          );
-
-        }
-
-        await batch.commit();
-
-        setLoading(
-          false
-        );
-
-        setMessage(
-          "profileMessage",
-          "Profile saved successfully.",
-          "success"
-        );
-
-        showToast(
-          "Profile updated."
-        );
-
-      }catch(error){
-
-        console.error(
-          "PROFILE ERROR:",
-          error
-        );
-
-        setLoading(
-          false
-        );
-
-        setMessage(
-          "profileMessage",
-          firebaseErrorMessage(
-            error
-          ),
-          "error"
-        );
-
-      }
-
     }
-  );
+
+    await batch.commit();
+
+    setLoading(false);
+
+    setMessage(
+      "profileMessage",
+      "Profile saved successfully.",
+      "success"
+    );
+
+    showToast("Profile updated.");
+
+  }catch(error){
+
+    console.error(
+      "PROFILE ERROR:",
+      error
+    );
+
+    setLoading(false);
+
+    setMessage(
+      "profileMessage",
+      firebaseErrorMessage(error),
+      "error"
+    );
+
+  }
+
+});
 
 
 /* =========================================================
    CURRENCY
    ========================================================= */
 
-$("saveCurrencyBtn")
-  .addEventListener(
-    "click",
-    async ()=>{
+$("saveCurrencyBtn").addEventListener(
+"click",
+async ()=>{
 
-      clearMessage(
-        "settingsMessage"
+  clearMessage("settingsMessage");
+
+  if(!auth.currentUser){
+
+    setMessage(
+      "settingsMessage",
+      "Please sign in first.",
+      "error"
+    );
+
+    return;
+
+  }
+
+  const currency=$("currencySelect").value;
+
+  try{
+
+    setLoading(true,"Saving currency...");
+
+    await updateDoc(
+      doc(
+        db,
+        "users",
+        auth.currentUser.uid
+      ),
+      {
+        currency,
+        updatedAt:serverTimestamp()
+      }
+    );
+
+    if(currentUserData){
+
+      currentUserData.currency=currency;
+
+      populateUserUI(
+        currentUserData
       );
 
-      if(
-        !auth.currentUser
-      ){
-
-        setMessage(
-          "settingsMessage",
-          "Please sign in first.",
-          "error"
-        );
-
-        return;
-
-      }
-
-      const currency =
-        $("currencySelect")
-          .value;
-
-      try{
-
-        setLoading(
-          true,
-          "Saving currency..."
-        );
-
-        await updateDoc(
-          doc(
-            db,
-            "users",
-            auth.currentUser.uid
-          ),
-          {
-
-            currency,
-
-            updatedAt:
-              serverTimestamp()
-
-          }
-        );
-
-        if(
-          currentUserData
-        ){
-
-          currentUserData.currency =
-            currency;
-
-          populateUserUI(
-            currentUserData
-          );
-
-        }
-
-        setLoading(
-          false
-        );
-
-        setMessage(
-          "settingsMessage",
-          `Currency saved: ${currency}.`,
-          "success"
-        );
-
-        showToast(
-          "Currency updated."
-        );
-
-      }catch(error){
-
-        console.error(
-          "CURRENCY ERROR:",
-          error
-        );
-
-        setLoading(
-          false
-        );
-
-        setMessage(
-          "settingsMessage",
-          firebaseErrorMessage(
-            error
-          ),
-          "error"
-        );
-
-      }
-
     }
-  );
+
+    setLoading(false);
+
+    setMessage(
+      "settingsMessage",
+      `Currency saved: ${currency}.`,
+      "success"
+    );
+
+    showToast("Currency updated.");
+
+  }catch(error){
+
+    console.error(
+      "CURRENCY ERROR:",
+      error
+    );
+
+    setLoading(false);
+
+    setMessage(
+      "settingsMessage",
+      firebaseErrorMessage(error),
+      "error"
+    );
+
+  }
+
+});
 
 
 /* =========================================================
    LANGUAGE
    ========================================================= */
 
-$("saveLanguageBtn")
-  .addEventListener(
-    "click",
-    async ()=>{
+$("saveLanguageBtn").addEventListener(
+"click",
+async ()=>{
 
-      clearMessage(
-        "settingsMessage"
+  clearMessage("settingsMessage");
+
+  if(!auth.currentUser){
+
+    setMessage(
+      "settingsMessage",
+      "Please sign in first.",
+      "error"
+    );
+
+    return;
+
+  }
+
+  const language=normalizeLanguage(
+    $("languageSelect").value
+  );
+
+  try{
+
+    setLoading(true,"Saving language...");
+
+    await updateDoc(
+      doc(
+        db,
+        "users",
+        auth.currentUser.uid
+      ),
+      {
+        language,
+        updatedAt:serverTimestamp()
+      }
+    );
+
+    if(currentUserData){
+
+      currentUserData.language=language;
+
+      populateUserUI(
+        currentUserData
       );
 
-      if(
-        !auth.currentUser
-      ){
-
-        setMessage(
-          "settingsMessage",
-          "Please sign in first.",
-          "error"
-        );
-
-        return;
-
-      }
-
-      const language =
-        normalizeLanguage(
-          $("languageSelect")
-            .value
-        );
-
-      try{
-
-        setLoading(
-          true,
-          "Saving language..."
-        );
-
-        await updateDoc(
-          doc(
-            db,
-            "users",
-            auth.currentUser.uid
-          ),
-          {
-
-            language,
-
-            updatedAt:
-              serverTimestamp()
-
-          }
-        );
-
-        if(
-          currentUserData
-        ){
-
-          currentUserData.language =
-            language;
-
-          populateUserUI(
-            currentUserData
-          );
-
-        }
-
-        applyLanguage(
-          language
-        );
-
-        setLoading(
-          false
-        );
-
-        setMessage(
-          "settingsMessage",
-          `Language preference saved: ${LANGUAGES[language]}.`,
-          "success"
-        );
-
-        showToast(
-          "Language updated."
-        );
-
-      }catch(error){
-
-        console.error(
-          "LANGUAGE ERROR:",
-          error
-        );
-
-        setLoading(
-          false
-        );
-
-        setMessage(
-          "settingsMessage",
-          firebaseErrorMessage(
-            error
-          ),
-          "error"
-        );
-
-      }
-
     }
-  );
+
+    applyLanguage(language);
+
+    setLoading(false);
+
+    setMessage(
+      "settingsMessage",
+      `Language preference saved: ${LANGUAGES[language]}.`,
+      "success"
+    );
+
+    showToast("Language updated.");
+
+  }catch(error){
+
+    console.error(
+      "LANGUAGE ERROR:",
+      error
+    );
+
+    setLoading(false);
+
+    setMessage(
+      "settingsMessage",
+      firebaseErrorMessage(error),
+      "error"
+    );
+
+  }
+
+});
 
 
 /* =========================================================
-   WITHDRAW / CONTACT MANAGER
+   WITHDRAW / MANAGER
    ========================================================= */
 
 function openManagerModal(){
 
-  $("managerAccount")
-    .textContent =
-    currentUserData?.accountNumber ||
-    "—";
+  $("managerAccount").textContent=
+    currentUserData?.accountNumber || "—";
 
   $("managerModal")
     .classList
@@ -5965,100 +4938,65 @@ function openManagerModal(){
 
 }
 
+$("contactManagerBtn").addEventListener(
+  "click",
+  openManagerModal
+);
 
-$("contactManagerBtn")
-  .addEventListener(
-    "click",
-    openManagerModal
-  );
+$("closeManagerBtn").addEventListener(
+  "click",
+  ()=>{
+    $("managerModal")
+      .classList
+      .remove("show");
+  }
+);
 
-
-$("closeManagerBtn")
-  .addEventListener(
-    "click",
-    ()=>{
-
-      $("managerModal")
-        .classList
-        .remove("show");
-
-    }
-  );
-
-
-$("managerDoneBtn")
-  .addEventListener(
-    "click",
-    ()=>{
-
-      $("managerModal")
-        .classList
-        .remove("show");
-
-    }
-  );
+$("managerDoneBtn").addEventListener(
+  "click",
+  ()=>{
+    $("managerModal")
+      .classList
+      .remove("show");
+  }
+);
 
 
 /* =========================================================
    RECEIPT
    ========================================================= */
 
-function showReceipt(
-  data
-){
+function showReceipt(data){
 
-  $("receiptTransactionId")
-    .textContent =
-    data.transactionId ||
-    "—";
+  $("receiptTransactionId").textContent=
+    data.transactionId || "—";
 
-  $("receiptDate")
-    .textContent =
-    formatDate(
-      data.createdAt
-    );
+  $("receiptDate").textContent=
+    formatDate(data.createdAt);
 
-  $("receiptAmount")
-    .textContent =
-    money(
-      data.amount,
-      data.currency
-    );
+  $("receiptAmount").textContent=
+    money(data.amount,data.currency);
 
-  $("receiptCurrency")
-    .textContent =
-    data.currency ||
-    "USD";
+  $("receiptCurrency").textContent=
+    data.currency || "USD";
 
-  $("receiptType")
-    .textContent =
-    data.type ||
-    "Account Transfer";
+  $("receiptType").textContent=
+    data.type || "Account Transfer";
 
-  $("receiptDescription")
-    .textContent =
-    data.description ||
-    "—";
+  $("receiptDescription").textContent=
+    data.description || "—";
 
-  $("receiptSender")
-    .textContent =
-    data.senderName ||
-    "—";
+  $("receiptSender").textContent=
+    data.senderName || "—";
 
-  $("receiptSenderAccount")
-    .textContent =
-    data.senderAccount ||
-    "—";
+  $("receiptSenderAccount").textContent=
+    data.senderAccount || "—";
 
-  $("receiptRecipient")
-    .textContent =
-    data.recipientName ||
-    "—";
+  $("receiptRecipient").textContent=
+    data.recipientName || "—";
 
-  $("receiptRecipientAccount")
-    .textContent =
-    data.recipientAccount ||
-    "—";
+  $("receiptRecipientAccount").textContent=
+    data.recipientAccount || "—";
 
   $("receiptModal")
     .classList
@@ -6066,31 +5004,405 @@ function showReceipt(
 
 }
 
+$("closeReceiptBtn").addEventListener(
+  "click",
+  ()=>{
+    $("receiptModal")
+      .classList
+      .remove("show");
+  }
+);
 
-$("closeReceiptBtn")
-  .addEventListener(
-    "click",
-    ()=>{
+$("doneReceiptBtn").addEventListener(
+  "click",
+  ()=>{
+    $("receiptModal")
+      .classList
+      .remove("show");
+  }
+);
 
-      $("receiptModal")
-        .classList
-        .remove("show");
 
+/* =========================================================
+   CURRENCY CONVERTER
+   ========================================================= */
+
+const CURRENCY_CODES=[
+"USD","EUR","GBP","NGN","CAD","AUD","JPY","CNY","INR","CHF",
+"AED","SAR","ZAR","KES","GHS","UGX","TZS","RWF","XOF","XAF",
+"MAD","EGP","DZD","TND","LYD","ETB","GMD","SLL","LRD","GNF",
+"BWP","NAD","MZN","MWK","ZMW","BIF","SOS","SDG","SSP","HKD",
+"SGD","MYR","THB","IDR","PHP","KRW","VND","PKR","BDT","LKR",
+"NPR","TRY","ILS","JOD","KWD","BHD","OMR","QAR","YER","NOK",
+"SEK","DKK","ISK","PLN","CZK","HUF","RON","BGN","RSD","UAH",
+"RUB","MXN","BRL","ARS","CLP","COP","PEN","UYU","BOB","PYG",
+"DOP","JMD","TTD","BBD","BSD","XCD","FJD","PGK"
+];
+
+const FALLBACK_USD_RATES={
+
+USD:1,
+EUR:0.86,
+GBP:0.74,
+NGN:1500,
+CAD:1.38,
+AUD:1.52,
+JPY:148,
+CNY:7.10,
+INR:84,
+CHF:0.81,
+AED:3.67,
+SAR:3.75,
+ZAR:17.5,
+KES:129,
+GHS:15.2,
+UGX:3500,
+TZS:2500,
+RWF:1400,
+XOF:565,
+XAF:565,
+MAD:9.9,
+EGP:48,
+DZD:132,
+TND:3.0,
+LYD:4.8,
+ETB:135,
+GMD:72,
+SLL:23000,
+LRD:190,
+GNF:8600,
+BWP:13.7,
+NAD:17.5,
+MZN:64,
+MWK:1740,
+ZMW:27,
+BIF:2900,
+SOS:570,
+SDG:450,
+SSP:130,
+HKD:7.8,
+SGD:1.30,
+MYR:4.2,
+THB:34,
+IDR:15500,
+PHP:56,
+KRW:1350,
+VND:25000,
+PKR:280,
+BDT:120,
+LKR:300,
+NPR:134,
+TRY:33,
+ILS:3.7,
+JOD:0.71,
+KWD:0.31,
+BHD:0.377,
+OMR:0.385,
+QAR:3.64,
+YER:250,
+NOK:10.7,
+SEK:10.6,
+DKK:6.4,
+ISK:137,
+PLN:3.9,
+CZK:23,
+HUF:355,
+RON:4.3,
+BGN:1.68,
+RSD:101,
+UAH:41,
+RUB:90,
+MXN:19.5,
+BRL:5.4,
+ARS:950,
+CLP:930,
+COP:4200,
+PEN:3.75,
+UYU:40,
+BOB:6.9,
+PYG:7800,
+DOP:60,
+JMD:158,
+TTD:6.8,
+BBD:2,
+BSD:1,
+XCD:2.7,
+FJD:2.25,
+PGK:3.8
+
+};
+
+function populateConverterCurrencies(){
+
+  const from=$("converterFrom");
+  const to=$("converterTo");
+
+  if(!from || !to) return;
+
+  const options=CURRENCY_CODES.map(code=>{
+
+    return `<option value="${code}">
+      ${code}
+    </option>`;
+
+  }).join("");
+
+  from.innerHTML=options;
+  to.innerHTML=options;
+
+  from.value=
+    currentUserData?.currency ||
+    "USD";
+
+  to.value=
+    from.value==="USD"
+      ? "NGN"
+      : "USD";
+
+}
+
+populateConverterCurrencies();
+
+
+async function getConversionRates(base){
+
+  try{
+
+    const response=
+      await fetch(
+        `https://api.frankfurter.app/latest?from=${encodeURIComponent(base)}`
+      );
+
+    if(!response.ok){
+      throw new Error("Rate service unavailable");
     }
+
+    const data=await response.json();
+
+    if(
+      !data ||
+      !data.rates
+    ){
+      throw new Error("No rates");
+    }
+
+    return {
+      ...data.rates,
+      [base]:1
+    };
+
+  }catch{
+
+    const baseRate=
+      FALLBACK_USD_RATES[base] ||
+      1;
+
+    const result={};
+
+    Object.keys(FALLBACK_USD_RATES)
+    .forEach(code=>{
+
+      result[code]=
+        FALLBACK_USD_RATES[code] /
+        baseRate;
+
+    });
+
+    return result;
+
+  }
+
+}
+
+
+async function convertCurrency(){
+
+  clearMessage("converterMessage");
+
+  const amount=Number(
+    $("converterAmount").value
   );
 
+  const from=$("converterFrom").value;
+  const to=$("converterTo").value;
 
-$("doneReceiptBtn")
-  .addEventListener(
-    "click",
-    ()=>{
+  if(!Number.isFinite(amount) || amount<0){
 
-      $("receiptModal")
-        .classList
-        .remove("show");
+    setMessage(
+      "converterMessage",
+      "Please enter a valid amount.",
+      "error"
+    );
+
+    return;
+
+  }
+
+  if(!from || !to){
+
+    setMessage(
+      "converterMessage",
+      "Please select both currencies.",
+      "error"
+    );
+
+    return;
+
+  }
+
+  try{
+
+    setLoading(true,"Converting currency...");
+
+    const rates=await getConversionRates(from);
+
+    const rate=
+      toNumber(rates[to]);
+
+    if(!rate){
+
+      throw new Error(
+        "Conversion rate unavailable."
+      );
 
     }
-  );
+
+    const result=amount*rate;
+
+    $("converterResult").textContent=
+      money(result,to);
+
+    $("converterFromSummary").textContent=
+      `${amount} ${from}`;
+
+    $("converterToSummary").textContent=
+      `${money(result,to)}`;
+
+    $("converterRateSummary").textContent=
+      `1 ${from} = ${rate.toFixed(6)} ${to}`;
+
+    setLoading(false);
+
+  }catch(error){
+
+    setLoading(false);
+
+    setMessage(
+      "converterMessage",
+      "Currency conversion could not be completed.",
+      "error"
+    );
+
+  }
+
+}
+
+$("convertCurrencyBtn").addEventListener(
+  "click",
+  convertCurrency
+);
+
+
+/* =========================================================
+   LANGUAGE TRANSLATOR
+   ========================================================= */
+
+async function translateText(){
+
+  clearMessage("translatorMessage");
+
+  const text=$("translatorText").value.trim();
+
+  const from=$("translatorFrom").value;
+  const to=$("translatorTo").value;
+
+  if(!text){
+
+    setMessage(
+      "translatorMessage",
+      "Enter text to translate.",
+      "error"
+    );
+
+    return;
+
+  }
+
+  if(from===to){
+
+    $("translationResult").textContent=text;
+
+    return;
+
+  }
+
+  try{
+
+    setLoading(true,"Translating...");
+
+    const sourceCode=
+      TRANSLATOR_CODES[from];
+
+    const targetCode=
+      TRANSLATOR_CODES[to];
+
+    const url=
+      `https://api.mymemory.translated.net/get?q=${
+        encodeURIComponent(text)
+      }&langpair=${
+        encodeURIComponent(sourceCode)
+      }|${
+        encodeURIComponent(targetCode)
+      }`;
+
+    const response=
+      await fetch(url);
+
+    if(!response.ok){
+      throw new Error("Translation service unavailable");
+    }
+
+    const data=await response.json();
+
+    const translated=
+      data?.responseData?.translatedText;
+
+    if(!translated){
+
+      throw new Error(
+        "No translation returned."
+      );
+
+    }
+
+    $("translationResult").textContent=
+      translated;
+
+    setLoading(false);
+
+  }catch(error){
+
+    console.error(
+      "TRANSLATION ERROR:",
+      error
+    );
+
+    setLoading(false);
+
+    setMessage(
+      "translatorMessage",
+      "Translation could not be completed. Please check your internet connection and try again.",
+      "error"
+    );
+
+  }
+
+}
+
+$("translateBtn").addEventListener(
+  "click",
+  translateText
+);
 
 
 /* =========================================================
@@ -6101,59 +5413,35 @@ onAuthStateChanged(
   auth,
   async user=>{
 
-    /*
-     * While signup/login is actively completing,
-     * the individual auth handlers control the flow.
-     */
-    if(
-      authFlow !==
-      "idle"
-    ){
-
+    if(authFlow!=="idle"){
       return;
-
     }
 
     /*
-     * Do not automatically restore an old Firebase session.
-     * The site requires the user to sign in again.
+     * The existing behavior requires the user
+     * to sign in again when returning to the site.
      */
+
     if(user){
 
       try{
 
-        await signOut(
-          auth
-        );
+        await signOut(auth);
 
       }catch(error){
 
-        console.error(
-          error
-        );
+        console.error(error);
 
       }
 
       cleanupListeners();
 
-      currentUserData =
-        null;
+      currentUserData=null;
 
-      hide(
-        $("appScreen")
-      );
-
-      show(
-        $("authScreen")
-      );
-
-      show(
-        $("signupBox")
-      );
-
-      hide(
-        $("loginBox")
-      );
+      hide($("appScreen"));
+      show($("authScreen"));
+      show($("signupBox"));
+      hide($("loginBox"));
 
       return;
 
@@ -6161,57 +5449,41 @@ onAuthStateChanged(
 
     cleanupListeners();
 
-    currentUserData =
-      null;
+    currentUserData=null;
 
-    hide(
-      $("appScreen")
-    );
-
-    show(
-      $("authScreen")
-    );
+    hide($("appScreen"));
+    show($("authScreen"));
 
   }
 );
 
 
 /* =========================================================
-   LEAVING THE SITE / SWITCHING APPS
+   LEAVING PAGE
    ========================================================= */
-
-let leavingPage = false;
 
 document.addEventListener(
   "visibilitychange",
   async ()=>{
 
     if(
-      document.visibilityState ===
-      "hidden"
+      document.visibilityState==="hidden"
     ){
 
       if(
         auth.currentUser &&
-        authFlow ===
-        "idle"
+        authFlow==="idle"
       ){
-
-        leavingPage = true;
 
         try{
 
           cleanupListeners();
 
-          await signOut(
-            auth
-          );
+          await signOut(auth);
 
         }catch(error){
 
-          console.error(
-            error
-          );
+          console.error(error);
 
         }
 
@@ -6224,33 +5496,17 @@ document.addEventListener(
 
 
 /* =========================================================
-   INITIAL LANGUAGE
+   INITIAL UI
    ========================================================= */
 
 applyLanguage(
   getSavedLanguage()
 );
 
-
-/* =========================================================
-   INITIAL UI
-   ========================================================= */
-
-hide(
-  $("appScreen")
-);
-
-show(
-  $("authScreen")
-);
-
-show(
-  $("signupBox")
-);
-
-hide(
-  $("loginBox")
-);
+hide($("appScreen"));
+show($("authScreen"));
+show($("signupBox"));
+hide($("loginBox"));
 
 </script>
 
