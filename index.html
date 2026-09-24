@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>United Crest — Demo Banking</title>
+<title>United Crest — Banking</title>
 
 <style>
 *{
@@ -17,7 +17,7 @@
   --blue2:#123f82;
   --blue3:#1769aa;
   --light:#f4f7fb;
-  --white:#ffffff;
+  --white:#fff;
   --text:#172033;
   --muted:#718096;
   --success:#168653;
@@ -33,22 +33,11 @@ body{
   min-height:100vh;
 }
 
-button,
-input,
-select{
-  font:inherit;
-}
+button,input,select{font:inherit}
+button{cursor:pointer}
+.hidden{display:none!important}
 
-button{
-  cursor:pointer;
-}
-
-.hidden{
-  display:none!important;
-}
-
-/* ================= AUTH ================= */
-
+/* AUTH */
 #authScreen{
   min-height:100vh;
   display:flex;
@@ -69,10 +58,7 @@ button{
   box-shadow:0 25px 70px rgba(0,0,0,.25);
 }
 
-.brand{
-  text-align:center;
-  margin-bottom:22px;
-}
+.brand{text-align:center;margin-bottom:22px}
 
 .brand-logo{
   width:62px;
@@ -82,7 +68,7 @@ button{
   display:flex;
   align-items:center;
   justify-content:center;
-  color:white;
+  color:#fff;
   font-weight:800;
   font-size:22px;
   background:linear-gradient(135deg,#0b2a5b,#1769aa);
@@ -100,7 +86,7 @@ button{
   margin-top:5px;
 }
 
-.demo-badge{
+.platform-badge{
   display:inline-block;
   margin-top:12px;
   padding:7px 12px;
@@ -118,9 +104,7 @@ button{
   color:#172033;
 }
 
-.field{
-  margin-bottom:14px;
-}
+.field{margin-bottom:14px}
 
 .field label{
   display:block;
@@ -160,13 +144,11 @@ button{
 }
 
 .primary-btn{
-  color:white;
+  color:#fff;
   background:linear-gradient(135deg,#0b2a5b,#1769aa);
 }
 
-.primary-btn:hover{
-  transform:translateY(-1px);
-}
+.primary-btn:hover{transform:translateY(-1px)}
 
 .secondary-btn{
   color:#0b2a5b;
@@ -174,7 +156,7 @@ button{
 }
 
 .danger-btn{
-  color:white;
+  color:#fff;
   background:#d63b4b;
 }
 
@@ -201,9 +183,7 @@ button{
   line-height:1.4;
 }
 
-.form-message.show{
-  display:block;
-}
+.form-message.show{display:block}
 
 .form-message.error{
   color:#9d2635;
@@ -217,7 +197,7 @@ button{
   border:1px solid #c7f1da;
 }
 
-.demo-note{
+.info-note{
   margin-top:14px;
   padding:11px;
   border-radius:10px;
@@ -228,11 +208,8 @@ button{
   text-align:center;
 }
 
-/* ================= APP ================= */
-
-#appScreen{
-  min-height:100vh;
-}
+/* APP */
+#appScreen{min-height:100vh}
 
 .sidebar{
   position:fixed;
@@ -265,9 +242,7 @@ button{
   font-weight:800;
 }
 
-.sidebar-brand strong{
-  font-size:17px;
-}
+.sidebar-brand strong{font-size:17px}
 
 .sidebar-brand small{
   display:block;
@@ -292,17 +267,12 @@ button{
 
 .nav-item:hover,
 .nav-item.active{
-  color:white;
+  color:#fff;
   background:rgba(255,255,255,.10);
 }
 
-.nav-spacer{
-  height:20px;
-}
-
-.signout-nav{
-  color:#ffb5bd;
-}
+.nav-spacer{height:20px}
+.signout-nav{color:#ffb5bd}
 
 .main{
   margin-left:245px;
@@ -368,17 +338,10 @@ button{
   margin:auto;
 }
 
-.page{
-  display:none;
-}
+.page{display:none}
+.page.active{display:block}
 
-.page.active{
-  display:block;
-}
-
-.page-heading{
-  margin-bottom:22px;
-}
+.page-heading{margin-bottom:22px}
 
 .page-heading h2{
   color:#172033;
@@ -391,12 +354,11 @@ button{
   font-size:13px;
 }
 
-/* ================= DASHBOARD ================= */
-
+/* BALANCE */
 .balance-card{
   background:linear-gradient(135deg,#071f43,#12528d);
   border-radius:22px;
-  color:white;
+  color:#fff;
   padding:27px;
   box-shadow:var(--shadow);
   margin-bottom:22px;
@@ -422,10 +384,32 @@ button{
   letter-spacing:.5px;
 }
 
+.balance-line{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  position:relative;
+  z-index:2;
+}
+
 .balance{
   font-size:36px;
   font-weight:800;
   margin:9px 0 12px;
+}
+
+.balance-toggle{
+  width:38px;
+  height:38px;
+  border:0;
+  border-radius:10px;
+  background:rgba(255,255,255,.12);
+  color:#fff;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:19px;
+  margin-top:3px;
 }
 
 .account-number{
@@ -438,15 +422,9 @@ button{
   letter-spacing:1.5px;
 }
 
-.dashboard-note{
-  margin-top:18px;
-  font-size:11px;
-  color:#c4d7eb;
-}
-
 .quick-grid{
   display:grid;
-  grid-template-columns:repeat(4,1fr);
+  grid-template-columns:repeat(5,minmax(0,1fr));
   gap:15px;
 }
 
@@ -459,9 +437,7 @@ button{
   transition:.2s;
 }
 
-.quick-card:hover{
-  transform:translateY(-2px);
-}
+.quick-card:hover{transform:translateY(-2px)}
 
 .quick-card-icon{
   width:42px;
@@ -495,8 +471,7 @@ button{
   font-weight:800;
 }
 
-/* ================= PANELS ================= */
-
+/* PANELS */
 .panel{
   background:#fff;
   border:1px solid var(--border);
@@ -516,17 +491,13 @@ button{
   gap:20px;
 }
 
-.full-column{
-  display:block;
-}
-
 .action-btn{
   width:100%;
   border:0;
   border-radius:11px;
   padding:13px 16px;
   background:linear-gradient(135deg,#0b2a5b,#1769aa);
-  color:white;
+  color:#fff;
   font-weight:700;
 }
 
@@ -535,9 +506,7 @@ button{
   gap:9px;
 }
 
-.lookup-box input{
-  flex:1;
-}
+.lookup-box input{flex:1}
 
 .lookup-box button{
   width:auto;
@@ -556,9 +525,7 @@ button{
   font-size:13px;
 }
 
-.recipient-result.show{
-  display:block;
-}
+.recipient-result.show{display:block}
 
 .recipient-result strong{
   display:block;
@@ -572,8 +539,7 @@ button{
   font-size:12px;
 }
 
-/* ================= ACTIVITY ================= */
-
+/* ACTIVITY */
 .activity-list{
   display:flex;
   flex-direction:column;
@@ -627,13 +593,8 @@ button{
   font-size:13px;
 }
 
-.activity-amount.positive{
-  color:#168653;
-}
-
-.activity-amount.negative{
-  color:#d63b4b;
-}
+.activity-amount.positive{color:#168653}
+.activity-amount.negative{color:#d63b4b}
 
 .empty-state{
   text-align:center;
@@ -642,16 +603,13 @@ button{
   font-size:13px;
 }
 
-/* ================= PROFILE / SETTINGS ================= */
-
+/* PROFILE */
 .info-row{
   padding:13px 0;
   border-bottom:1px solid #edf1f6;
 }
 
-.info-row:last-child{
-  border-bottom:0;
-}
+.info-row:last-child{border-bottom:0}
 
 .info-row label{
   display:block;
@@ -665,8 +623,37 @@ button{
   word-break:break-word;
 }
 
-/* ================= RECEIPT ================= */
+/* WITHDRAW */
+.manager-box{text-align:center;padding:25px 10px}
 
+.manager-icon{
+  width:64px;
+  height:64px;
+  border-radius:18px;
+  margin:0 auto 15px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  background:#edf4ff;
+  color:#0b4c9c;
+  font-size:28px;
+  font-weight:800;
+}
+
+.manager-box h3{
+  font-size:20px;
+  color:#0b2a5b;
+  margin-bottom:8px;
+}
+
+.manager-box p{
+  color:#718096;
+  font-size:13px;
+  line-height:1.6;
+  margin-bottom:18px;
+}
+
+/* RECEIPT */
 .modal{
   position:fixed;
   inset:0;
@@ -678,9 +665,7 @@ button{
   z-index:500;
 }
 
-.modal.show{
-  display:flex;
-}
+.modal.show{display:flex}
 
 .receipt{
   width:100%;
@@ -721,9 +706,7 @@ button{
   font-weight:800;
 }
 
-.receipt-body{
-  padding:15px 0;
-}
+.receipt-body{padding:15px 0}
 
 .receipt-row{
   display:flex;
@@ -734,9 +717,7 @@ button{
   font-size:12px;
 }
 
-.receipt-row span:first-child{
-  color:#718096;
-}
+.receipt-row span:first-child{color:#718096}
 
 .receipt-row span:last-child{
   text-align:right;
@@ -749,19 +730,16 @@ button{
   gap:9px;
 }
 
-.receipt-actions button{
-  flex:1;
-}
+.receipt-actions button{flex:1}
 
-/* ================= TOAST ================= */
-
+/* TOAST */
 #toast{
   position:fixed;
   right:20px;
   bottom:20px;
   max-width:340px;
   background:#10243f;
-  color:white;
+  color:#fff;
   padding:13px 16px;
   border-radius:11px;
   box-shadow:0 12px 35px rgba(0,0,0,.2);
@@ -778,8 +756,7 @@ button{
   transform:translateY(0);
 }
 
-/* ================= LOADING ================= */
-
+/* LOADING */
 .loading-overlay{
   position:fixed;
   inset:0;
@@ -791,9 +768,7 @@ button{
   backdrop-filter:blur(3px);
 }
 
-.loading-overlay.show{
-  display:flex;
-}
+.loading-overlay.show{display:flex}
 
 .loading-box{
   background:#fff;
@@ -805,7 +780,12 @@ button{
   font-weight:700;
 }
 
-/* ================= MOBILE ================= */
+/* MOBILE */
+@media(max-width:1100px){
+  .quick-grid{
+    grid-template-columns:repeat(3,minmax(0,1fr));
+  }
+}
 
 @media(max-width:900px){
   .sidebar{
@@ -813,25 +793,12 @@ button{
     transition:.25s;
   }
 
-  .sidebar.open{
-    transform:translateX(0);
-  }
+  .sidebar.open{transform:translateX(0)}
+  .main{margin-left:0}
+  .mobile-menu{display:block}
 
-  .main{
-    margin-left:0;
-  }
-
-  .mobile-menu{
-    display:block;
-  }
-
-  .topbar{
-    padding:0 15px;
-  }
-
-  .content{
-    padding:18px 15px;
-  }
+  .topbar{padding:0 15px}
+  .content{padding:18px 15px}
 
   .quick-grid{
     grid-template-columns:repeat(2,1fr);
@@ -848,39 +815,27 @@ button{
     border-radius:17px;
   }
 
-  .balance{
-    font-size:30px;
-  }
+  .balance{font-size:30px}
 
   .quick-grid{
     grid-template-columns:1fr 1fr;
     gap:10px;
   }
 
-  .quick-card{
-    padding:15px;
-  }
+  .quick-card{padding:15px}
 
-  .activity-item{
-    align-items:flex-start;
-  }
+  .activity-item{align-items:flex-start}
 
-  .top-user-text{
-    display:none;
-  }
+  .top-user-text{display:none}
 
-  .lookup-box{
-    flex-direction:column;
-  }
+  .lookup-box{flex-direction:column}
 
   .lookup-box button{
     width:100%;
     padding:12px;
   }
 
-  .receipt-actions{
-    flex-direction:column;
-  }
+  .receipt-actions{flex-direction:column}
 }
 </style>
 </head>
@@ -888,14 +843,13 @@ button{
 <body>
 
 <section id="authScreen">
-
   <div class="auth-card">
 
     <div class="brand">
       <div class="brand-logo">UC</div>
       <h1>UNITED CREST</h1>
-      <p>Demo Banking Platform</p>
-      <span class="demo-badge">DEMO BANKING PLATFORM</span>
+      <p>Banking Platform</p>
+      <span class="platform-badge">BANKING PLATFORM</span>
     </div>
 
     <div id="signupBox">
@@ -936,10 +890,7 @@ button{
           <input id="signupAddress" type="text" autocomplete="street-address" required>
         </div>
 
-        <button class="primary-btn" type="submit">
-          Create Account
-        </button>
-
+        <button class="primary-btn" type="submit">Create Account</button>
       </form>
 
       <div class="auth-switch">
@@ -947,10 +898,9 @@ button{
         <button type="button" id="showLoginBtn">Sign In</button>
       </div>
 
-      <div class="demo-note">
-        This is a demo banking platform. Demo credits only — no real money is processed.
+      <div class="info-note">
+        Your account information is securely saved for future sign-in.
       </div>
-
     </div>
 
     <div id="loginBox" class="hidden">
@@ -971,10 +921,7 @@ button{
           <input id="loginPassword" type="password" autocomplete="current-password" required>
         </div>
 
-        <button class="primary-btn" type="submit">
-          Sign In
-        </button>
-
+        <button class="primary-btn" type="submit">Sign In</button>
       </form>
 
       <div class="auth-switch">
@@ -982,14 +929,12 @@ button{
         <button type="button" id="showSignupBtn">Create Account</button>
       </div>
 
-      <div class="demo-note">
-        Your balance and activity are saved securely in Firebase for your account.
+      <div class="info-note">
+        Your balance and account activity remain saved to your account.
       </div>
-
     </div>
 
   </div>
-
 </section>
 
 <section id="appScreen" class="hidden">
@@ -1000,48 +945,27 @@ button{
       <div class="sidebar-logo">UC</div>
       <div>
         <strong>UNITED CREST</strong>
-        <small>DEMO BANKING</small>
+        <small>BANKING</small>
       </div>
     </div>
 
-    <button class="nav-item active" data-page="dashboardPage">
-      Dashboard
-    </button>
-
-    <button class="nav-item" data-page="transferPage">
-      Transfer
-    </button>
-
-    <button class="nav-item" data-page="depositPage">
-      Deposit
-    </button>
-
-    <button class="nav-item" data-page="activityPage">
-      Activity
-    </button>
-
-    <button class="nav-item" data-page="profilePage">
-      Profile
-    </button>
-
-    <button class="nav-item" data-page="settingsPage">
-      Settings
-    </button>
+    <button class="nav-item active" data-page="dashboardPage">Dashboard</button>
+    <button class="nav-item" data-page="transferPage">Transfer</button>
+    <button class="nav-item" data-page="depositPage">Deposit</button>
+    <button class="nav-item" data-page="withdrawPage">Withdraw</button>
+    <button class="nav-item" data-page="activityPage">Activity</button>
+    <button class="nav-item" data-page="profilePage">Profile</button>
+    <button class="nav-item" data-page="settingsPage">Settings</button>
 
     <div class="nav-spacer"></div>
 
-    <button class="nav-item signout-nav" id="signOutBtn">
-      Sign Out
-    </button>
-
+    <button class="nav-item signout-nav" id="signOutBtn">Sign Out</button>
   </aside>
 
   <main class="main">
 
     <header class="topbar">
-
       <button class="mobile-menu" id="mobileMenuBtn">☰</button>
-
       <div></div>
 
       <div class="top-user">
@@ -1051,7 +975,6 @@ button{
           <span>United Crest Account</span>
         </div>
       </div>
-
     </header>
 
     <div class="content">
@@ -1065,19 +988,23 @@ button{
 
         <div class="balance-card">
 
-          <div class="balance-label">DEMO BALANCE</div>
+          <div class="balance-label">BALANCE</div>
 
-          <div class="balance" id="dashboardBalance">
-            $0.00
+          <div class="balance-line">
+            <div class="balance" id="dashboardBalance">$0.00</div>
+
+            <button
+              type="button"
+              class="balance-toggle"
+              id="balanceToggle"
+              aria-label="Hide balance"
+              title="Hide balance"
+            >👁</button>
           </div>
 
           <div class="account-number">
             Account Number:
             <strong id="dashboardAccountNumber">Loading...</strong>
-          </div>
-
-          <div class="dashboard-note">
-            CREDITS — NO FAKE MONEY
           </div>
 
         </div>
@@ -1096,6 +1023,13 @@ button{
             <h3>Deposit</h3>
             <p>Add credits to your account.</p>
             <button data-page-link="depositPage">Open Deposit</button>
+          </div>
+
+          <div class="quick-card">
+            <div class="quick-card-icon">−</div>
+            <h3>Withdraw</h3>
+            <p>Request withdrawal assistance.</p>
+            <button data-page-link="withdrawPage">Contact Manager</button>
           </div>
 
           <div class="quick-card">
@@ -1120,7 +1054,7 @@ button{
 
         <div class="page-heading">
           <h2>Transfer</h2>
-          <p>Internal Transfer — this does not move fake money.</p>
+          <p>Internal Transfer.</p>
         </div>
 
         <div class="two-column">
@@ -1147,9 +1081,7 @@ button{
                   type="button"
                   class="secondary-btn"
                   id="lookupRecipientBtn"
-                >
-                  Find
-                </button>
+                >Find</button>
               </div>
             </div>
 
@@ -1188,10 +1120,6 @@ button{
               Send Transfer
             </button>
 
-            <div class="demo-note">
-              Transfers are internal transactions only. No real bank account or payment network is connected.
-            </div>
-
           </div>
 
           <div class="panel">
@@ -1226,7 +1154,6 @@ button{
           </div>
 
         </div>
-
       </section>
 
       <section id="depositPage" class="page">
@@ -1285,10 +1212,6 @@ button{
               Review Deposit
             </button>
 
-            <div class="demo-note">
-              No real payment is processed. This feature only adds demo credits to your account.
-            </div>
-
           </div>
 
           <div class="panel hidden" id="depositReview">
@@ -1328,9 +1251,31 @@ button{
             </div>
 
           </div>
+        </div>
+      </section>
 
+      <section id="withdrawPage" class="page">
+
+        <div class="page-heading">
+          <h2>Withdraw</h2>
+          <p>Withdrawal assistance.</p>
         </div>
 
+        <div class="panel manager-box">
+
+          <div class="manager-icon">−</div>
+
+          <h3>Contact Manager</h3>
+
+          <p>
+            Please contact your account manager for withdrawal assistance.
+          </p>
+
+          <button class="action-btn" id="contactManagerBtn">
+            Contact Manager
+          </button>
+
+        </div>
       </section>
 
       <section id="activityPage" class="page">
@@ -1341,13 +1286,9 @@ button{
         </div>
 
         <div class="panel">
-
           <div id="activityList" class="activity-list">
-            <div class="empty-state">
-              Loading activity...
-            </div>
+            <div class="empty-state">Loading activity...</div>
           </div>
-
         </div>
 
       </section>
@@ -1393,7 +1334,6 @@ button{
           </button>
 
         </div>
-
       </section>
 
       <section id="settingsPage" class="page">
@@ -1411,7 +1351,6 @@ button{
             <label>Display Currency</label>
 
             <select id="currencySelect">
-
               <option value="USD">USD — US Dollar</option>
               <option value="EUR">EUR — Euro</option>
               <option value="GBP">GBP — Pound Sterling</option>
@@ -1497,7 +1436,6 @@ button{
               <option value="NZD">NZD — New Zealand Dollar</option>
               <option value="FJD">FJD — Fiji Dollar</option>
               <option value="PGK">PGK — Papua New Guinean Kina</option>
-
             </select>
           </div>
 
@@ -1505,18 +1443,32 @@ button{
             Save Currency
           </button>
 
-          <div class="demo-note">
-            Currency selection changes the display currency of your demo balance using an exchange rate. Demo credits only — no real money is exchanged.
+          <div class="field" style="margin-top:22px;">
+            <label>Language</label>
+
+            <select id="languageSelect">
+              <option value="en">English</option>
+              <option value="es">Spanish</option>
+              <option value="fr">French</option>
+              <option value="pt">Portuguese</option>
+              <option value="ar">Arabic</option>
+              <option value="zh">Chinese</option>
+              <option value="hi">Hindi</option>
+              <option value="de">German</option>
+              <option value="ru">Russian</option>
+              <option value="ja">Japanese</option>
+            </select>
           </div>
 
-        </div>
+          <button class="action-btn" id="saveLanguageBtn">
+            Save Language
+          </button>
 
+        </div>
       </section>
 
     </div>
-
   </main>
-
 </section>
 
 <div class="modal" id="receiptModal">
@@ -1584,29 +1536,17 @@ button{
     </div>
 
     <div class="receipt-actions">
-      <button class="secondary-btn" id="closeReceiptBtn">
-        Close
-      </button>
-
-      <button class="primary-btn" id="doneReceiptBtn">
-        Done
-      </button>
-    </div>
-
-    <div class="demo-note">
-      This receipt represents a transaction only. No real money was transferred.
+      <button class="secondary-btn" id="closeReceiptBtn">Close</button>
+      <button class="primary-btn" id="doneReceiptBtn">Done</button>
     </div>
 
   </div>
-
 </div>
 
 <div id="toast"></div>
 
 <div class="loading-overlay" id="loadingOverlay">
-  <div class="loading-box" id="loadingText">
-    Please wait...
-  </div>
+  <div class="loading-box" id="loadingText">Please wait...</div>
 </div>
 
 <script type="module">
@@ -1635,7 +1575,6 @@ import {
   query,
   where,
   limit,
-  getDocs,
   runTransaction,
   onSnapshot,
   serverTimestamp
@@ -1643,82 +1582,74 @@ import {
 from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
 const firebaseConfig = {
-  apiKey: "AIzaSyC95OCYP5hOiLLVfc3IMzqbj9efbAugQ-4",
-  authDomain: "united-crest.firebaseapp.com",
-  projectId: "united-crest",
-  storageBucket: "united-crest.firebasestorage.app",
-  messagingSenderId: "949238476023",
-  appId: "1:949238476023:web:b1c216c46597d2bdd5b7f2"
+  apiKey:"AIzaSyC95OCYP5hOiLLVfc3IMzqbj9efbAugQ-4",
+  authDomain:"united-crest.firebaseapp.com",
+  projectId:"united-crest",
+  storageBucket:"united-crest.firebasestorage.app",
+  messagingSenderId:"949238476023",
+  appId:"1:949238476023:web:b1c216c46597d2bdd5b7f2"
 };
 
-const app = initializeApp(firebaseConfig);
-const auth = getAuth(app);
-const db = getFirestore(app);
+const app=initializeApp(firebaseConfig);
+const auth=getAuth(app);
+const db=getFirestore(app);
 
-let currentUserData = null;
-let selectedRecipient = null;
-let depositReviewData = null;
+let currentUserData=null;
+let selectedRecipient=null;
+let depositReviewData=null;
+let authFlow="idle";
 
-let authFlow = "idle";
+let unsubscribeUser=null;
+let unsubscribeIncomingTransfers=null;
 
-let unsubscribeUser = null;
-let unsubscribeActivity = null;
-let unsubscribeIncomingTransfers = null;
+let exchangeRates={USD:1};
+let ratesLoadedAt=0;
+let sessionExitInProgress=false;
+let balanceHidden=false;
 
-let exchangeRates = {USD:1};
-let ratesLoadedAt = 0;
-let sessionExitInProgress = false;
-
-const $ = id => document.getElementById(id);
+const $=id=>document.getElementById(id);
 
 function show(el){
-  if(el) el.classList.remove("hidden");
+  if(el)el.classList.remove("hidden");
 }
 
 function hide(el){
-  if(el) el.classList.add("hidden");
+  if(el)el.classList.add("hidden");
 }
 
 function setMessage(id,text,type="error"){
-  const el = $(id);
-
-  if(!el) return;
-
-  el.textContent = text;
-  el.className = "form-message show " + type;
+  const el=$(id);
+  if(!el)return;
+  el.textContent=text;
+  el.className="form-message show "+type;
 }
 
 function clearMessage(id){
-  const el = $(id);
-
-  if(!el) return;
-
-  el.textContent = "";
-  el.className = "form-message";
+  const el=$(id);
+  if(!el)return;
+  el.textContent="";
+  el.className="form-message";
 }
 
 function showToast(message){
-  const toast = $("toast");
-
-  toast.textContent = message;
+  const toast=$("toast");
+  toast.textContent=message;
   toast.classList.add("show");
 
   clearTimeout(window.__toastTimer);
 
-  window.__toastTimer = setTimeout(()=>{
+  window.__toastTimer=setTimeout(()=>{
     toast.classList.remove("show");
   },3500);
 }
 
 function setLoading(active,text="Please wait..."){
-  const overlay = $("loadingOverlay");
-  $("loadingText").textContent = text;
-
-  overlay.classList.toggle("show",active);
+  $("loadingText").textContent=text;
+  $("loadingOverlay").classList.toggle("show",active);
 }
 
 function escapeHTML(value){
-  return String(value ?? "")
+  return String(value??"")
     .replaceAll("&","&amp;")
     .replaceAll("<","&lt;")
     .replaceAll(">","&gt;")
@@ -1727,163 +1658,82 @@ function escapeHTML(value){
 }
 
 function randomDigits(length){
-  let output = "";
-
+  let output="";
   for(let i=0;i<length;i++){
-    output += Math.floor(Math.random()*10);
+    output+=Math.floor(Math.random()*10);
   }
-
   return output;
 }
 
 function getInitial(name){
-  return String(name || "U").trim().charAt(0).toUpperCase() || "U";
+  return String(name||"U").trim().charAt(0).toUpperCase()||"U";
 }
 
 function makeTransactionId(){
-  return "UC-" +
-    Date.now().toString(36).toUpperCase() +
-    "-" +
-    randomDigits(6);
+  return "UC-"+Date.now().toString(36).toUpperCase()+"-"+randomDigits(6);
 }
 
 function toNumber(value){
-  const number = Number(value);
-
-  return Number.isFinite(number) ? number : 0;
+  const number=Number(value);
+  return Number.isFinite(number)?number:0;
 }
 
 async function loadExchangeRates(){
 
-  const now = Date.now();
+  const now=Date.now();
 
   if(
-    now - ratesLoadedAt < 10 * 60 * 1000 &&
-    Object.keys(exchangeRates).length > 1
+    now-ratesLoadedAt<10*60*1000 &&
+    Object.keys(exchangeRates).length>1
   ){
     return exchangeRates;
   }
 
   try{
 
-    const response =
-      await fetch(
-        "https://open.er-api.com/v6/latest/USD",
-        {cache:"no-store"}
-      );
+    const response=await fetch(
+      "https://open.er-api.com/v6/latest/USD",
+      {cache:"no-store"}
+    );
 
     if(!response.ok){
-      throw new Error("Exchange-rate request failed");
+      throw new Error("Exchange rate request failed");
     }
 
-    const data = await response.json();
+    const data=await response.json();
 
     if(
       data &&
-      data.result === "success" &&
+      data.result==="success" &&
       data.rates
     ){
-      exchangeRates = {
+      exchangeRates={
         USD:1,
         ...data.rates
       };
 
-      ratesLoadedAt = now;
+      ratesLoadedAt=now;
     }
 
   }catch(error){
 
-    console.warn(
-      "Exchange rates unavailable; using fallback rates.",
-      error
-    );
+    console.warn("Exchange rates unavailable.",error);
 
-    exchangeRates = {
-      USD:1,
-      EUR:.85,
-      GBP:.74,
-      NGN:1500,
-      CAD:1.38,
-      AUD:1.52,
-      JPY:148,
-      CNY:7.1,
-      INR:83,
-      CHF:.80,
-      AED:3.67,
-      SAR:3.75,
-      ZAR:18,
-      KES:129,
-      GHS:15,
-      UGX:3700,
-      TZS:2500,
-      RWF:1450,
-      XOF:560,
-      XAF:560,
-      EGP:48,
-      MAD:10,
-      DZD:130,
-      TND:3.0,
-      LYD:4.9,
-      BWP:13.5,
-      MUR:46,
-      NAD:18,
-      ZMW:24,
-      MWK:1740,
-      ETB:140,
-      SLL:22000,
-      LRD:190,
-      GMD:72,
-      GNF:8600,
-      BRL:5.4,
-      MXN:19,
-      ARS:1450,
-      CLP:950,
-      COP:3900,
-      PEN:3.5,
-      UYU:41,
-      BOB:6.9,
-      PYG:7900,
-      DOP:60,
-      JMD:158,
-      TTD:6.8,
-      BSD:1,
-      BBD:2,
-      BZD:2,
-      GTQ:7.7,
-      HNL:26,
-      NIO:36.8,
-      CRC:510,
-      PAB:1,
-      ISK:124,
-      NOK:10.5,
-      SEK:9.5,
-      DKK:6.35,
-      PLN:3.7,
-      CZK:21,
-      HUF:335,
-      RON:4.35,
-      BGN:1.66,
-      TRY:41,
-      ILS:3.7,
-      QAR:3.64,
-      KWD:.31,
-      BHD:.377,
-      OMR:.385,
-      JOD:.709,
-      PKR:280,
-      BDT:122,
-      LKR:300,
-      NPR:133,
-      THB:32,
-      MYR:4.25,
-      SGD:1.28,
-      IDR:16500,
-      PHP:57,
-      VND:25000,
-      KRW:1400,
-      NZD:1.72,
-      FJD:2.25,
-      PGK:4.05
+    exchangeRates={
+      USD:1,EUR:.85,GBP:.74,NGN:1500,CAD:1.38,AUD:1.52,
+      JPY:148,CNY:7.1,INR:83,CHF:.80,AED:3.67,SAR:3.75,
+      ZAR:18,KES:129,GHS:15,UGX:3700,TZS:2500,RWF:1450,
+      XOF:560,XAF:560,EGP:48,MAD:10,DZD:130,TND:3,
+      LYD:4.9,BWP:13.5,MUR:46,NAD:18,ZMW:24,MWK:1740,
+      ETB:140,SLL:22000,LRD:190,GMD:72,GNF:8600,BRL:5.4,
+      MXN:19,ARS:1450,CLP:950,COP:3900,PEN:3.5,UYU:41,
+      BOB:6.9,PYG:7900,DOP:60,JMD:158,TTD:6.8,BSD:1,
+      BBD:2,BZD:2,GTQ:7.7,HNL:26,NIO:36.8,CRC:510,PAB:1,
+      ISK:124,NOK:10.5,SEK:9.5,DKK:6.35,PLN:3.7,CZK:21,
+      HUF:335,RON:4.35,BGN:1.66,TRY:41,ILS:3.7,QAR:3.64,
+      KWD:.31,BHD:.377,OMR:.385,JOD:.709,PKR:280,BDT:122,
+      LKR:300,NPR:133,THB:32,MYR:4.25,SGD:1.28,IDR:16500,
+      PHP:57,VND:25000,KRW:1400,NZD:1.72,FJD:2.25,PGK:4.05
     };
   }
 
@@ -1891,21 +1741,17 @@ async function loadExchangeRates(){
 }
 
 function rateFor(currency){
-  const rate = toNumber(exchangeRates[currency]);
-
-  return rate > 0 ? rate : 1;
+  const rate=toNumber(exchangeRates[currency]);
+  return rate>0?rate:1;
 }
 
 function fromUsd(usd,currency){
-  return toNumber(usd) * rateFor(currency || "USD");
+  return toNumber(usd)*rateFor(currency||"USD");
 }
 
 function toUsd(amount,currency){
-  const rate = rateFor(currency || "USD");
-
-  return rate > 0
-    ? toNumber(amount) / rate
-    : toNumber(amount);
+  const rate=rateFor(currency||"USD");
+  return rate>0?toNumber(amount)/rate:toNumber(amount);
 }
 
 function getBalanceUsd(data){
@@ -1918,55 +1764,52 @@ function getBalanceUsd(data){
   }
 
   return toUsd(
-    data?.balance || 0,
-    data?.currency || "USD"
+    data?.balance||0,
+    data?.currency||"USD"
   );
 }
 
 function money(value,currency){
 
-  const amount = toNumber(value);
-
   try{
-
     return new Intl.NumberFormat(undefined,{
       style:"currency",
-      currency:currency || "USD",
+      currency:currency||"USD",
       maximumFractionDigits:2
-    }).format(amount);
-
+    }).format(toNumber(value));
   }catch{
-
-    return `${currency || "USD"} ${amount.toFixed(2)}`;
+    return `${currency||"USD"} ${toNumber(value).toFixed(2)}`;
   }
 }
 
 function formatDate(value){
 
-  if(!value){
-    return "Just now";
-  }
+  if(!value)return "Just now";
 
   let date;
 
   if(value?.toDate){
-    date = value.toDate();
+    date=value.toDate();
   }else if(value instanceof Date){
-    date = value;
+    date=value;
   }else{
-    date = new Date(value);
+    date=new Date(value);
   }
 
-  if(Number.isNaN(date.getTime())){
-    return "Just now";
-  }
+  if(Number.isNaN(date.getTime()))return "Just now";
 
   return date.toLocaleString();
 }
 
+/*
+ * IMPORTANT:
+ * Firebase/Firestore technical errors are never exposed to users.
+ * Only normal authentication messages and safe application messages
+ * are displayed.
+ */
 function firebaseErrorMessage(error){
 
-  const code = error?.code || "";
+  const code=String(error?.code||"");
 
   if(code.includes("auth/email-already-in-use")){
     return "This email already has an account. Please use Sign In.";
@@ -1992,65 +1835,53 @@ function firebaseErrorMessage(error){
     return "Too many attempts. Please wait a moment and try again.";
   }
 
-  if(code.includes("permission-denied")){
-    return "Firebase permission was denied. The Firestore Rules must match this demo system.";
+  /*
+   * Any Firebase/Firestore/network/configuration error
+   * is converted into one generic user-facing message.
+   */
+  if(code){
+    return "Something went wrong. Please check your internet connection and try again.";
   }
 
-  if(code.includes("failed-precondition")){
-    return "Firebase needs an index or configuration update before this action can continue.";
-  }
-
-  if(code.includes("network-request-failed")){
-    return "Network connection failed. Please check your internet connection.";
-  }
-
-  return error?.message || "Something went wrong. Please try again.";
+  /*
+   * Errors deliberately created by the application itself
+   * can use their normal safe message.
+   */
+  return error?.message ||
+    "Something went wrong. Please check your internet connection and try again.";
 }
 
 function cleanupListeners(){
 
   if(unsubscribeUser){
     unsubscribeUser();
-    unsubscribeUser = null;
-  }
-
-  if(unsubscribeActivity){
-    unsubscribeActivity();
-    unsubscribeActivity = null;
+    unsubscribeUser=null;
   }
 
   if(unsubscribeIncomingTransfers){
     unsubscribeIncomingTransfers();
-    unsubscribeIncomingTransfers = null;
+    unsubscribeIncomingTransfers=null;
   }
 }
 
-/* =========================================================
-   AUTH SCREEN
-   ========================================================= */
+/* AUTH SCREEN */
 
 function showSignup(){
-
   hide($("loginBox"));
   show($("signupBox"));
-
   clearMessage("loginMessage");
 }
 
 function showLogin(){
-
   hide($("signupBox"));
   show($("loginBox"));
-
   clearMessage("signupMessage");
 }
 
 $("showLoginBtn").addEventListener("click",showLogin);
 $("showSignupBtn").addEventListener("click",showSignup);
 
-/* =========================================================
-   NAVIGATION
-   ========================================================= */
+/* NAVIGATION */
 
 function openPage(pageId){
 
@@ -2058,16 +1889,14 @@ function openPage(pageId){
     page.classList.remove("active");
   });
 
-  const page = $(pageId);
+  const page=$(pageId);
 
-  if(page){
-    page.classList.add("active");
-  }
+  if(page)page.classList.add("active");
 
   document.querySelectorAll(".nav-item[data-page]").forEach(button=>{
     button.classList.toggle(
       "active",
-      button.dataset.page === pageId
+      button.dataset.page===pageId
     );
   });
 
@@ -2095,66 +1924,98 @@ $("mobileMenuBtn").addEventListener("click",()=>{
   $("sidebar").classList.toggle("open");
 });
 
-/* =========================================================
-   DASHBOARD UI
-   ========================================================= */
+/* BALANCE */
+
+function updateBalanceVisibility(){
+
+  if(!currentUserData)return;
+
+  const currency=currentUserData.currency||"USD";
+  const balanceUsd=getBalanceUsd(currentUserData);
+  const balance=fromUsd(balanceUsd,currency);
+
+  const balanceEl=$("dashboardBalance");
+  const toggle=$("balanceToggle");
+
+  if(balanceHidden){
+
+    balanceEl.textContent="••••••";
+
+    toggle.textContent="🙈";
+    toggle.setAttribute("aria-label","Show balance");
+    toggle.setAttribute("title","Show balance");
+
+  }else{
+
+    balanceEl.textContent=money(balance,currency);
+
+    toggle.textContent="👁";
+    toggle.setAttribute("aria-label","Hide balance");
+    toggle.setAttribute("title","Hide balance");
+  }
+}
+
+$("balanceToggle").addEventListener("click",()=>{
+
+  balanceHidden=!balanceHidden;
+
+  updateBalanceVisibility();
+});
+
+/* USER UI */
 
 function populateUserUI(data){
 
-  if(!data) return;
+  if(!data)return;
 
-  const name = data.name || "User";
-  const currency = data.currency || "USD";
-  const balanceUsd = getBalanceUsd(data);
-  const balance = fromUsd(balanceUsd,currency);
+  const name=data.name||"User";
+  const currency=data.currency||"USD";
+  const balanceUsd=getBalanceUsd(data);
+  const balance=fromUsd(balanceUsd,currency);
 
-  $("topGreeting").textContent = `Hi ${name}`;
-  $("topAvatar").textContent = getInitial(name);
+  $("topGreeting").textContent=`Hi ${name}`;
+  $("topAvatar").textContent=getInitial(name);
 
-  $("dashboardBalance").textContent =
+  if(balanceHidden){
+    $("dashboardBalance").textContent="••••••";
+  }else{
+    $("dashboardBalance").textContent=money(balance,currency);
+  }
+
+  updateBalanceVisibility();
+
+  $("dashboardAccountNumber").textContent=
+    data.accountNumber||"Loading...";
+
+  $("transferBalancePreview").textContent=
     money(balance,currency);
 
-  $("dashboardAccountNumber").textContent =
-    data.accountNumber || "Loading...";
+  $("profileName").value=data.name||"";
+  $("profilePhone").value=data.phone||"";
+  $("profileEmail").value=data.email||"";
+  $("profileAddress").value=data.address||"";
+  $("profileAccountNumber").value=data.accountNumber||"";
 
-  $("transferBalancePreview").textContent =
-    money(balance,currency);
+  $("currencySelect").value=data.currency||"USD";
+  $("languageSelect").value=data.language||"en";
 
-  $("profileName").value = data.name || "";
-  $("profilePhone").value = data.phone || "";
-  $("profileEmail").value = data.email || "";
-  $("profileAddress").value = data.address || "";
-  $("profileAccountNumber").value = data.accountNumber || "";
-
-  $("currencySelect").value =
-    data.currency || "USD";
-
-  $("depositEmail").value =
-    data.email || "";
-
-  $("depositName").value =
-    data.name || "";
-
-  $("depositPhone").value =
-    data.phone || "";
+  $("depositEmail").value=data.email||"";
+  $("depositName").value=data.name||"";
+  $("depositPhone").value=data.phone||"";
 }
 
-/* =========================================================
-   ACCOUNT NUMBER
-   ========================================================= */
+/* ACCOUNT NUMBER */
 
 async function generateUniqueAccountNumber(){
 
   for(let attempt=0;attempt<30;attempt++){
 
-    const number = randomDigits(10);
+    const number=randomDigits(10);
 
-    if(number.charAt(0) === "0"){
-      continue;
-    }
+    if(number.charAt(0)==="0")continue;
 
-    const ref = doc(db,"accountIndex",number);
-    const snapshot = await getDoc(ref);
+    const ref=doc(db,"accountIndex",number);
+    const snapshot=await getDoc(ref);
 
     if(!snapshot.exists()){
       return number;
@@ -2166,59 +2027,58 @@ async function generateUniqueAccountNumber(){
   );
 }
 
-/* =========================================================
-   USER LISTENER
-   ========================================================= */
+/* USER LISTENER */
 
 function startUserListener(uid){
 
-  if(unsubscribeUser){
-    unsubscribeUser();
-  }
+  if(unsubscribeUser)unsubscribeUser();
 
-  unsubscribeUser = onSnapshot(
+  unsubscribeUser=onSnapshot(
     doc(db,"users",uid),
     snapshot=>{
 
-      if(!snapshot.exists()){
-        return;
-      }
+      if(!snapshot.exists())return;
 
-      currentUserData = {
+      currentUserData={
         uid,
         ...snapshot.data()
       };
 
-      loadExchangeRates()
-        .then(()=>{
-          populateUserUI(currentUserData);
-        });
+      loadExchangeRates().then(()=>{
+        populateUserUI(currentUserData);
+      });
 
       renderActivities(
-        currentUserData.activities || []
+        currentUserData.activities||[]
       );
     },
     error=>{
-      console.error(error);
-      showToast(firebaseErrorMessage(error));
+
+      console.error("USER LISTENER ERROR:",error);
+
+      /*
+       * Do not expose the Firebase error.
+       * The listener remains a background operation.
+       */
+      showToast(
+        "Something went wrong. Please check your internet connection and try again."
+      );
     }
   );
 }
 
-/* =========================================================
-   ACTIVITY
-   ========================================================= */
+/* ACTIVITY */
 
 function renderActivities(activities){
 
-  const list = $("activityList");
+  const list=$("activityList");
 
   if(
-    !Array.isArray(activities) ||
-    activities.length === 0
+    !Array.isArray(activities)||
+    activities.length===0
   ){
 
-    list.innerHTML = `
+    list.innerHTML=`
       <div class="empty-state">
         No activity yet.
       </div>
@@ -2227,52 +2087,49 @@ function renderActivities(activities){
     return;
   }
 
-  const sorted = [...activities]
+  const sorted=[...activities]
     .sort((a,b)=>{
-      const da = new Date(a.createdAt || 0).getTime();
-      const db = new Date(b.createdAt || 0).getTime();
-
-      return db - da;
+      const da=new Date(a.createdAt||0).getTime();
+      const db=new Date(b.createdAt||0).getTime();
+      return db-da;
     })
     .slice(0,100);
 
-  list.innerHTML = sorted.map(activity=>{
+  list.innerHTML=sorted.map(activity=>{
 
-    const received =
-      activity.direction === "received" ||
-      activity.type === "deposit";
+    const received=
+      activity.direction==="received"||
+      activity.type==="deposit";
 
-    const amount = toNumber(activity.amount);
+    const amount=toNumber(activity.amount);
 
-    const currency =
-      activity.currency ||
-      currentUserData?.currency ||
+    const currency=
+      activity.currency||
+      currentUserData?.currency||
       "USD";
 
-    const amountText =
+    const amountText=
       received
         ? `+${money(amount,currency)}`
         : `-${money(amount,currency)}`;
 
-    const title =
-      activity.type === "deposit"
+    const title=
+      activity.type==="deposit"
         ? "Deposit"
-        : activity.type === "transfer"
-          ? (
-              received
-                ? "Transfer Received"
-                : "Transfer Sent"
-            )
-          : activity.title || "Account Activity";
+        : activity.type==="transfer"
+          ? received
+            ? "Transfer Received"
+            : "Transfer Sent"
+          : activity.title||"Account Activity";
 
-    const icon =
-      activity.type === "deposit"
+    const icon=
+      activity.type==="deposit"
         ? "+"
         : received
           ? "↓"
           : "↑";
 
-    return `
+    return`
       <div class="activity-item">
 
         <div class="activity-left">
@@ -2287,8 +2144,7 @@ function renderActivities(activities){
 
             <span>
               ${escapeHTML(
-                activity.description ||
-                "Demo transaction"
+                activity.description||"Transaction"
               )}
               <br>
               ${escapeHTML(
@@ -2296,21 +2152,16 @@ function renderActivities(activities){
               )}
               ${
                 activity.transactionId
-                  ? `<br>ID: ${escapeHTML(
-                      activity.transactionId
-                    )}`
+                  ? `<br>ID: ${escapeHTML(activity.transactionId)}`
                   : ""
               }
             </span>
 
           </div>
-
         </div>
 
         <div class="activity-amount ${
-          received
-            ? "positive"
-            : "negative"
+          received?"positive":"negative"
         }">
           ${escapeHTML(amountText)}
         </div>
@@ -2320,36 +2171,33 @@ function renderActivities(activities){
   }).join("");
 }
 
-/* =========================================================
-   LOAD DASHBOARD
-   ========================================================= */
+/* LOAD DASHBOARD */
 
 async function loadDashboard(uid){
 
-  const snapshot = await getDoc(
+  const snapshot=await getDoc(
     doc(db,"users",uid)
   );
 
   if(!snapshot.exists()){
-
     throw new Error(
-      "Your profile could not be found. Please create your account again."
+      "Your profile could not be found. Please sign in again."
     );
   }
 
-  const data = snapshot.data();
+  const data=snapshot.data();
 
   if(
-    data.profileCompleted !== true ||
-    data.dashboardReached !== true
+    data.profileCompleted!==true||
+    data.dashboardReached!==true
   ){
 
     throw new Error(
-      "Your profile is incomplete. Please create the account again."
+      "Your account could not be loaded. Please sign in again."
     );
   }
 
-  currentUserData = {
+  currentUserData={
     uid,
     ...data
   };
@@ -2360,16 +2208,13 @@ async function loadDashboard(uid){
   show($("appScreen"));
 
   populateUserUI(currentUserData);
-
   startUserListener(uid);
   startTransferListeners(uid);
 
   openPage("dashboardPage");
 }
 
-/* =========================================================
-   SIGN UP
-   ========================================================= */
+/* SIGN UP */
 
 $("signupForm").addEventListener(
   "submit",
@@ -2379,31 +2224,14 @@ $("signupForm").addEventListener(
 
     clearMessage("signupMessage");
 
-    const name =
-      $("signupName").value.trim();
+    const name=$("signupName").value.trim();
+    const phone=$("signupPhone").value.trim();
+    const email=$("signupEmail").value.trim().toLowerCase();
+    const password=$("signupPassword").value;
+    const confirmPassword=$("signupConfirmPassword").value;
+    const address=$("signupAddress").value.trim();
 
-    const phone =
-      $("signupPhone").value.trim();
-
-    const email =
-      $("signupEmail").value.trim().toLowerCase();
-
-    const password =
-      $("signupPassword").value;
-
-    const confirmPassword =
-      $("signupConfirmPassword").value;
-
-    const address =
-      $("signupAddress").value.trim();
-
-    if(
-      !name ||
-      !phone ||
-      !email ||
-      !password ||
-      !address
-    ){
+    if(!name||!phone||!email||!password||!address){
 
       setMessage(
         "signupMessage",
@@ -2414,7 +2242,7 @@ $("signupForm").addEventListener(
       return;
     }
 
-    if(password !== confirmPassword){
+    if(password!==confirmPassword){
 
       setMessage(
         "signupMessage",
@@ -2425,7 +2253,7 @@ $("signupForm").addEventListener(
       return;
     }
 
-    if(password.length < 6){
+    if(password.length<6){
 
       setMessage(
         "signupMessage",
@@ -2436,37 +2264,30 @@ $("signupForm").addEventListener(
       return;
     }
 
-    authFlow = "signup";
+    authFlow="signup";
 
-    let createdAuthUser = null;
+    let createdAuthUser=null;
 
     try{
 
-      setLoading(
-        true,
-        "Creating your account..."
-      );
+      setLoading(true,"Creating your account...");
 
       let credential;
 
       try{
 
-        credential =
+        credential=
           await createUserWithEmailAndPassword(
             auth,
             email,
             password
           );
 
-        createdAuthUser =
-          credential.user;
+        createdAuthUser=credential.user;
 
       }catch(error){
 
-        if(
-          error?.code !==
-          "auth/email-already-in-use"
-        ){
+        if(error?.code!=="auth/email-already-in-use"){
           throw error;
         }
 
@@ -2474,7 +2295,7 @@ $("signupForm").addEventListener(
 
         try{
 
-          existingCredential =
+          existingCredential=
             await signInWithEmailAndPassword(
               auth,
               email,
@@ -2488,7 +2309,7 @@ $("signupForm").addEventListener(
           );
         }
 
-        const existingSnapshot =
+        const existingSnapshot=
           await getDoc(
             doc(
               db,
@@ -2498,11 +2319,9 @@ $("signupForm").addEventListener(
           );
 
         if(
-          existingSnapshot.exists() &&
-          existingSnapshot.data()
-            .profileCompleted === true &&
-          existingSnapshot.data()
-            .dashboardReached === true
+          existingSnapshot.exists()&&
+          existingSnapshot.data().profileCompleted===true&&
+          existingSnapshot.data().dashboardReached===true
         ){
 
           await signOut(auth);
@@ -2512,74 +2331,58 @@ $("signupForm").addEventListener(
           );
         }
 
-        credential =
-          existingCredential;
-
-        createdAuthUser =
-          existingCredential.user;
+        credential=existingCredential;
+        createdAuthUser=existingCredential.user;
       }
 
-      const uid =
-        credential.user.uid;
+      const uid=credential.user.uid;
 
-      let accountNumber = null;
+      let accountNumber=null;
 
-      const existingProfile =
+      const existingProfile=
         await getDoc(
           doc(db,"users",uid)
         );
 
       if(existingProfile.exists()){
-
-        accountNumber =
-          existingProfile.data()
-            .accountNumber || null;
+        accountNumber=
+          existingProfile.data().accountNumber||null;
       }
 
       if(!accountNumber){
-
-        accountNumber =
+        accountNumber=
           await generateUniqueAccountNumber();
       }
 
-      const existingData =
+      const existingData=
         existingProfile.exists()
           ? existingProfile.data()
           : {};
 
-      const initialData = {
+      const initialData={
 
         uid,
-
         name,
-
         phone,
-
         email,
-
         address,
-
         accountNumber,
 
         balance:0,
-
         balanceUsd:0,
-
         currency:"USD",
+        language:"en",
 
         activities:
-          Array.isArray(
-            existingData.activities
-          )
+          Array.isArray(existingData.activities)
             ? existingData.activities
             : [],
 
         profileCompleted:false,
-
         dashboardReached:false,
 
         createdAt:
-          existingData.createdAt ||
+          existingData.createdAt||
           serverTimestamp(),
 
         updatedAt:
@@ -2593,11 +2396,7 @@ $("signupForm").addEventListener(
       );
 
       await setDoc(
-        doc(
-          db,
-          "accountIndex",
-          accountNumber
-        ),
+        doc(db,"accountIndex",accountNumber),
         {
           uid,
           accountNumber,
@@ -2609,18 +2408,6 @@ $("signupForm").addEventListener(
         },
         {merge:true}
       );
-
-      const verify =
-        await getDoc(
-          doc(db,"users",uid)
-        );
-
-      if(!verify.exists()){
-
-        throw new Error(
-          "Your profile could not be saved."
-        );
-      }
 
       await updateDoc(
         doc(db,"users",uid),
@@ -2631,37 +2418,16 @@ $("signupForm").addEventListener(
         }
       );
 
-      await setDoc(
-        doc(
-          db,
-          "accountIndex",
-          accountNumber
-        ),
-        {
-          uid,
-          accountNumber,
-          name,
-          email,
-          profileCompleted:true,
-          dashboardReached:true,
-          updatedAt:serverTimestamp()
-        },
-        {merge:true}
-      );
-
       try{
 
         if(!credential.user.emailVerified){
-
-          await sendEmailVerification(
-            credential.user
-          );
+          await sendEmailVerification(credential.user);
         }
 
       }catch(verificationError){
 
         console.warn(
-          "Verification email was not sent:",
+          "Verification email was not sent.",
           verificationError
         );
       }
@@ -2676,48 +2442,31 @@ $("signupForm").addEventListener(
 
     }catch(error){
 
-      console.error(
-        "SIGNUP ERROR:",
-        error
-      );
+      console.error("SIGNUP ERROR:",error);
 
       if(
-        createdAuthUser &&
-        error?.code !==
-        "auth/email-already-in-use"
+        createdAuthUser&&
+        error?.code!=="auth/email-already-in-use"
       ){
 
         try{
 
-          const profileCheck =
+          const profileCheck=
             await getDoc(
-              doc(
-                db,
-                "users",
-                createdAuthUser.uid
-              )
+              doc(db,"users",createdAuthUser.uid)
             );
 
-          const complete =
-            profileCheck.exists() &&
-            profileCheck.data()
-              .profileCompleted === true &&
-            profileCheck.data()
-              .dashboardReached === true;
+          const complete=
+            profileCheck.exists()&&
+            profileCheck.data().profileCompleted===true&&
+            profileCheck.data().dashboardReached===true;
 
           if(!complete){
-
-            await deleteUser(
-              createdAuthUser
-            );
+            await deleteUser(createdAuthUser);
           }
 
         }catch(cleanupError){
-
-          console.warn(
-            "Signup cleanup failed:",
-            cleanupError
-          );
+          console.warn("Signup cleanup failed.",cleanupError);
         }
       }
 
@@ -2730,15 +2479,12 @@ $("signupForm").addEventListener(
       );
 
     }finally{
-
-      authFlow = "idle";
+      authFlow="idle";
     }
   }
 );
 
-/* =========================================================
-   SIGN IN
-   ========================================================= */
+/* SIGN IN */
 
 $("loginForm").addEventListener(
   "submit",
@@ -2748,15 +2494,13 @@ $("loginForm").addEventListener(
 
     clearMessage("loginMessage");
 
-    const email =
-      $("loginEmail").value
-        .trim()
-        .toLowerCase();
+    const email=
+      $("loginEmail").value.trim().toLowerCase();
 
-    const password =
+    const password=
       $("loginPassword").value;
 
-    if(!email || !password){
+    if(!email||!password){
 
       setMessage(
         "loginMessage",
@@ -2767,26 +2511,22 @@ $("loginForm").addEventListener(
       return;
     }
 
-    authFlow = "login";
+    authFlow="login";
 
     try{
 
-      setLoading(
-        true,
-        "Signing you in..."
-      );
+      setLoading(true,"Signing you in...");
 
-      const credential =
+      const credential=
         await signInWithEmailAndPassword(
           auth,
           email,
           password
         );
 
-      const uid =
-        credential.user.uid;
+      const uid=credential.user.uid;
 
-      const snapshot =
+      const snapshot=
         await getDoc(
           doc(db,"users",uid)
         );
@@ -2796,39 +2536,33 @@ $("loginForm").addEventListener(
         await signOut(auth);
 
         throw new Error(
-          "Your account was found, but your profile is missing."
+          "Your account could not be loaded. Please sign in again."
         );
       }
 
-      const data =
-        snapshot.data();
+      const data=snapshot.data();
 
       if(
-        data.profileCompleted !== true ||
-        data.dashboardReached !== true
+        data.profileCompleted!==true||
+        data.dashboardReached!==true
       ){
 
         await signOut(auth);
 
         throw new Error(
-          "Your profile is incomplete. Please create the account again."
+          "Your account could not be loaded. Please sign in again."
         );
       }
 
       setLoading(false);
 
-      showToast(
-        "Signed in successfully."
-      );
+      showToast("Signed in successfully.");
 
       await loadDashboard(uid);
 
     }catch(error){
 
-      console.error(
-        "LOGIN ERROR:",
-        error
-      );
+      console.error("LOGIN ERROR:",error);
 
       setLoading(false);
 
@@ -2839,36 +2573,27 @@ $("loginForm").addEventListener(
       );
 
     }finally{
-
-      authFlow = "idle";
+      authFlow="idle";
     }
   }
 );
 
-/* =========================================================
-   RECIPIENT LOOKUP
-   ========================================================= */
+/* RECIPIENT LOOKUP */
 
 $("recipientAccount").addEventListener(
   "input",
   event=>{
 
-    event.target.value =
+    event.target.value=
       event.target.value
         .replace(/\D/g,"")
         .slice(0,10);
 
-    selectedRecipient = null;
+    selectedRecipient=null;
 
-    $("recipientResult")
-      .classList
-      .remove("show");
-
-    $("recipientName")
-      .textContent = "";
-
-    $("recipientDetails")
-      .textContent = "";
+    $("recipientResult").classList.remove("show");
+    $("recipientName").textContent="";
+    $("recipientDetails").textContent="";
   }
 );
 
@@ -2876,10 +2601,8 @@ async function findRecipient(){
 
   clearMessage("transferMessage");
 
-  const accountNumber =
-    $("recipientAccount")
-      .value
-      .trim();
+  const accountNumber=
+    $("recipientAccount").value.trim();
 
   if(!/^\d{10}$/.test(accountNumber)){
 
@@ -2905,18 +2628,11 @@ async function findRecipient(){
 
   try{
 
-    setLoading(
-      true,
-      "Finding recipient..."
-    );
+    setLoading(true,"Finding recipient...");
 
-    const indexSnapshot =
+    const indexSnapshot=
       await getDoc(
-        doc(
-          db,
-          "accountIndex",
-          accountNumber
-        )
+        doc(db,"accountIndex",accountNumber)
       );
 
     if(!indexSnapshot.exists()){
@@ -2926,13 +2642,12 @@ async function findRecipient(){
       );
     }
 
-    const indexData =
-      indexSnapshot.data();
+    const indexData=indexSnapshot.data();
 
     if(
-      !indexData.uid ||
-      indexData.profileCompleted !== true ||
-      indexData.dashboardReached !== true
+      !indexData.uid||
+      indexData.profileCompleted!==true||
+      indexData.dashboardReached!==true
     ){
 
       throw new Error(
@@ -2940,13 +2655,9 @@ async function findRecipient(){
       );
     }
 
-    const userSnapshot =
+    const userSnapshot=
       await getDoc(
-        doc(
-          db,
-          "users",
-          indexData.uid
-        )
+        doc(db,"users",indexData.uid)
       );
 
     if(!userSnapshot.exists()){
@@ -2956,12 +2667,11 @@ async function findRecipient(){
       );
     }
 
-    const recipient =
-      userSnapshot.data();
+    const recipient=userSnapshot.data();
 
     if(
-      recipient.profileCompleted !== true ||
-      recipient.dashboardReached !== true
+      recipient.profileCompleted!==true||
+      recipient.dashboardReached!==true
     ){
 
       throw new Error(
@@ -2969,48 +2679,36 @@ async function findRecipient(){
       );
     }
 
-    if(
-      auth.currentUser.uid ===
-      indexData.uid
-    ){
+    if(auth.currentUser.uid===indexData.uid){
 
       throw new Error(
         "You cannot transfer credits to your own account."
       );
     }
 
-    selectedRecipient = {
-
+    selectedRecipient={
       uid:indexData.uid,
-
       accountNumber,
-
       name:
-        recipient.name ||
-        indexData.name ||
+        recipient.name||
+        indexData.name||
         "United Crest User",
-
       email:
-        recipient.email ||
-        indexData.email ||
+        recipient.email||
+        indexData.email||
         "",
-
       currency:
-        recipient.currency ||
+        recipient.currency||
         "USD"
     };
 
-    $("recipientName")
-      .textContent =
+    $("recipientName").textContent=
       selectedRecipient.name;
 
-    $("recipientDetails")
-      .textContent =
+    $("recipientDetails").textContent=
       `Account ending ${accountNumber.slice(-4)}`;
 
-    $("recipientResult")
-      .classList
-      .add("show");
+    $("recipientResult").classList.add("show");
 
     setLoading(false);
 
@@ -3020,18 +2718,13 @@ async function findRecipient(){
 
   }catch(error){
 
-    console.error(
-      "RECIPIENT LOOKUP ERROR:",
-      error
-    );
+    console.error("RECIPIENT LOOKUP ERROR:",error);
 
     setLoading(false);
 
-    selectedRecipient = null;
+    selectedRecipient=null;
 
-    $("recipientResult")
-      .classList
-      .remove("show");
+    $("recipientResult").classList.remove("show");
 
     setMessage(
       "transferMessage",
@@ -3046,11 +2739,9 @@ $("lookupRecipientBtn").addEventListener(
   findRecipient
 );
 
-/* =========================================================
-   CROSS-DEVICE TRANSFER
-   ========================================================= */
+/* TRANSFER */
 
-async function sendDemoTransfer(){
+async function sendTransfer(){
 
   clearMessage("transferMessage");
 
@@ -3087,21 +2778,14 @@ async function sendDemoTransfer(){
     return;
   }
 
-  const amount =
-    Number(
-      $("transferAmount").value
-    );
+  const amount=
+    Number($("transferAmount").value);
 
-  const description =
-    $("transferReference")
-      .value
-      .trim() ||
+  const description=
+    $("transferReference").value.trim()||
     "transfer";
 
-  if(
-    !Number.isFinite(amount) ||
-    amount <= 0
-  ){
+  if(!Number.isFinite(amount)||amount<=0){
 
     setMessage(
       "transferMessage",
@@ -3112,27 +2796,18 @@ async function sendDemoTransfer(){
     return;
   }
 
-  const senderCurrency =
-    currentUserData.currency ||
-    "USD";
+  const senderCurrency=
+    currentUserData.currency||"USD";
 
   await loadExchangeRates();
 
-  const balanceUsd =
-    getBalanceUsd(
-      currentUserData
-    );
+  const balanceUsd=
+    getBalanceUsd(currentUserData);
 
-  const amountUsd =
-    toUsd(
-      amount,
-      senderCurrency
-    );
+  const amountUsd=
+    toUsd(amount,senderCurrency);
 
-  if(
-    amountUsd >
-    balanceUsd + 0.0000001
-  ){
+  if(amountUsd>balanceUsd+0.0000001){
 
     setMessage(
       "transferMessage",
@@ -3144,7 +2819,7 @@ async function sendDemoTransfer(){
   }
 
   if(
-    selectedRecipient.uid ===
+    selectedRecipient.uid===
     auth.currentUser.uid
   ){
 
@@ -3157,76 +2832,44 @@ async function sendDemoTransfer(){
     return;
   }
 
-  const senderUid =
-    auth.currentUser.uid;
+  const senderUid=auth.currentUser.uid;
 
-  const senderRef =
-    doc(
-      db,
-      "users",
-      senderUid
-    );
+  const senderRef=
+    doc(db,"users",senderUid);
 
-  const transferRef =
-    doc(
-      collection(
-        db,
-        "transfers"
-      )
-    );
+  const transferRef=
+    doc(collection(db,"transfers"));
 
-  const transactionId =
+  const transactionId=
     makeTransactionId();
 
-  const receiptData = {
-
+  const receiptData={
     transactionId,
-
-    createdAt:
-      new Date().toISOString(),
-
+    createdAt:new Date().toISOString(),
     amount,
-
     amountUsd,
-
-    currency:
-      senderCurrency,
-
-    type:
-      "Internal Transfer",
-
+    currency:senderCurrency,
+    type:"Internal Transfer",
     description,
-
     senderName:
-      currentUserData.name ||
+      currentUserData.name||
       "United Crest User",
-
     senderAccount:
-      currentUserData.accountNumber ||
-      "",
-
-    recipientName:
-      selectedRecipient.name,
-
-    recipientAccount:
-      selectedRecipient.accountNumber
+      currentUserData.accountNumber||"",
+    recipientName:selectedRecipient.name,
+    recipientAccount:selectedRecipient.accountNumber
   };
 
   try{
 
-    setLoading(
-      true,
-      "Sending transfer..."
-    );
+    setLoading(true,"Sending transfer...");
 
     await runTransaction(
       db,
       async transaction=>{
 
-        const senderSnapshot =
-          await transaction.get(
-            senderRef
-          );
+        const senderSnapshot=
+          await transaction.get(senderRef);
 
         if(!senderSnapshot.exists()){
 
@@ -3235,23 +2878,19 @@ async function sendDemoTransfer(){
           );
         }
 
-        const sender =
-          senderSnapshot.data();
+        const sender=senderSnapshot.data();
 
-        const senderBalanceUsd =
+        const senderBalanceUsd=
           getBalanceUsd(sender);
 
-        if(
-          senderBalanceUsd <
-          amountUsd
-        ){
+        if(senderBalanceUsd<amountUsd){
 
           throw new Error(
             "Your balance is not enough for this transfer."
           );
         }
 
-        const activities =
+        const activities=
           Array.isArray(sender.activities)
             ? [...sender.activities]
             : [];
@@ -3259,74 +2898,49 @@ async function sendDemoTransfer(){
         activities.unshift({
 
           transactionId,
-
           type:"transfer",
-
           direction:"sent",
-
           amount,
-
           amountUsd,
-
-          currency:
-            senderCurrency,
-
+          currency:senderCurrency,
           description,
-
-          recipientName:
-            selectedRecipient.name,
-
-          recipientAccount:
-            selectedRecipient.accountNumber,
-
-          createdAt:
-            new Date().toISOString()
+          recipientName:selectedRecipient.name,
+          recipientAccount:selectedRecipient.accountNumber,
+          createdAt:new Date().toISOString()
         });
-
-        const trimmedActivities =
-          activities.slice(0,100);
 
         transaction.update(
           senderRef,
           {
             balanceUsd:
-              senderBalanceUsd -
-              amountUsd,
+              senderBalanceUsd-amountUsd,
 
             balance:
               fromUsd(
-                senderBalanceUsd -
-                amountUsd,
+                senderBalanceUsd-amountUsd,
                 senderCurrency
               ),
 
-            activities:
-              trimmedActivities,
-
-            updatedAt:
-              serverTimestamp()
+            activities:activities.slice(0,100),
+            updatedAt:serverTimestamp()
           }
         );
 
         transaction.set(
           transferRef,
           {
-
             transactionId,
-
             senderUid,
 
             senderName:
-              currentUserData.name ||
+              currentUserData.name||
               "United Crest User",
 
             senderAccount:
-              currentUserData.accountNumber ||
-              "",
+              currentUserData.accountNumber||"",
 
             senderEmail:
-              currentUserData.email ||
-              "",
+              currentUserData.email||"",
 
             recipientUid:
               selectedRecipient.uid,
@@ -3338,59 +2952,38 @@ async function sendDemoTransfer(){
               selectedRecipient.accountNumber,
 
             recipientEmail:
-              selectedRecipient.email ||
-              "",
+              selectedRecipient.email||"",
 
             amount,
-
             amountUsd,
-
-            senderAmount:
-              amount,
-
+            senderAmount:amount,
             senderCurrency,
-
-            currency:
-              senderCurrency,
-
+            currency:senderCurrency,
             description,
-
-            status:
-              "pending",
-
-            createdAt:
-              serverTimestamp()
+            status:"pending",
+            createdAt:serverTimestamp()
           }
         );
       }
     );
 
-    $("recipientAccount").value = "";
-    $("transferAmount").value = "";
-    $("transferReference").value = "";
+    $("recipientAccount").value="";
+    $("transferAmount").value="";
+    $("transferReference").value="";
 
-    selectedRecipient = null;
+    selectedRecipient=null;
 
-    $("recipientResult")
-      .classList
-      .remove("show");
+    $("recipientResult").classList.remove("show");
 
     setLoading(false);
 
-    showReceipt(
-      receiptData
-    );
+    showReceipt(receiptData);
 
-    showToast(
-      "Transfer sent successfully."
-    );
+    showToast("Transfer sent successfully.");
 
   }catch(error){
 
-    console.error(
-      "TRANSFER ERROR:",
-      error
-    );
+    console.error("TRANSFER ERROR:",error);
 
     setLoading(false);
 
@@ -3404,69 +2997,47 @@ async function sendDemoTransfer(){
 
 $("sendTransferBtn").addEventListener(
   "click",
-  sendDemoTransfer
+  sendTransfer
 );
 
-/* =========================================================
-   INCOMING TRANSFER LISTENER
-   ========================================================= */
+/* INCOMING TRANSFERS */
 
 function startTransferListeners(uid){
 
   if(unsubscribeIncomingTransfers){
-
     unsubscribeIncomingTransfers();
-
-    unsubscribeIncomingTransfers =
-      null;
+    unsubscribeIncomingTransfers=null;
   }
 
-  const transferQuery =
+  const transferQuery=
     query(
-      collection(
-        db,
-        "transfers"
-      ),
-      where(
-        "recipientUid",
-        "==",
-        uid
-      ),
+      collection(db,"transfers"),
+      where("recipientUid","==",uid),
       limit(100)
     );
 
-  unsubscribeIncomingTransfers =
+  unsubscribeIncomingTransfers=
     onSnapshot(
       transferQuery,
       snapshot=>{
 
-        snapshot.docChanges()
-          .forEach(change=>{
+        snapshot.docChanges().forEach(change=>{
 
-            if(
-              change.type === "added" ||
-              change.type === "modified"
-            ){
+          if(
+            change.type==="added"||
+            change.type==="modified"
+          ){
 
-              const transfer = {
+            const transfer={
+              id:change.doc.id,
+              ...change.doc.data()
+            };
 
-                id:
-                  change.doc.id,
-
-                ...change.doc.data()
-              };
-
-              if(
-                transfer.status ===
-                "pending"
-              ){
-
-                processIncomingTransfer(
-                  transfer
-                );
-              }
+            if(transfer.status==="pending"){
+              processIncomingTransfer(transfer);
             }
-          });
+          }
+        });
       },
       error=>{
 
@@ -3476,54 +3047,28 @@ function startTransferListeners(uid){
         );
 
         showToast(
-          firebaseErrorMessage(error)
+          "Something went wrong. Please check your internet connection and try again."
         );
       }
     );
 }
 
-/* =========================================================
-   PROCESS INCOMING TRANSFER
-   ========================================================= */
+/* PROCESS INCOMING */
 
-async function processIncomingTransfer(
-  transfer
-){
+async function processIncomingTransfer(transfer){
 
-  if(!auth.currentUser){
-    return;
-  }
+  if(!auth.currentUser)return;
 
-  const uid =
-    auth.currentUser.uid;
+  const uid=auth.currentUser.uid;
 
-  if(
-    transfer.recipientUid !==
-    uid
-  ){
-    return;
-  }
+  if(transfer.recipientUid!==uid)return;
+  if(transfer.status!=="pending")return;
 
-  if(
-    transfer.status !==
-    "pending"
-  ){
-    return;
-  }
+  const transferRef=
+    doc(db,"transfers",transfer.id);
 
-  const transferRef =
-    doc(
-      db,
-      "transfers",
-      transfer.id
-    );
-
-  const recipientRef =
-    doc(
-      db,
-      "users",
-      uid
-    );
+  const recipientRef=
+    doc(db,"users",uid);
 
   try{
 
@@ -3533,31 +3078,23 @@ async function processIncomingTransfer(
       db,
       async transaction=>{
 
-        const transferSnapshot =
-          await transaction.get(
-            transferRef
-          );
+        const transferSnapshot=
+          await transaction.get(transferRef);
 
-        if(!transferSnapshot.exists()){
-          return;
-        }
+        if(!transferSnapshot.exists())return;
 
-        const freshTransfer =
+        const freshTransfer=
           transferSnapshot.data();
 
         if(
-          freshTransfer.status !==
-          "pending" ||
-          freshTransfer.recipientUid !==
-          uid
+          freshTransfer.status!=="pending"||
+          freshTransfer.recipientUid!==uid
         ){
           return;
         }
 
-        const recipientSnapshot =
-          await transaction.get(
-            recipientRef
-          );
+        const recipientSnapshot=
+          await transaction.get(recipientRef);
 
         if(!recipientSnapshot.exists()){
 
@@ -3566,45 +3103,34 @@ async function processIncomingTransfer(
           );
         }
 
-        const recipient =
+        const recipient=
           recipientSnapshot.data();
 
-        const amountUsd =
+        const amountUsd=
           Number.isFinite(
-            Number(
-              freshTransfer.amountUsd
-            )
+            Number(freshTransfer.amountUsd)
           )
-            ? Number(
-                freshTransfer.amountUsd
-              )
+            ? Number(freshTransfer.amountUsd)
             : toUsd(
-                freshTransfer.amount || 0,
-                freshTransfer.currency ||
-                "USD"
+                freshTransfer.amount||0,
+                freshTransfer.currency||"USD"
               );
 
-        if(amountUsd <= 0){
-
-          throw new Error(
-            "Invalid transfer amount."
-          );
+        if(amountUsd<=0){
+          throw new Error("Invalid transfer amount.");
         }
 
-        const existingActivities =
-          Array.isArray(
-            recipient.activities
-          )
+        const existingActivities=
+          Array.isArray(recipient.activities)
             ? [...recipient.activities]
             : [];
 
-        const alreadyReceived =
+        const alreadyReceived=
           existingActivities.some(
             activity=>
-              activity.transactionId ===
-                freshTransfer.transactionId &&
-              activity.direction ===
-                "received"
+              activity.transactionId===
+                freshTransfer.transactionId&&
+              activity.direction==="received"
           );
 
         if(alreadyReceived){
@@ -3613,23 +3139,18 @@ async function processIncomingTransfer(
             transferRef,
             {
               status:"completed",
-              completedAt:
-                serverTimestamp()
+              completedAt:serverTimestamp()
             }
           );
 
           return;
         }
 
-        const currency =
-          recipient.currency ||
-          "USD";
+        const currency=
+          recipient.currency||"USD";
 
-        const amount =
-          fromUsd(
-            amountUsd,
-            currency
-          );
+        const amount=
+          fromUsd(amountUsd,currency);
 
         existingActivities.unshift({
 
@@ -3637,49 +3158,32 @@ async function processIncomingTransfer(
             freshTransfer.transactionId,
 
           type:"transfer",
-
           direction:"received",
-
           amount,
-
           amountUsd,
-
           currency,
 
           description:
-            freshTransfer.description ||
-            "Demo transfer received",
+            freshTransfer.description||
+            "Transfer received",
 
           senderName:
-            freshTransfer.senderName ||
+            freshTransfer.senderName||
             "United Crest User",
 
           senderAccount:
-            freshTransfer.senderAccount ||
-            "",
+            freshTransfer.senderAccount||"",
 
-          createdAt:
-            new Date().toISOString()
+          createdAt:new Date().toISOString()
         });
 
-        const trimmedActivities =
-          existingActivities.slice(
-            0,
-            100
-          );
-
-        const newBalanceUsd =
-          getBalanceUsd(
-            recipient
-          ) +
-          amountUsd;
+        const newBalanceUsd=
+          getBalanceUsd(recipient)+amountUsd;
 
         transaction.update(
           recipientRef,
           {
-
-            balanceUsd:
-              newBalanceUsd,
+            balanceUsd:newBalanceUsd,
 
             balance:
               fromUsd(
@@ -3688,10 +3192,9 @@ async function processIncomingTransfer(
               ),
 
             activities:
-              trimmedActivities,
+              existingActivities.slice(0,100),
 
-            updatedAt:
-              serverTimestamp()
+            updatedAt:serverTimestamp()
           }
         );
 
@@ -3699,8 +3202,7 @@ async function processIncomingTransfer(
           transferRef,
           {
             status:"completed",
-            completedAt:
-              serverTimestamp()
+            completedAt:serverTimestamp()
           }
         );
       }
@@ -3712,49 +3214,26 @@ async function processIncomingTransfer(
       "PROCESS INCOMING TRANSFER ERROR:",
       error
     );
+
+    /*
+     * No technical Firebase error is shown to the user here.
+     */
   }
 }
 
-/* =========================================================
-   DEPOSIT
-   ========================================================= */
+/* DEPOSIT */
 
 function reviewDeposit(){
 
-  clearMessage(
-    "depositMessage"
-  );
+  clearMessage("depositMessage");
 
-  const email =
-    $("depositEmail")
-      .value
-      .trim();
+  const email=$("depositEmail").value.trim();
+  const name=$("depositName").value.trim();
+  const phone=$("depositPhone").value.trim();
+  const amount=Number($("depositAmount").value);
+  const pin=$("depositPin").value.trim();
 
-  const name =
-    $("depositName")
-      .value
-      .trim();
-
-  const phone =
-    $("depositPhone")
-      .value
-      .trim();
-
-  const amount =
-    Number(
-      $("depositAmount").value
-    );
-
-  const pin =
-    $("depositPin")
-      .value
-      .trim();
-
-  if(
-    !email ||
-    !name ||
-    !phone
-  ){
+  if(!email||!name||!phone){
 
     setMessage(
       "depositMessage",
@@ -3765,10 +3244,7 @@ function reviewDeposit(){
     return;
   }
 
-  if(
-    !Number.isFinite(amount) ||
-    amount <= 0
-  ){
+  if(!Number.isFinite(amount)||amount<=0){
 
     setMessage(
       "depositMessage",
@@ -3790,46 +3266,26 @@ function reviewDeposit(){
     return;
   }
 
-  depositReviewData = {
-
+  depositReviewData={
     email,
-
     name,
-
     phone,
-
     amount,
-
-    currency:
-      currentUserData?.currency ||
-      "USD",
-
+    currency:currentUserData?.currency||"USD",
     pin
   };
 
-  $("reviewDepositName")
-    .textContent =
-    name;
+  $("reviewDepositName").textContent=name;
+  $("reviewDepositEmail").textContent=email;
+  $("reviewDepositPhone").textContent=phone;
 
-  $("reviewDepositEmail")
-    .textContent =
-    email;
-
-  $("reviewDepositPhone")
-    .textContent =
-    phone;
-
-  $("reviewDepositAmount")
-    .textContent =
+  $("reviewDepositAmount").textContent=
     money(
       amount,
-      currentUserData?.currency ||
-      "USD"
+      currentUserData?.currency||"USD"
     );
 
-  show(
-    $("depositReview")
-  );
+  show($("depositReview"));
 }
 
 $("reviewDepositBtn").addEventListener(
@@ -3837,15 +3293,11 @@ $("reviewDepositBtn").addEventListener(
   reviewDeposit
 );
 
-/* =========================================================
-   CONFIRM DEPOSIT
-   ========================================================= */
+/* CONFIRM DEPOSIT */
 
 async function confirmDeposit(){
 
-  clearMessage(
-    "depositMessage"
-  );
+  clearMessage("depositMessage");
 
   if(!depositReviewData){
 
@@ -3858,10 +3310,7 @@ async function confirmDeposit(){
     return;
   }
 
-  if(
-    !auth.currentUser ||
-    !currentUserData
-  ){
+  if(!auth.currentUser||!currentUserData){
 
     setMessage(
       "depositMessage",
@@ -3874,34 +3323,24 @@ async function confirmDeposit(){
 
   try{
 
-    setLoading(
-      true,
-      "Adding credits..."
-    );
+    setLoading(true,"Adding credits...");
 
     await loadExchangeRates();
 
-    const uid =
-      auth.currentUser.uid;
+    const uid=auth.currentUser.uid;
 
-    const userRef =
-      doc(
-        db,
-        "users",
-        uid
-      );
+    const userRef=
+      doc(db,"users",uid);
 
-    const transactionId =
+    const transactionId=
       makeTransactionId();
 
     await runTransaction(
       db,
       async transaction=>{
 
-        const snapshot =
-          await transaction.get(
-            userRef
-          );
+        const snapshot=
+          await transaction.get(userRef);
 
         if(!snapshot.exists()){
 
@@ -3910,60 +3349,41 @@ async function confirmDeposit(){
           );
         }
 
-        const data =
-          snapshot.data();
+        const data=snapshot.data();
 
-        const depositCurrency =
-          data.currency ||
-          "USD";
+        const depositCurrency=
+          data.currency||"USD";
 
-        const depositAmountUsd =
+        const depositAmountUsd=
           toUsd(
             depositReviewData.amount,
             depositCurrency
           );
 
-        const newBalanceUsd =
-          getBalanceUsd(data) +
-          depositAmountUsd;
+        const newBalanceUsd=
+          getBalanceUsd(data)+depositAmountUsd;
 
-        const activities =
-          Array.isArray(
-            data.activities
-          )
+        const activities=
+          Array.isArray(data.activities)
             ? [...data.activities]
             : [];
 
         activities.unshift({
 
           transactionId,
-
           type:"deposit",
-
           direction:"received",
-
-          amount:
-            depositReviewData.amount,
-
-          amountUsd:
-            depositAmountUsd,
-
-          currency:
-            depositCurrency,
-
-          description:
-            "Demo deposit",
-
-          createdAt:
-            new Date().toISOString()
+          amount:depositReviewData.amount,
+          amountUsd:depositAmountUsd,
+          currency:depositCurrency,
+          description:"Deposit",
+          createdAt:new Date().toISOString()
         });
 
         transaction.update(
           userRef,
           {
-
-            balanceUsd:
-              newBalanceUsd,
+            balanceUsd:newBalanceUsd,
 
             balance:
               fromUsd(
@@ -3972,53 +3392,42 @@ async function confirmDeposit(){
               ),
 
             activities:
-              activities.slice(
-                0,
-                100
-              ),
+              activities.slice(0,100),
 
-            updatedAt:
-              serverTimestamp()
+            updatedAt:serverTimestamp()
           }
         );
       }
     );
 
-    const currency =
-      currentUserData.currency ||
-      "USD";
+    const currency=
+      currentUserData.currency||"USD";
 
-    const completedDepositAmount =
+    const completedAmount=
       depositReviewData.amount;
 
-    const completedDepositCurrency =
-      depositReviewData.currency ||
-      currency;
+    const completedCurrency=
+      depositReviewData.currency||currency;
 
-    depositReviewData = null;
+    depositReviewData=null;
 
-    $("depositAmount").value = "";
-    $("depositPin").value = "";
+    $("depositAmount").value="";
+    $("depositPin").value="";
 
-    hide(
-      $("depositReview")
-    );
+    hide($("depositReview"));
 
     setLoading(false);
 
     showToast(
-      `Demo deposit added: ${money(
-        completedDepositAmount,
-        completedDepositCurrency
+      `Deposit added: ${money(
+        completedAmount,
+        completedCurrency
       )}`
     );
 
   }catch(error){
 
-    console.error(
-      "DEPOSIT ERROR:",
-      error
-    );
+    console.error("DEPOSIT ERROR:",error);
 
     setLoading(false);
 
@@ -4038,47 +3447,24 @@ $("confirmDepositBtn").addEventListener(
 $("cancelDepositBtn").addEventListener(
   "click",
   ()=>{
-    depositReviewData = null;
-    hide(
-      $("depositReview")
-    );
+    depositReviewData=null;
+    hide($("depositReview"));
   }
 );
 
-/* =========================================================
-   PROFILE
-   ========================================================= */
+/* PROFILE */
 
 async function saveProfile(){
 
-  clearMessage(
-    "profileMessage"
-  );
+  clearMessage("profileMessage");
 
-  if(!auth.currentUser){
-    return;
-  }
+  if(!auth.currentUser)return;
 
-  const name =
-    $("profileName")
-      .value
-      .trim();
+  const name=$("profileName").value.trim();
+  const phone=$("profilePhone").value.trim();
+  const address=$("profileAddress").value.trim();
 
-  const phone =
-    $("profilePhone")
-      .value
-      .trim();
-
-  const address =
-    $("profileAddress")
-      .value
-      .trim();
-
-  if(
-    !name ||
-    !phone ||
-    !address
-  ){
+  if(!name||!phone||!address){
 
     setMessage(
       "profileMessage",
@@ -4091,32 +3477,21 @@ async function saveProfile(){
 
   try{
 
-    setLoading(
-      true,
-      "Saving profile..."
-    );
+    setLoading(true,"Saving profile...");
 
-    const uid =
-      auth.currentUser.uid;
+    const uid=auth.currentUser.uid;
 
     await updateDoc(
-      doc(
-        db,
-        "users",
-        uid
-      ),
+      doc(db,"users",uid),
       {
         name,
         phone,
         address,
-        updatedAt:
-          serverTimestamp()
+        updatedAt:serverTimestamp()
       }
     );
 
-    if(
-      currentUserData?.accountNumber
-    ){
+    if(currentUserData?.accountNumber){
 
       await updateDoc(
         doc(
@@ -4126,8 +3501,7 @@ async function saveProfile(){
         ),
         {
           name,
-          updatedAt:
-            serverTimestamp()
+          updatedAt:serverTimestamp()
         }
       );
     }
@@ -4140,13 +3514,11 @@ async function saveProfile(){
       "success"
     );
 
-    showToast(
-      "Profile updated."
-    );
+    showToast("Profile updated.");
 
   }catch(error){
 
-    console.error(error);
+    console.error("PROFILE ERROR:",error);
 
     setLoading(false);
 
@@ -4163,32 +3535,21 @@ $("saveProfileBtn").addEventListener(
   saveProfile
 );
 
-/* =========================================================
-   CURRENCY
-   ========================================================= */
+/* CURRENCY */
 
 async function saveCurrency(){
 
-  clearMessage(
-    "settingsMessage"
-  );
+  clearMessage("settingsMessage");
 
-  if(!auth.currentUser){
-    return;
-  }
+  if(!auth.currentUser)return;
 
-  const currency =
-    $("currencySelect")
-      .value;
+  const currency=$("currencySelect").value;
 
   try{
 
     await loadExchangeRates();
 
-    setLoading(
-      true,
-      "Saving currency..."
-    );
+    setLoading(true,"Saving currency...");
 
     await updateDoc(
       doc(
@@ -4198,8 +3559,7 @@ async function saveCurrency(){
       ),
       {
         currency,
-        updatedAt:
-          serverTimestamp()
+        updatedAt:serverTimestamp()
       }
     );
 
@@ -4211,13 +3571,11 @@ async function saveCurrency(){
       "success"
     );
 
-    showToast(
-      "Currency updated."
-    );
+    showToast("Currency updated.");
 
   }catch(error){
 
-    console.error(error);
+    console.error("CURRENCY ERROR:",error);
 
     setLoading(false);
 
@@ -4234,100 +3592,135 @@ $("saveCurrencyBtn").addEventListener(
   saveCurrency
 );
 
-/* =========================================================
-   RECEIPT
-   ========================================================= */
+/* LANGUAGE */
+
+async function saveLanguage(){
+
+  clearMessage("settingsMessage");
+
+  if(!auth.currentUser)return;
+
+  const language=
+    $("languageSelect").value||"en";
+
+  try{
+
+    setLoading(true,"Saving language...");
+
+    await updateDoc(
+      doc(
+        db,
+        "users",
+        auth.currentUser.uid
+      ),
+      {
+        language,
+        updatedAt:serverTimestamp()
+      }
+    );
+
+    setLoading(false);
+
+    setMessage(
+      "settingsMessage",
+      "Language preference saved successfully.",
+      "success"
+    );
+
+    showToast("Language updated.");
+
+  }catch(error){
+
+    console.error("LANGUAGE ERROR:",error);
+
+    setLoading(false);
+
+    setMessage(
+      "settingsMessage",
+      firebaseErrorMessage(error),
+      "error"
+    );
+  }
+}
+
+$("saveLanguageBtn").addEventListener(
+  "click",
+  saveLanguage
+);
+
+/* WITHDRAW */
+
+$("contactManagerBtn").addEventListener(
+  "click",
+  ()=>{
+    showToast("Please contact your manager.");
+  }
+);
+
+/* RECEIPT */
 
 function showReceipt(data){
 
-  $("receiptTransactionId")
-    .textContent =
-    data.transactionId || "—";
+  $("receiptTransactionId").textContent=
+    data.transactionId||"—";
 
-  $("receiptDate")
-    .textContent =
-    formatDate(
-      data.createdAt
-    );
+  $("receiptDate").textContent=
+    formatDate(data.createdAt);
 
-  $("receiptAmount")
-    .textContent =
+  $("receiptAmount").textContent=
     money(
       data.amount,
-      data.currency || "USD"
+      data.currency||"USD"
     );
 
-  $("receiptCurrency")
-    .textContent =
-    data.currency || "USD";
+  $("receiptCurrency").textContent=
+    data.currency||"USD";
 
-  $("receiptType")
-    .textContent =
-    data.type ||
-    "Internal Bank Transfer";
+  $("receiptType").textContent=
+    data.type||"Internal Transfer";
 
-  $("receiptDescription")
-    .textContent =
-    data.description ||
-    "Bank transfer";
+  $("receiptDescription").textContent=
+    data.description||"Bank transfer";
 
-  $("receiptSender")
-    .textContent =
-    data.senderName || "—";
+  $("receiptSender").textContent=
+    data.senderName||"—";
 
-  $("receiptSenderAccount")
-    .textContent =
-    data.senderAccount || "—";
+  $("receiptSenderAccount").textContent=
+    data.senderAccount||"—";
 
-  $("receiptRecipient")
-    .textContent =
-    data.recipientName || "—";
+  $("receiptRecipient").textContent=
+    data.recipientName||"—";
 
-  $("receiptRecipientAccount")
-    .textContent =
-    data.recipientAccount || "—";
+  $("receiptRecipientAccount").textContent=
+    data.recipientAccount||"—";
 
-  $("receiptModal")
-    .classList
-    .add("show");
+  $("receiptModal").classList.add("show");
 }
 
 function closeReceipt(){
-
-  $("receiptModal")
-    .classList
-    .remove("show");
+  $("receiptModal").classList.remove("show");
 }
 
-$("closeReceiptBtn")
-  .addEventListener(
-    "click",
-    closeReceipt
-  );
+$("closeReceiptBtn").addEventListener(
+  "click",
+  closeReceipt
+);
 
-$("doneReceiptBtn")
-  .addEventListener(
-    "click",
-    closeReceipt
-  );
+$("doneReceiptBtn").addEventListener(
+  "click",
+  closeReceipt
+);
 
-$("receiptModal")
-  .addEventListener(
-    "click",
-    event=>{
-
-      if(
-        event.target ===
-        $("receiptModal")
-      ){
-        closeReceipt();
-      }
+$("receiptModal").addEventListener(
+  "click",
+  event=>{
+    if(event.target===$("receiptModal")){
+      closeReceipt();
     }
-  );
+  }
+);
 
-/* =========================================================
-   SIGN OUT
-   ========================================================= */
+/* SIGN OUT */
 
 $("signOutBtn").addEventListener(
   "click",
@@ -4335,28 +3728,21 @@ $("signOutBtn").addEventListener(
 
     try{
 
-      setLoading(
-        true,
-        "Signing out..."
-      );
+      setLoading(true,"Signing out...");
 
       cleanupListeners();
 
-      currentUserData = null;
-      selectedRecipient = null;
-      depositReviewData = null;
+      currentUserData=null;
+      selectedRecipient=null;
+      depositReviewData=null;
+      balanceHidden=false;
 
       await signOut(auth);
 
       setLoading(false);
 
-      show(
-        $("authScreen")
-      );
-
-      hide(
-        $("appScreen")
-      );
+      show($("authScreen"));
+      hide($("appScreen"));
 
       $("signupForm").reset();
       $("loginForm").reset();
@@ -4365,24 +3751,24 @@ $("signOutBtn").addEventListener(
 
     }catch(error){
 
+      console.error("SIGN OUT ERROR:",error);
+
       setLoading(false);
 
       showToast(
-        firebaseErrorMessage(error)
+        "Something went wrong. Please check your internet connection and try again."
       );
     }
   }
 );
 
-/* =========================================================
-   AUTH STATE
-   ========================================================= */
+/* AUTH STATE */
 
 onAuthStateChanged(
   auth,
   async user=>{
 
-    if(authFlow !== "idle"){
+    if(authFlow!=="idle"){
       return;
     }
 
@@ -4390,24 +3776,19 @@ onAuthStateChanged(
 
       cleanupListeners();
 
-      currentUserData = null;
+      currentUserData=null;
+      selectedRecipient=null;
+      depositReviewData=null;
 
-      show(
-        $("authScreen")
-      );
-
-      hide(
-        $("appScreen")
-      );
+      show($("authScreen"));
+      hide($("appScreen"));
 
       return;
     }
 
     try{
 
-      await loadDashboard(
-        user.uid
-      );
+      await loadDashboard(user.uid);
 
     }catch(error){
 
@@ -4420,16 +3801,15 @@ onAuthStateChanged(
 
       try{
         await signOut(auth);
-      }catch{}
+      }catch(signOutError){
+        console.error(
+          "AUTH STATE SIGN OUT ERROR:",
+          signOutError
+        );
+      }
 
-      show(
-        $("authScreen")
-      );
-
-      hide(
-        $("appScreen")
-      );
-
+      show($("authScreen"));
+      hide($("appScreen"));
       showLogin();
 
       setMessage(
@@ -4441,11 +3821,19 @@ onAuthStateChanged(
   }
 );
 
-/* =========================================================
-   SESSION EXIT BEHAVIOR
-   ========================================================= */
+/*
+ * SESSION EXIT BEHAVIOR
+ *
+ * When the signed-in page becomes hidden because the user
+ * leaves/switches away, the current Firebase session is signed out.
+ *
+ * When the user returns, the sign-in page is shown.
+ *
+ * Firebase keeps the account data in Firestore, so signing in
+ * again restores the same balance/profile/activity.
+ */
 
-let lastVisibilityState =
+let lastVisibilityState=
   document.visibilityState;
 
 document.addEventListener(
@@ -4453,69 +3841,58 @@ document.addEventListener(
   ()=>{
 
     if(
-      document.visibilityState ===
-        "hidden" &&
-      lastVisibilityState ===
-        "visible"
+      document.visibilityState==="hidden"&&
+      lastVisibilityState==="visible"
     ){
 
       if(
-        auth.currentUser &&
+        auth.currentUser&&
         !sessionExitInProgress
       ){
 
-        sessionExitInProgress = true;
+        sessionExitInProgress=true;
 
         cleanupListeners();
 
-        currentUserData = null;
-        selectedRecipient = null;
-        depositReviewData = null;
+        currentUserData=null;
+        selectedRecipient=null;
+        depositReviewData=null;
+        balanceHidden=false;
 
-        hide(
-          $("appScreen")
-        );
-
-        show(
-          $("authScreen")
-        );
-
+        hide($("appScreen"));
+        show($("authScreen"));
         showLogin();
 
         $("signupForm").reset();
         $("loginForm").reset();
 
-        authFlow =
-          "auto-logout";
+        authFlow="auto-logout";
 
         signOut(auth)
-
           .catch(error=>{
-            console.warn(
-              "Automatic sign-out failed:",
+            /*
+             * Technical error remains hidden from users.
+             * It is available only in the browser console.
+             */
+            console.error(
+              "AUTOMATIC SIGN-OUT ERROR:",
               error
             );
           })
-
           .finally(()=>{
 
-            authFlow =
-              "idle";
-
-            sessionExitInProgress =
-              false;
+            authFlow="idle";
+            sessionExitInProgress=false;
           });
       }
     }
 
-    lastVisibilityState =
+    lastVisibilityState=
       document.visibilityState;
   }
 );
 
-/* =========================================================
-   INITIAL STATE
-   ========================================================= */
+/* INITIAL STATE */
 
 showSignup();
 
