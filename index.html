@@ -685,197 +685,143 @@ button{
   border:1px solid #dce8f5;
 }
 
-.converter-result-label{
-  color:#718096;
-  font-size:11px;
-  font-weight:800;
-}
-
-.converter-result-value{
+.converter-result strong{
+  display:block;
+  font-size:24px;
   color:#0b2a5b;
-  font-size:24px;
-  font-weight:900;
-  margin-top:6px;
+  margin-top:5px;
 }
 
-/* ================= TRANSLATOR ================= */
-
-.translate-arrow{
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  font-size:24px;
-  color:#1769aa;
-  margin:5px 0 15px;
-}
-
-.translation-result{
-  min-height:100px;
-  padding:14px;
-  background:#f5f8fc;
-  border:1px solid var(--border);
-  border-radius:12px;
-  color:#172033;
-  line-height:1.6;
-  white-space:pre-wrap;
+.converter-summary{
+  margin-top:12px;
+  display:grid;
+  gap:7px;
+  color:#718096;
+  font-size:12px;
 }
 
 /* ================= MODALS ================= */
 
 .modal{
-  display:none;
   position:fixed;
   inset:0;
-  background:rgba(3,15,32,.62);
-  z-index:100;
+  background:rgba(5,20,43,.62);
+  display:none;
   align-items:center;
   justify-content:center;
-  padding:18px;
+  padding:20px;
+  z-index:100;
 }
 
 .modal.show{
   display:flex;
 }
 
-.receipt{
+.modal-card{
   width:100%;
-  max-width:510px;
+  max-width:460px;
   max-height:90vh;
   overflow-y:auto;
   background:#fff;
   border-radius:20px;
+  padding:24px;
   box-shadow:0 25px 70px rgba(0,0,0,.28);
 }
 
-.receipt-head{
-  padding:23px;
-  background:linear-gradient(135deg,#071f43,#1769aa);
-  color:#fff;
-  border-radius:20px 20px 0 0;
-}
-
-.receipt-head h2{
+.modal-title{
+  color:#0b2a5b;
   font-size:20px;
+  margin-bottom:8px;
 }
 
-.receipt-head p{
-  margin-top:4px;
-  color:#c9d9eb;
+.modal-subtitle{
+  color:#718096;
   font-size:12px;
+  line-height:1.5;
+  margin-bottom:18px;
 }
 
-.receipt-status{
-  display:inline-block;
-  margin-top:12px;
-  padding:6px 9px;
-  border-radius:999px;
-  background:rgba(255,255,255,.12);
-  color:#fff;
-  font-size:9px;
-  font-weight:900;
-  letter-spacing:.8px;
+.modal-actions{
+  display:grid;
+  gap:10px;
+  margin-top:18px;
 }
 
-.receipt-body{
-  padding:20px 23px;
+.receipt{
+  border:1px solid var(--border);
+  border-radius:15px;
+  padding:16px;
+  background:#f9fbfe;
 }
 
 .receipt-row{
   display:flex;
   justify-content:space-between;
-  gap:15px;
-  padding:11px 0;
-  border-bottom:1px solid #edf1f6;
+  gap:12px;
+  padding:10px 0;
+  border-bottom:1px solid #e9eef5;
 }
 
 .receipt-row:last-child{
   border-bottom:none;
 }
 
-.receipt-row span:first-child{
+.receipt-row span{
   color:#718096;
   font-size:11px;
 }
 
-.receipt-row span:last-child{
+.receipt-row strong{
   color:#172033;
   font-size:12px;
-  font-weight:800;
   text-align:right;
   word-break:break-word;
 }
 
-.receipt-actions{
+/* ================= LOADING ================= */
+
+#loadingOverlay{
+  position:fixed;
+  inset:0;
+  display:none;
+  align-items:center;
+  justify-content:center;
+  background:rgba(5,20,43,.45);
+  z-index:200;
+}
+
+#loadingOverlay.show{
   display:flex;
-  gap:10px;
-  padding:0 23px 20px;
 }
 
-.receipt-actions button{
-  flex:1;
-}
-
-.receipt .info-note{
-  margin:0 23px 22px;
-}
-
-/* ================= PIN MODAL ================= */
-
-.pin-box{
-  width:100%;
-  max-width:430px;
+.loading-card{
   background:#fff;
-  border-radius:20px;
-  padding:25px;
-  box-shadow:0 25px 70px rgba(0,0,0,.28);
+  border-radius:18px;
+  padding:25px 30px;
+  text-align:center;
+  box-shadow:0 25px 70px rgba(0,0,0,.25);
 }
 
-.pin-box h2{
+.spinner{
+  width:38px;
+  height:38px;
+  border:4px solid #dce8f5;
+  border-top-color:#1769aa;
+  border-radius:50%;
+  animation:spin .8s linear infinite;
+  margin:0 auto 13px;
+}
+
+@keyframes spin{
+  to{
+    transform:rotate(360deg);
+  }
+}
+
+.loading-card p{
   color:#0b2a5b;
-  font-size:21px;
-}
-
-.pin-box p{
-  color:#718096;
   font-size:13px;
-  line-height:1.5;
-  margin-top:7px;
-}
-
-.pin-summary{
-  background:#f4f7fb;
-  border-radius:13px;
-  padding:14px;
-  margin:18px 0;
-}
-
-.pin-summary-row{
-  display:flex;
-  justify-content:space-between;
-  gap:10px;
-  padding:7px 0;
-}
-
-.pin-summary-row span:first-child{
-  color:#718096;
-  font-size:11px;
-}
-
-.pin-summary-row span:last-child{
-  color:#172033;
-  font-size:12px;
   font-weight:800;
-  text-align:right;
-}
-
-.pin-actions{
-  display:flex;
-  gap:10px;
-  margin-top:15px;
-}
-
-.pin-actions button{
-  flex:1;
 }
 
 /* ================= TOAST ================= */
@@ -884,18 +830,18 @@ button{
   position:fixed;
   right:20px;
   bottom:20px;
-  z-index:200;
-  background:#0b2a5b;
+  background:#081f43;
   color:#fff;
-  padding:13px 16px;
+  padding:13px 17px;
   border-radius:12px;
   box-shadow:0 15px 40px rgba(0,0,0,.20);
   font-size:13px;
-  max-width:340px;
-  transform:translateY(25px);
+  z-index:300;
+  transform:translateY(20px);
   opacity:0;
   pointer-events:none;
   transition:.25s;
+  max-width:340px;
 }
 
 #toast.show{
@@ -903,34 +849,15 @@ button{
   opacity:1;
 }
 
-/* ================= LOADING ================= */
+/* ================= RESPONSIVE ================= */
 
-.loading-overlay{
-  position:fixed;
-  inset:0;
-  background:rgba(4,17,36,.52);
-  z-index:300;
-  display:none;
-  align-items:center;
-  justify-content:center;
-  padding:20px;
+@media(max-width:1000px){
+
+  .quick-grid{
+    grid-template-columns:repeat(2,1fr);
+  }
+
 }
-
-.loading-overlay.show{
-  display:flex;
-}
-
-.loading-box{
-  background:#fff;
-  border-radius:15px;
-  padding:18px 23px;
-  color:#0b2a5b;
-  font-size:13px;
-  font-weight:800;
-  box-shadow:0 20px 50px rgba(0,0,0,.22);
-}
-
-/* ================= MOBILE ================= */
 
 @media(max-width:900px){
 
@@ -952,16 +879,29 @@ button{
     display:block;
   }
 
-  .quick-grid{
-    grid-template-columns:repeat(2,1fr);
-  }
+}
+
+@media(max-width:700px){
 
   .two-column{
     grid-template-columns:1fr;
   }
+
+  .content{
+    padding:18px;
+  }
+
+  .topbar{
+    padding:0 18px;
+  }
+
+  .balance-amount{
+    font-size:29px;
+  }
+
 }
 
-@media(max-width:600px){
+@media(max-width:520px){
 
   #authScreen{
     padding:10px;
@@ -970,38 +910,8 @@ button{
 
   .auth-card{
     margin-top:10px;
+    padding:22px 18px;
     border-radius:18px;
-    padding:21px;
-  }
-
-  .topbar{
-    padding:0 15px;
-    height:65px;
-  }
-
-  .content{
-    padding:18px 15px;
-  }
-
-  .greeting{
-    font-size:14px;
-  }
-
-  .top-account{
-    font-size:10px;
-  }
-
-  .user-avatar{
-    width:37px;
-    height:37px;
-  }
-
-  .balance-card{
-    padding:22px;
-  }
-
-  .balance-amount{
-    font-size:29px;
   }
 
   .quick-grid{
@@ -1017,1263 +927,1805 @@ button{
     font-size:13px;
   }
 
-  .quick-card p{
-    font-size:10px;
+  .balance-card{
+    padding:21px;
   }
 
-  .panel{
-    padding:17px;
+  .page-heading h2{
+    font-size:22px;
   }
 
-  .receipt-actions,
-  .pin-actions{
-    flex-direction:column;
+}
+
+/* ================= EXTRA ================= */
+
+.settings-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:18px;
+}
+
+@media(max-width:700px){
+
+  .settings-grid{
+    grid-template-columns:1fr;
   }
 
-  .activity-item{
-    align-items:flex-start;
-  }
+}
 
-  .activity-amount{
-    font-size:12px;
-  }
+.security-box{
+  padding:15px;
+  background:#f5f8fc;
+  border-radius:14px;
+  color:#5f6e83;
+  font-size:12px;
+  line-height:1.6;
+}
+
+.manager-box{
+  background:#f5f8fc;
+  padding:16px;
+  border-radius:14px;
+  margin-top:10px;
+}
+
+.pin-input{
+  text-align:center;
+  letter-spacing:8px;
+  font-size:22px!important;
+  font-weight:900;
+}
+
+.success-box{
+  padding:15px;
+  border-radius:14px;
+  background:#effaf4;
+  border:1px solid #ccebd9;
+  color:#24633f;
+  font-size:12px;
+  line-height:1.6;
+}
+
+.warning-box{
+  padding:15px;
+  border-radius:14px;
+  background:#fff8e8;
+  border:1px solid #f1dfaa;
+  color:#80651e;
+  font-size:12px;
+  line-height:1.6;
 }
 </style>
 </head>
 
 <body>
 
+<div id="toast"></div>
+
+<div id="loadingOverlay">
+  <div class="loading-card">
+    <div class="spinner"></div>
+    <p id="loadingText">Please wait...</p>
+  </div>
+</div>
+
 <!-- ================= AUTH ================= -->
 
 <section id="authScreen">
 
-<div class="auth-card">
+  <div class="auth-card">
 
-<div class="brand">
-<div class="brand-logo">UC</div>
-<h1>UNITED CREST</h1>
-<p>United Crest Account</p>
-<span class="brand-badge">UNITED CREST</span>
-</div>
+    <div class="brand">
 
-<div id="signupBox">
+      <div class="brand-logo">
+        UC
+      </div>
 
-<h2 class="auth-title">Create Account</h2>
+      <h1>United Crest</h1>
 
-<div id="signupMessage" class="form-message"></div>
+      <p>Secure account access</p>
 
-<form id="signupForm">
+      <span class="brand-badge">
+        ACCOUNT PLATFORM
+      </span>
 
-<div class="field">
-<label>Full Name</label>
-<input id="signupName" type="text" autocomplete="name" required>
-</div>
+    </div>
 
-<div class="field">
-<label>Phone Number</label>
-<input id="signupPhone" type="tel" autocomplete="tel" required>
-</div>
+    <!-- SIGN UP -->
 
-<div class="field">
-<label>Email Address</label>
-<input id="signupEmail" type="email" autocomplete="email" required>
-</div>
+    <div id="signupBox">
 
-<div class="field">
-<label>Password</label>
-<input id="signupPassword" type="password" autocomplete="new-password" minlength="6" required>
-</div>
+      <h2 class="auth-title">
+        Create Account
+      </h2>
 
-<div class="field">
-<label>Confirm Password</label>
-<input id="signupConfirmPassword" type="password" autocomplete="new-password" minlength="6" required>
-</div>
+      <div id="signupMessage" class="form-message"></div>
 
-<div class="field">
-<label>Address</label>
-<input id="signupAddress" type="text" autocomplete="street-address" required>
-</div>
+      <form id="signupForm">
 
-<div class="field">
-<label>Language</label>
-<select id="authLanguageSelect">
-<option value="en">English</option>
-<option value="zh">Mandarin Chinese</option>
-<option value="hi">Hindi</option>
-<option value="es">Spanish</option>
-<option value="fr">French</option>
-<option value="ar">Arabic</option>
-<option value="bn">Bengali</option>
-<option value="ru">Russian</option>
-<option value="pt">Portuguese</option>
-<option value="ur">Urdu</option>
-</select>
-</div>
+        <div class="field">
+          <label for="signupName">
+            Full Name
+          </label>
 
-<button class="primary-btn" type="submit">Create Account</button>
+          <input
+            id="signupName"
+            type="text"
+            autocomplete="name"
+            required
+          >
+        </div>
 
-</form>
+        <div class="field">
+          <label for="signupPhone">
+            Phone Number
+          </label>
 
-<div class="auth-switch">
-Already have an account?
-<button type="button" id="showLoginBtn">Sign In</button>
-</div>
+          <input
+            id="signupPhone"
+            type="tel"
+            autocomplete="tel"
+            required
+          >
+        </div>
 
-<div class="info-note">
-Your account information is securely saved for your account.
-</div>
+        <div class="field">
+          <label for="signupEmail">
+            Email Address
+          </label>
 
-</div>
+          <input
+            id="signupEmail"
+            type="email"
+            autocomplete="email"
+            required
+          >
+        </div>
 
-<div id="loginBox" class="hidden">
+        <div class="field">
+          <label for="signupPassword">
+            Password
+          </label>
 
-<h2 class="auth-title">Welcome Back</h2>
+          <input
+            id="signupPassword"
+            type="password"
+            autocomplete="new-password"
+            required
+          >
+        </div>
 
-<div id="loginMessage" class="form-message"></div>
+        <div class="field">
+          <label for="signupConfirmPassword">
+            Confirm Password
+          </label>
 
-<form id="loginForm">
+          <input
+            id="signupConfirmPassword"
+            type="password"
+            autocomplete="new-password"
+            required
+          >
+        </div>
 
-<div class="field">
-<label>Email Address</label>
-<input id="loginEmail" type="email" autocomplete="email" required>
-</div>
+        <div class="field">
+          <label for="signupAddress">
+            Address
+          </label>
 
-<div class="field">
-<label>Password</label>
-<input id="loginPassword" type="password" autocomplete="current-password" required>
-</div>
+          <textarea
+            id="signupAddress"
+            required
+          ></textarea>
+        </div>
 
-<div class="field">
-<label>Language</label>
-<select id="loginLanguageSelect">
-<option value="en">English</option>
-<option value="zh">Mandarin Chinese</option>
-<option value="hi">Hindi</option>
-<option value="es">Spanish</option>
-<option value="fr">French</option>
-<option value="ar">Arabic</option>
-<option value="bn">Bengali</option>
-<option value="ru">Russian</option>
-<option value="pt">Portuguese</option>
-<option value="ur">Urdu</option>
-</select>
-</div>
+        <div class="field">
+          <label for="authLanguageSelect">
+            Language
+          </label>
 
-<button class="primary-btn" type="submit">Sign In</button>
+          <select id="authLanguageSelect"></select>
+        </div>
 
-</form>
+        <button
+          class="primary-btn"
+          type="submit"
+        >
+          Create Account
+        </button>
 
-<div class="auth-switch">
-Don't have an account?
-<button type="button" id="showSignupBtn">Create Account</button>
-</div>
+      </form>
 
-<div class="info-note">
-Your balance and activity are saved securely for your account.
-</div>
+      <div class="auth-switch">
 
-</div>
+        Already have an account?
 
-</div>
+        <button
+          id="showLoginBtn"
+          type="button"
+        >
+          Sign In
+        </button>
+
+      </div>
+
+      <div class="info-note">
+        Create your United Crest account using your email,
+        phone number and personal details.
+      </div>
+
+    </div>
+
+    <!-- LOGIN -->
+
+    <div id="loginBox" class="hidden">
+
+      <h2 class="auth-title">
+        Sign In
+      </h2>
+
+      <div id="loginMessage" class="form-message"></div>
+
+      <form id="loginForm">
+
+        <div class="field">
+          <label for="loginEmail">
+            Email Address
+          </label>
+
+          <input
+            id="loginEmail"
+            type="email"
+            autocomplete="email"
+            required
+          >
+        </div>
+
+        <div class="field">
+          <label for="loginPassword">
+            Password
+          </label>
+
+          <input
+            id="loginPassword"
+            type="password"
+            autocomplete="current-password"
+            required
+          >
+        </div>
+
+        <div class="field">
+          <label for="loginLanguageSelect">
+            Language
+          </label>
+
+          <select id="loginLanguageSelect"></select>
+        </div>
+
+        <button
+          class="primary-btn"
+          type="submit"
+        >
+          Sign In
+        </button>
+
+      </form>
+
+      <div class="auth-switch">
+
+        Don't have an account?
+
+        <button
+          id="showSignupBtn"
+          type="button"
+        >
+          Create Account
+        </button>
+
+      </div>
+
+    </div>
+
+  </div>
+
 </section>
+
 
 <!-- ================= APP ================= -->
 
 <section id="appScreen" class="hidden">
 
-<aside class="sidebar" id="sidebar">
+  <aside id="sidebar" class="sidebar">
 
-<div class="sidebar-brand">
-<div class="sidebar-logo">UC</div>
-<div>
-<strong>UNITED CREST</strong>
-<small>UNITED CREST ACCOUNT</small>
-</div>
-</div>
+    <div class="sidebar-brand">
 
-<button class="nav-item active" data-page="dashboardPage">Dashboard</button>
-<button class="nav-item" data-page="transferPage">Transfer</button>
-<button class="nav-item" data-page="depositPage">Deposit</button>
-<button class="nav-item" data-page="withdrawPage">Withdraw</button>
-<button class="nav-item" data-page="activityPage">Activity</button>
-<button class="nav-item" data-page="profilePage">Profile</button>
-<button class="nav-item" data-page="settingsPage">Settings</button>
-<button class="nav-item" data-page="converterPage">Currency Converter</button>
-<button class="nav-item" data-page="translatorPage">Language Translator</button>
+      <div class="sidebar-logo">
+        UC
+      </div>
 
-<button class="nav-item signout" id="sidebarSignOutBtn">Sign Out</button>
+      <div>
+        <strong>United Crest</strong>
+        <small>ACCOUNT PLATFORM</small>
+      </div>
 
-</aside>
+    </div>
 
-<main class="main">
+    <button
+      class="nav-item active"
+      data-page="dashboardPage"
+    >
+      Dashboard
+    </button>
 
-<header class="topbar">
+    <button
+      class="nav-item"
+      data-page="transferPage"
+    >
+      Transfer
+    </button>
 
-<div class="topbar-left">
+    <button
+      class="nav-item"
+      data-page="depositPage"
+    >
+      Deposit
+    </button>
 
-<button class="menu-btn" id="menuBtn">☰</button>
+    <button
+      class="nav-item"
+      data-page="withdrawPage"
+    >
+      Withdraw
+    </button>
 
-<div>
-<div class="greeting" id="greetingText">Hi</div>
-<div class="top-account" id="topAccountText">Account</div>
-</div>
+    <button
+      class="nav-item"
+      data-page="activityPage"
+    >
+      Activity
+    </button>
 
-</div>
+    <button
+      class="nav-item"
+      data-page="profilePage"
+    >
+      Profile
+    </button>
 
-<div class="user-avatar" id="userAvatar">U</div>
+    <button
+      class="nav-item"
+      data-page="settingsPage"
+    >
+      Settings
+    </button>
 
-</header>
+    <button
+      class="nav-item signout"
+      id="sidebarSignOutBtn"
+    >
+      Sign Out
+    </button>
 
-<div class="content">
+  </aside>
 
-<!-- ================= DASHBOARD ================= -->
 
-<section id="dashboardPage" class="page active">
+  <main class="main">
 
-<div class="page-heading">
-<h2>Dashboard</h2>
-<p id="dashboardWelcome">Welcome to your United Crest account.</p>
-</div>
+    <header class="topbar">
 
-<div class="balance-card">
+      <div class="topbar-left">
 
-<div class="balance-label">BALANCE</div>
+        <button
+          id="menuBtn"
+          class="menu-btn"
+          type="button"
+        >
+          ☰
+        </button>
 
-<div class="balance-row">
+        <div>
 
-<div class="balance-amount" id="balanceAmount">$0.00</div>
+          <div
+            id="greetingText"
+            class="greeting"
+          >
+            Hi
+          </div>
 
-<button class="eye-btn" id="toggleBalanceBtn">◉</button>
+          <div
+            id="topAccountText"
+            class="top-account"
+          >
+            Account Loading...
+          </div>
 
-</div>
+        </div>
 
-<div class="account-number">
-Account Number:
-<strong id="accountNumberText">Loading...</strong>
-</div>
+      </div>
 
-<div class="dashboard-note">
-Your account balance and activity are securely stored.
-</div>
+      <div
+        id="userAvatar"
+        class="user-avatar"
+      >
+        U
+      </div>
 
-</div>
+    </header>
 
-<div class="quick-grid">
 
-<div class="quick-card" data-page-link="transferPage">
-<div class="quick-icon">↗</div>
-<h3>Transfer</h3>
-<p>Send to another account.</p>
-</div>
+    <div class="content">
 
-<div class="quick-card" data-page-link="depositPage">
-<div class="quick-icon">+</div>
-<h3>Deposit</h3>
-<p>Add credits to your account.</p>
-</div>
+      <!-- DASHBOARD -->
 
-<div class="quick-card" data-page-link="withdrawPage">
-<div class="quick-icon">↓</div>
-<h3>Withdraw</h3>
-<p>Contact a manager for support.</p>
-</div>
+      <section
+        id="dashboardPage"
+        class="page active"
+      >
 
-<div class="quick-card" data-page-link="activityPage">
-<div class="quick-icon">≡</div>
-<h3>Activity</h3>
-<p>View your account activity.</p>
-</div>
+        <div class="page-heading">
 
-</div>
+          <h2>
+            Dashboard
+          </h2>
 
-<div class="two-column" style="margin-top:20px;">
+          <p id="dashboardWelcome">
+            Welcome to your United Crest account.
+          </p>
 
-<div class="panel">
+        </div>
 
-<h3 class="panel-title">Account Information</h3>
 
-<div class="info-row">
-<label>FULL NAME</label>
-<strong id="dashboardName">—</strong>
-</div>
+        <div class="balance-card">
 
-<div class="info-row">
-<label>EMAIL</label>
-<strong id="dashboardEmail">—</strong>
-</div>
+          <div class="balance-label">
+            ACCOUNT BALANCE
+          </div>
 
-<div class="info-row">
-<label>PHONE</label>
-<strong id="dashboardPhone">—</strong>
-</div>
+          <div class="balance-row">
 
-<div class="info-row">
-<label>CURRENCY</label>
-<strong id="dashboardCurrency">USD</strong>
-</div>
+            <div
+              id="balanceAmount"
+              class="balance-amount"
+            >
+              $0.00
+            </div>
 
-</div>
+            <button
+              id="toggleBalanceBtn"
+              class="eye-btn"
+              type="button"
+            >
+              ◉
+            </button>
 
-<div class="panel">
+          </div>
 
-<h3 class="panel-title">Quick Support</h3>
+          <div class="account-number">
 
-<div class="info-row">
-<label>TRANSFER</label>
-<strong>Recipient confirmation required</strong>
-</div>
+            Account Number:
 
-<div class="info-row">
-<label>WITHDRAW</label>
-<strong>Contact Manager</strong>
-</div>
+            <strong id="accountNumberText">
+              Loading...
+            </strong>
 
-<div class="info-row">
-<label>SECURITY</label>
-<strong>Sign in required for account access</strong>
-</div>
+          </div>
 
-</div>
+          <div class="dashboard-note">
+            Your account balance and activity are securely
+            stored with your account.
+          </div>
 
-</div>
+        </div>
+
+
+        <div class="quick-grid">
+
+          <div
+            class="quick-card"
+            data-page-link="transferPage"
+          >
+
+            <div class="quick-icon">
+              ↑
+            </div>
+
+            <h3>
+              Transfer
+            </h3>
+
+            <p>
+              Send funds to another account.
+            </p>
+
+          </div>
+
+
+          <div
+            class="quick-card"
+            data-page-link="depositPage"
+          >
+
+            <div class="quick-icon">
+              +
+            </div>
+
+            <h3>
+              Deposit
+            </h3>
+
+            <p>
+              Add funds to your account.
+            </p>
+
+          </div>
+
+
+          <div
+            class="quick-card"
+            data-page-link="activityPage"
+          >
+
+            <div class="quick-icon">
+              ≡
+            </div>
+
+            <h3>
+              Activity
+            </h3>
+
+            <p>
+              View account activity.
+            </p>
+
+          </div>
+
+
+          <div
+            class="quick-card"
+            data-page-link="settingsPage"
+          >
+
+            <div class="quick-icon">
+              ⚙
+            </div>
+
+            <h3>
+              Settings
+            </h3>
+
+            <p>
+              Manage your preferences.
+            </p>
+
+          </div>
+
+        </div>
+
+
+        <div
+          class="two-column"
+          style="margin-top:18px;"
+        >
+
+          <div class="panel">
+
+            <h3 class="panel-title">
+              Account Information
+            </h3>
+
+            <div class="info-row">
+
+              <label>
+                NAME
+              </label>
+
+              <strong id="dashboardName">
+                —
+              </strong>
+
+            </div>
+
+            <div class="info-row">
+
+              <label>
+                EMAIL
+              </label>
+
+              <strong id="dashboardEmail">
+                —
+              </strong>
+
+            </div>
+
+            <div class="info-row">
+
+              <label>
+                PHONE
+              </label>
+
+              <strong id="dashboardPhone">
+                —
+              </strong>
+
+            </div>
+
+            <div class="info-row">
+
+              <label>
+                CURRENCY
+              </label>
+
+              <strong id="dashboardCurrency">
+                USD
+              </strong>
+
+            </div>
+
+          </div>
+
+
+          <div class="panel">
+
+            <h3 class="panel-title">
+              Account Number
+            </h3>
+
+            <div class="success-box">
+
+              Your unique account number is:
+
+              <br><br>
+
+              <strong
+                id="dashboardAccountNumberCopy"
+                style="font-size:20px;"
+              >
+                —
+              </strong>
+
+              <br><br>
+
+              Use this number when another account needs
+              to identify you for a transfer.
+
+            </div>
+
+          </div>
+
+        </div>
+
+      </section>
+
+
+      <!-- TRANSFER -->
+
+      <section
+        id="transferPage"
+        class="page"
+      >
+
+        <div class="page-heading">
+
+          <h2>
+            Transfer
+          </h2>
+
+          <p>
+            Send funds to another United Crest account.
+          </p>
+
+        </div>
+
+
+        <div class="two-column">
+
+          <div class="panel">
+
+            <h3 class="panel-title">
+              Find Recipient
+            </h3>
+
+            <div
+              id="transferMessage"
+              class="form-message"
+            ></div>
+
+            <div class="field">
+
+              <label for="recipientAccount">
+                Recipient Account Number
+              </label>
+
+              <input
+                id="recipientAccount"
+                type="text"
+                inputmode="numeric"
+                maxlength="10"
+                placeholder="Enter 10-digit account number"
+              >
+
+            </div>
+
+            <button
+              id="lookupRecipientBtn"
+              class="primary-btn"
+              type="button"
+            >
+              Find Recipient
+            </button>
+
+
+            <div
+              id="recipientResult"
+              class="recipient-result"
+            >
+
+              <div class="recipient-result-title">
+                RECIPIENT FOUND
+              </div>
+
+              <div
+                id="recipientName"
+                class="recipient-result-name"
+              >
+                —
+              </div>
+
+              <div
+                id="recipientDetails"
+                class="recipient-result-details"
+              >
+                —
+              </div>
+
+            </div>
+
+          </div>
+
+
+          <div class="panel">
+
+            <h3 class="panel-title">
+              Transfer Details
+            </h3>
+
+            <div class="amount-preview">
+
+              Available Balance
+
+              <strong id="transferBalancePreview">
+                $0.00
+              </strong>
+
+            </div>
+
+            <div class="field">
+
+              <label for="transferAmount">
+                Amount
+              </label>
+
+              <input
+                id="transferAmount"
+                type="number"
+                min="0"
+                step="0.01"
+                placeholder="0.00"
+              >
+
+            </div>
+
+            <div class="field">
+
+              <label for="transferReference">
+                Reference
+              </label>
+
+              <input
+                id="transferReference"
+                type="text"
+                maxlength="80"
+                placeholder="e.g. Payment"
+              >
+
+            </div>
+
+            <button
+              id="openTransferPinBtn"
+              class="primary-btn"
+              type="button"
+              onclick="openTransferPin()"
+            >
+              Continue Transfer
+            </button>
+
+          </div>
+
+        </div>
+
+      </section>
+
+
+      <!-- DEPOSIT -->
+
+      <section
+        id="depositPage"
+        class="page"
+      >
+
+        <div class="page-heading">
+
+          <h2>
+            Deposit
+          </h2>
+
+          <p>
+            Add funds to your account.
+          </p>
+
+        </div>
+
+
+        <div class="two-column">
+
+          <div class="panel">
+
+            <h3 class="panel-title">
+              Deposit Details
+            </h3>
+
+            <div
+              id="depositMessage"
+              class="form-message"
+            ></div>
+
+            <div class="field">
+
+              <label for="depositEmail">
+                Email Address
+              </label>
+
+              <input
+                id="depositEmail"
+                type="email"
+              >
+
+            </div>
+
+            <div class="field">
+
+              <label for="depositFullName">
+                Full Name
+              </label>
+
+              <input
+                id="depositFullName"
+                type="text"
+              >
+
+            </div>
+
+            <div class="field">
+
+              <label for="depositPhone">
+                Phone Number
+              </label>
+
+              <input
+                id="depositPhone"
+                type="tel"
+              >
+
+            </div>
+
+            <div class="field">
+
+              <label for="depositAmount">
+                Amount
+              </label>
+
+              <input
+                id="depositAmount"
+                type="number"
+                min="0"
+                step="0.01"
+                placeholder="0.00"
+              >
+
+            </div>
+
+            <div class="field">
+
+              <label for="depositPin">
+                4-Digit PIN
+              </label>
+
+              <input
+                id="depositPin"
+                class="pin-input"
+                type="password"
+                inputmode="numeric"
+                maxlength="4"
+                placeholder="••••"
+              >
+
+            </div>
+
+            <button
+              class="primary-btn"
+              type="button"
+              onclick="reviewDeposit()"
+            >
+              Review Deposit
+            </button>
+
+          </div>
+
+
+          <div
+            id="depositReview"
+            class="panel"
+          >
+
+            <h3 class="panel-title">
+              Deposit Review
+            </h3>
+
+            <div class="security-box">
+
+              Review your information before confirming
+              the deposit.
+
+            </div>
+
+            <div
+              id="depositReviewContent"
+              style="margin-top:16px;"
+            >
+              No deposit is currently being reviewed.
+            </div>
+
+            <div
+              class="modal-actions"
+            >
+
+              <button
+                id="confirmDepositBtn"
+                class="primary-btn"
+                type="button"
+                onclick="confirmDeposit()"
+              >
+                Confirm Deposit
+              </button>
+
+            </div>
+
+          </div>
+
+        </div>
+
+      </section>
+
+
+      <!-- WITHDRAW -->
+
+      <section
+        id="withdrawPage"
+        class="page"
+      >
+
+        <div class="page-heading">
+
+          <h2>
+            Withdraw
+          </h2>
+
+          <p>
+            Contact account support for withdrawal assistance.
+          </p>
+
+        </div>
+
+
+        <div class="panel">
+
+          <div class="manager-box">
+
+            <div class="info-row">
+
+              <label>
+                ACCOUNT NUMBER
+              </label>
+
+              <strong id="withdrawAccountNumber">
+                —
+              </strong>
+
+            </div>
+
+            <div class="info-row">
+
+              <label>
+                AVAILABLE BALANCE
+              </label>
+
+              <strong id="withdrawBalance">
+                $0.00
+              </strong>
+
+            </div>
+
+          </div>
+
+          <br>
+
+          <button
+            id="contactManagerBtn"
+            class="primary-btn"
+            type="button"
+          >
+            Contact Account Manager
+          </button>
+
+        </div>
+
+      </section>
+
+
+      <!-- ACTIVITY -->
+
+      <section
+        id="activityPage"
+        class="page"
+      >
+
+        <div class="page-heading">
+
+          <h2>
+            Activity
+          </h2>
+
+          <p>
+            Review your account activity.
+          </p>
+
+        </div>
+
+        <div class="panel">
+
+          <div
+            id="activityList"
+            class="activity-list"
+          >
+
+            <div class="empty-state">
+              No activity yet.
+            </div>
+
+          </div>
+
+        </div>
+
+      </section>
+
+
+      <!-- PROFILE -->
+
+      <section
+        id="profilePage"
+        class="page"
+      >
+
+        <div class="page-heading">
+
+          <h2>
+            Profile
+          </h2>
+
+          <p>
+            View your account profile.
+          </p>
+
+        </div>
+
+
+        <div class="panel">
+
+          <div
+            id="profileMessage"
+            class="form-message"
+          ></div>
+
+          <div class="field">
+
+            <label for="profileName">
+              Full Name
+            </label>
+
+            <input
+              id="profileName"
+              type="text"
+            >
+
+          </div>
+
+          <div class="field">
+
+            <label for="profilePhone">
+              Phone Number
+            </label>
+
+            <input
+              id="profilePhone"
+              type="tel"
+            >
+
+          </div>
+
+          <div class="field">
+
+            <label for="profileEmail">
+              Email Address
+            </label>
+
+            <input
+              id="profileEmail"
+              type="email"
+              readonly
+            >
+
+          </div>
+
+          <div class="field">
+
+            <label for="profileAddress">
+              Address
+            </label>
+
+            <textarea id="profileAddress"></textarea>
+
+          </div>
+
+          <div class="info-row">
+
+            <label>
+              ACCOUNT NUMBER
+            </label>
+
+            <strong id="profileAccountNumber">
+              —
+            </strong>
+
+          </div>
+
+          <div class="info-row">
+
+            <label>
+              CURRENCY
+            </label>
+
+            <strong id="profileCurrency">
+              USD
+            </strong>
+
+          </div>
+
+          <div class="info-row">
+
+            <label>
+              LANGUAGE
+            </label>
+
+            <strong id="profileLanguage">
+              English
+            </strong>
+
+          </div>
+
+          <br>
+
+          <button
+            id="saveProfileBtn"
+            class="primary-btn"
+            type="button"
+          >
+            Save Profile
+          </button>
+
+        </div>
+
+      </section>
+
+
+      <!-- SETTINGS -->
+
+      <section
+        id="settingsPage"
+        class="page"
+      >
+
+        <div class="page-heading">
+
+          <h2>
+            Settings
+          </h2>
+
+          <p>
+            Manage account preferences.
+          </p>
+
+        </div>
+
+
+        <div
+          id="settingsMessage"
+          class="form-message"
+        ></div>
+
+
+        <div class="settings-grid">
+
+          <div class="panel">
+
+            <h3 class="panel-title">
+              Currency
+            </h3>
+
+            <div class="field">
+
+              <label for="currencySelect">
+                Account Currency
+              </label>
+
+              <select id="currencySelect"></select>
+
+            </div>
+
+            <button
+              id="saveCurrencyBtn"
+              class="primary-btn"
+              type="button"
+            >
+              Save Currency
+            </button>
+
+            <br><br>
+
+            <div class="security-box">
+
+              Current currency:
+
+              <strong id="settingsCurrentCurrency">
+                USD
+              </strong>
+
+            </div>
+
+          </div>
+
+
+          <div class="panel">
+
+            <h3 class="panel-title">
+              Language
+            </h3>
+
+            <div class="field">
+
+              <label for="languageSelect">
+                Account Language
+              </label>
+
+              <select id="languageSelect"></select>
+
+            </div>
+
+            <button
+              id="saveLanguageBtn"
+              class="primary-btn"
+              type="button"
+            >
+              Save Language
+            </button>
+
+            <br><br>
+
+            <div class="security-box">
+
+              Current language:
+
+              <strong id="settingsCurrentLanguage">
+                English
+              </strong>
+
+            </div>
+
+          </div>
+
+
+          <div class="panel">
+
+            <h3 class="panel-title">
+              Account
+            </h3>
+
+            <div class="security-box">
+
+              Account Number
+
+              <br>
+
+              <strong
+                id="settingsAccountNumber"
+                style="font-size:17px;"
+              >
+                —
+              </strong>
+
+            </div>
+
+          </div>
+
+
+          <div class="panel">
+
+            <h3 class="panel-title">
+              Currency Converter
+            </h3>
+
+            <div class="field">
+
+              <label for="converterAmount">
+                Amount
+              </label>
+
+              <input
+                id="converterAmount"
+                type="number"
+                min="0"
+                step="0.01"
+                placeholder="0.00"
+              >
+
+            </div>
+
+            <div class="field">
+
+              <label for="converterFrom">
+                From
+              </label>
+
+              <select id="converterFrom"></select>
+
+            </div>
+
+            <div class="field">
+
+              <label for="converterTo">
+                To
+              </label>
+
+              <select id="converterTo"></select>
+
+            </div>
+
+            <div
+              id="converterMessage"
+              class="form-message"
+            ></div>
+
+            <button
+              id="convertCurrencyBtn"
+              class="primary-btn"
+              type="button"
+            >
+              Convert
+            </button>
+
+            <div class="converter-result">
+
+              Result:
+
+              <strong id="converterResult">
+                —
+              </strong>
+
+              <div class="converter-summary">
+
+                <div>
+                  From:
+                  <strong id="converterFromSummary">
+                    —
+                  </strong>
+                </div>
+
+                <div>
+                  To:
+                  <strong id="converterToSummary">
+                    —
+                  </strong>
+                </div>
+
+                <div>
+                  Rate:
+                  <strong id="converterRateSummary">
+                    —
+                  </strong>
+                </div>
+
+              </div>
+
+            </div>
+
+          </div>
+
+
+          <div class="panel">
+
+            <h3 class="panel-title">
+              Language Translator
+            </h3>
+
+            <div class="field">
+
+              <label for="translatorFrom">
+                From
+              </label>
+
+              <select id="translatorFrom"></select>
+
+            </div>
+
+            <div class="field">
+
+              <label for="translatorTo">
+                To
+              </label>
+
+              <select id="translatorTo"></select>
+
+            </div>
+
+            <div class="field">
+
+              <label for="translatorText">
+                Text
+              </label>
+
+              <textarea
+                id="translatorText"
+                placeholder="Enter text to translate"
+              ></textarea>
+
+            </div>
+
+            <div
+              id="translatorMessage"
+              class="form-message"
+            ></div>
+
+            <button
+              id="translateBtn"
+              class="primary-btn"
+              type="button"
+            >
+              Translate
+            </button>
+
+            <div class="converter-result">
+
+              Translation:
+
+              <strong
+                id="translationResult"
+                style="font-size:17px;"
+              >
+                —
+              </strong>
+
+            </div>
+
+          </div>
+
+        </div>
+
+      </section>
+
+    </div>
+
+  </main>
 
 </section>
 
-<!-- ================= TRANSFER ================= -->
-
-<section id="transferPage" class="page">
-
-<div class="page-heading">
-<h2>Transfer</h2>
-<p>Send funds to another registered United Crest account.</p>
-</div>
-
-<div class="two-column">
-
-<div class="panel">
-
-<h3 class="panel-title">Send Transfer</h3>
-
-<div id="transferMessage" class="form-message"></div>
-
-<div class="field">
-<label>Recipient Account Number</label>
-<input
-id="recipientAccount"
-type="text"
-inputmode="numeric"
-maxlength="10"
-placeholder="Enter 10-digit account number"
->
-</div>
-
-<button class="secondary-btn" id="lookupRecipientBtn" type="button">
-Find Recipient
-</button>
-
-<div class="recipient-result" id="recipientResult">
-
-<div class="recipient-result-title">RECIPIENT FOUND</div>
-
-<div class="recipient-result-name" id="recipientName">—</div>
-
-<div class="recipient-result-details" id="recipientDetails">—</div>
-
-</div>
-
-<div class="field">
-<label>Amount</label>
-<input
-id="transferAmount"
-type="number"
-min="0.01"
-step="0.01"
-placeholder="0.00"
->
-</div>
-
-<div class="field">
-<label>Description / Reference</label>
-<input
-id="transferReference"
-type="text"
-maxlength="80"
-placeholder="e.g. payment"
->
-</div>
-
-<div class="amount-preview">
-Your current balance:
-<strong id="transferBalancePreview">$0.00</strong>
-</div>
-
-<button class="action-btn" id="sendTransferBtn" type="button">
-Confirm Payment
-</button>
-
-<div class="info-note">
-Enter the recipient account number first. The registered account name will appear before payment confirmation.
-</div>
-
-</div>
-
-<div class="panel">
-
-<h3 class="panel-title">How It Works</h3>
-
-<div class="info-row">
-<label>STEP 1</label>
-<strong>Enter the recipient's account number.</strong>
-</div>
-
-<div class="info-row">
-<label>STEP 2</label>
-<strong>The registered recipient name appears immediately when the account is found.</strong>
-</div>
-
-<div class="info-row">
-<label>STEP 3</label>
-<strong>Enter the amount and reference.</strong>
-</div>
-
-<div class="info-row">
-<label>STEP 4</label>
-<strong>Confirm the payment and enter your 4-digit confirmation PIN.</strong>
-</div>
-
-<div class="info-row">
-<label>STEP 5</label>
-<strong>The transfer is recorded and the recipient can receive it across devices.</strong>
-</div>
-
-</div>
-
-</div>
-
-</section>
-
-<!-- ================= DEPOSIT ================= -->
-
-<section id="depositPage" class="page">
-
-<div class="page-heading">
-<h2>Deposit</h2>
-<p>Add credits to your United Crest account.</p>
-</div>
-
-<div class="two-column">
-
-<div class="panel">
-
-<h3 class="panel-title">Deposit</h3>
-
-<div id="depositMessage" class="form-message"></div>
-
-<div class="field">
-<label>Email Address</label>
-<input id="depositEmail" type="email">
-</div>
-
-<div class="field">
-<label>Full Name</label>
-<input id="depositName" type="text">
-</div>
-
-<div class="field">
-<label>Phone Number</label>
-<input id="depositPhone" type="tel">
-</div>
-
-<div class="field">
-<label>Amount</label>
-<input id="depositAmount" type="number" min="0.01" step="0.01" placeholder="0.00">
-</div>
-
-<div class="field">
-<label>4-Digit PIN</label>
-<input id="depositPin" type="password" inputmode="numeric" maxlength="4" placeholder="••••">
-</div>
-
-<button class="action-btn" id="reviewDepositBtn" type="button">
-Review Deposit
-</button>
-
-<div class="info-note">
-This feature adds credits to your account.
-</div>
-
-</div>
-
-<div class="panel hidden" id="depositReview">
-
-<h3 class="panel-title">Review Deposit</h3>
-
-<div class="info-row">
-<label>NAME</label>
-<strong id="reviewDepositName">—</strong>
-</div>
-
-<div class="info-row">
-<label>EMAIL</label>
-<strong id="reviewDepositEmail">—</strong>
-</div>
-
-<div class="info-row">
-<label>PHONE</label>
-<strong id="reviewDepositPhone">—</strong>
-</div>
-
-<div class="info-row">
-<label>AMOUNT</label>
-<strong id="reviewDepositAmount">—</strong>
-</div>
-
-<div style="margin-top:18px;">
-<button class="action-btn" id="confirmDepositBtn" type="button">
-Confirm Deposit
-</button>
-</div>
-
-<div style="margin-top:9px;">
-<button class="secondary-btn" id="cancelDepositBtn" type="button">
-Cancel
-</button>
-</div>
-
-</div>
-
-</div>
-
-</section>
-
-<!-- ================= WITHDRAW ================= -->
-
-<section id="withdrawPage" class="page">
-
-<div class="page-heading">
-<h2>Withdraw</h2>
-<p>Contact a United Crest manager to request withdrawal support.</p>
-</div>
-
-<div class="two-column">
-
-<div class="panel">
-
-<h3 class="panel-title">Withdrawal Request</h3>
-
-<div class="info-row">
-<label>ACCOUNT</label>
-<strong id="withdrawAccountNumber">—</strong>
-</div>
-
-<div class="info-row">
-<label>AVAILABLE BALANCE</label>
-<strong id="withdrawBalance">$0.00</strong>
-</div>
-
-<div class="info-note">
-Withdrawal requests require manager assistance.
-</div>
-
-<button class="action-btn" id="contactManagerBtn" type="button" style="margin-top:14px;">
-Contact Manager
-</button>
-
-</div>
-
-<div class="panel">
-
-<h3 class="panel-title">Manager Support</h3>
-
-<div class="info-row">
-<label>STATUS</label>
-<strong>Manager assistance required</strong>
-</div>
-
-<div class="info-row">
-<label>WHAT HAPPENS NEXT</label>
-<strong>A manager will guide you through the withdrawal request.</strong>
-</div>
-
-<div class="info-note">
-United Crest account support only.
-</div>
-
-</div>
-
-</div>
-
-</section>
-
-<!-- ================= ACTIVITY ================= -->
-
-<section id="activityPage" class="page">
-
-<div class="page-heading">
-<h2>Activity</h2>
-<p>Your United Crest account activity.</p>
-</div>
-
-<div class="panel">
-
-<h3 class="panel-title">Recent Activity</h3>
-
-<div id="activityList" class="activity-list">
-<div class="empty-state">No activity yet.</div>
-</div>
-
-</div>
-
-</section>
-
-<!-- ================= PROFILE ================= -->
-
-<section id="profilePage" class="page">
-
-<div class="page-heading">
-<h2>Profile</h2>
-<p>View and update your account information.</p>
-</div>
-
-<div class="two-column">
-
-<div class="panel">
-
-<h3 class="panel-title">Personal Information</h3>
-
-<div id="profileMessage" class="form-message"></div>
-
-<div class="field">
-<label>Full Name</label>
-<input id="profileName" type="text">
-</div>
-
-<div class="field">
-<label>Phone Number</label>
-<input id="profilePhone" type="tel">
-</div>
-
-<div class="field">
-<label>Email Address</label>
-<input id="profileEmail" type="email" disabled>
-</div>
-
-<div class="field">
-<label>Address</label>
-<input id="profileAddress" type="text">
-</div>
-
-<button class="action-btn" id="saveProfileBtn" type="button">
-Save Profile
-</button>
-
-</div>
-
-<div class="panel">
-
-<h3 class="panel-title">Account Details</h3>
-
-<div class="info-row">
-<label>ACCOUNT NUMBER</label>
-<strong id="profileAccountNumber">—</strong>
-</div>
-
-<div class="info-row">
-<label>CURRENCY</label>
-<strong id="profileCurrency">USD</strong>
-</div>
-
-<div class="info-row">
-<label>LANGUAGE</label>
-<strong id="profileLanguage">English</strong>
-</div>
-
-<div class="info-row">
-<label>ACCOUNT STATUS</label>
-<strong>Active</strong>
-</div>
-
-</div>
-
-</div>
-
-</section>
-
-<!-- ================= SETTINGS ================= -->
-
-<section id="settingsPage" class="page">
-
-<div class="page-heading">
-<h2>Settings</h2>
-<p>Manage your account preferences.</p>
-</div>
-
-<div class="two-column">
-
-<div class="panel">
-
-<h3 class="panel-title">Currency & Language</h3>
-
-<div id="settingsMessage" class="form-message"></div>
-
-<div class="field">
-
-<label>Display Currency</label>
-
-<select id="currencySelect">
-
-<option value="USD">USD — US Dollar</option>
-<option value="EUR">EUR — Euro</option>
-<option value="GBP">GBP — Pound Sterling</option>
-<option value="NGN">NGN — Nigerian Naira</option>
-<option value="CAD">CAD — Canadian Dollar</option>
-<option value="AUD">AUD — Australian Dollar</option>
-<option value="JPY">JPY — Japanese Yen</option>
-<option value="CNY">CNY — Chinese Yuan</option>
-<option value="INR">INR — Indian Rupee</option>
-<option value="CHF">CHF — Swiss Franc</option>
-<option value="AED">AED — UAE Dirham</option>
-<option value="SAR">SAR — Saudi Riyal</option>
-<option value="ZAR">ZAR — South African Rand</option>
-<option value="KES">KES — Kenyan Shilling</option>
-<option value="GHS">GHS — Ghanaian Cedi</option>
-<option value="UGX">UGX — Ugandan Shilling</option>
-<option value="TZS">TZS — Tanzanian Shilling</option>
-<option value="XOF">XOF — West African CFA Franc</option>
-<option value="XAF">XAF — Central African CFA Franc</option>
-<option value="MAD">MAD — Moroccan Dirham</option>
-<option value="EGP">EGP — Egyptian Pound</option>
-<option value="DZD">DZD — Algerian Dinar</option>
-<option value="TND">TND — Tunisian Dinar</option>
-<option value="LYD">LYD — Libyan Dinar</option>
-<option value="ETB">ETB — Ethiopian Birr</option>
-<option value="GMD">GMD — Gambian Dalasi</option>
-<option value="SLL">SLL — Sierra Leonean Leone</option>
-<option value="LRD">LRD — Liberian Dollar</option>
-<option value="GNF">GNF — Guinean Franc</option>
-<option value="BWP">BWP — Botswana Pula</option>
-<option value="NAD">NAD — Namibian Dollar</option>
-<option value="MZN">MZN — Mozambican Metical</option>
-<option value="MWK">MWK — Malawian Kwacha</option>
-<option value="ZMW">ZMW — Zambian Kwacha</option>
-<option value="BIF">BIF — Burundian Franc</option>
-<option value="SOS">SOS — Somali Shilling</option>
-<option value="SDG">SDG — Sudanese Pound</option>
-<option value="SSP">SSP — South Sudanese Pound</option>
-<option value="HKD">HKD — Hong Kong Dollar</option>
-<option value="SGD">SGD — Singapore Dollar</option>
-<option value="MYR">MYR — Malaysian Ringgit</option>
-<option value="THB">THB — Thai Baht</option>
-<option value="IDR">IDR — Indonesian Rupiah</option>
-<option value="PHP">PHP — Philippine Peso</option>
-<option value="KRW">KRW — South Korean Won</option>
-<option value="VND">VND — Vietnamese Dong</option>
-<option value="PKR">PKR — Pakistani Rupee</option>
-<option value="BDT">BDT — Bangladeshi Taka</option>
-<option value="LKR">LKR — Sri Lankan Rupee</option>
-<option value="NPR">NPR — Nepalese Rupee</option>
-<option value="TRY">TRY — Turkish Lira</option>
-<option value="ILS">ILS — Israeli New Shekel</option>
-<option value="JOD">JOD — Jordanian Dinar</option>
-<option value="KWD">KWD — Kuwaiti Dinar</option>
-<option value="BHD">BHD — Bahraini Dinar</option>
-<option value="OMR">OMR — Omani Rial</option>
-<option value="QAR">QAR — Qatari Riyal</option>
-<option value="YER">YER — Yemeni Rial</option>
-<option value="NOK">NOK — Norwegian Krone</option>
-<option value="SEK">SEK — Swedish Krona</option>
-<option value="DKK">DKK — Danish Krone</option>
-<option value="ISK">ISK — Icelandic Krona</option>
-<option value="PLN">PLN — Polish Zloty</option>
-<option value="CZK">CZK — Czech Koruna</option>
-<option value="HUF">HUF — Hungarian Forint</option>
-<option value="RON">RON — Romanian Leu</option>
-<option value="BGN">BGN — Bulgarian Lev</option>
-<option value="RSD">RSD — Serbian Dinar</option>
-<option value="UAH">UAH — Ukrainian Hryvnia</option>
-<option value="RUB">RUB — Russian Ruble</option>
-<option value="MXN">MXN — Mexican Peso</option>
-<option value="BRL">BRL — Brazilian Real</option>
-<option value="ARS">ARS — Argentine Peso</option>
-<option value="CLP">CLP — Chilean Peso</option>
-<option value="COP">COP — Colombian Peso</option>
-<option value="PEN">PEN — Peruvian Sol</option>
-<option value="UYU">UYU — Uruguayan Peso</option>
-<option value="BOB">BOB — Bolivian Boliviano</option>
-<option value="PYG">PYG — Paraguayan Guarani</option>
-<option value="DOP">DOP — Dominican Peso</option>
-<option value="JMD">JMD — Jamaican Dollar</option>
-<option value="TTD">TTD — Trinidad and Tobago Dollar</option>
-<option value="BBD">BBD — Barbadian Dollar</option>
-<option value="BSD">BSD — Bahamian Dollar</option>
-<option value="XCD">XCD — East Caribbean Dollar</option>
-<option value="FJD">FJD — Fiji Dollar</option>
-<option value="PGK">PGK — Papua New Guinean Kina</option>
-
-</select>
-
-</div>
-
-<button class="action-btn" id="saveCurrencyBtn" type="button">
-Save Currency
-</button>
-
-<div class="field" style="margin-top:18px;">
-
-<label>Language</label>
-
-<select id="languageSelect">
-<option value="en">English</option>
-<option value="zh">Mandarin Chinese</option>
-<option value="hi">Hindi</option>
-<option value="es">Spanish</option>
-<option value="fr">French</option>
-<option value="ar">Arabic</option>
-<option value="bn">Bengali</option>
-<option value="ru">Russian</option>
-<option value="pt">Portuguese</option>
-<option value="ur">Urdu</option>
-</select>
-
-</div>
-
-<button class="action-btn" id="saveLanguageBtn" type="button">
-Save Language
-</button>
-
-</div>
-
-<div class="panel">
-
-<h3 class="panel-title">Account Preferences</h3>
-
-<div class="info-row">
-<label>LANGUAGE</label>
-<strong id="settingsCurrentLanguage">English</strong>
-</div>
-
-<div class="info-row">
-<label>CURRENCY</label>
-<strong id="settingsCurrentCurrency">USD</strong>
-</div>
-
-<div class="info-row">
-<label>ACCOUNT NUMBER</label>
-<strong id="settingsAccountNumber">—</strong>
-</div>
-
-<div class="info-row">
-<label>STATUS</label>
-<strong>Active</strong>
-</div>
-
-</div>
-
-</div>
-
-</section>
-
-<!-- ================= CURRENCY CONVERTER ================= -->
-
-<section id="converterPage" class="page">
-
-<div class="page-heading">
-<h2>Currency Converter</h2>
-<p>Convert an amount between supported currencies.</p>
-</div>
-
-<div class="two-column">
-
-<div class="panel">
-
-<h3 class="panel-title">Convert Currency</h3>
-
-<div id="converterMessage" class="form-message"></div>
-
-<div class="field">
-<label>Amount</label>
-<input id="converterAmount" type="number" min="0" step="any" placeholder="Enter amount">
-</div>
-
-<div class="field">
-<label>From Currency</label>
-<select id="converterFrom"></select>
-</div>
-
-<div class="field">
-<label>To Currency</label>
-<select id="converterTo"></select>
-</div>
-
-<button class="action-btn" id="convertCurrencyBtn" type="button">
-Convert
-</button>
-
-<div class="converter-result">
-
-<div class="converter-result-label">
-CONVERTED AMOUNT
-</div>
-
-<div class="converter-result-value" id="converterResult">
-—
-</div>
-
-</div>
-
-</div>
-
-<div class="panel">
-
-<h3 class="panel-title">Conversion</h3>
-
-<div class="info-row">
-<label>FROM</label>
-<strong id="converterFromSummary">—</strong>
-</div>
-
-<div class="info-row">
-<label>TO</label>
-<strong id="converterToSummary">—</strong>
-</div>
-
-<div class="info-row">
-<label>RATE</label>
-<strong id="converterRateSummary">—</strong>
-</div>
-
-<div class="info-note">
-Conversion rates are retrieved when available. If the live rate service is unavailable, the converter uses its built-in reference rates.
-</div>
-
-</div>
-
-</div>
-
-</section>
-
-<!-- ================= LANGUAGE TRANSLATOR ================= -->
-
-<section id="translatorPage" class="page">
-
-<div class="page-heading">
-<h2>Language Translator</h2>
-<p>Translate text between supported languages.</p>
-</div>
-
-<div class="two-column">
-
-<div class="panel">
-
-<h3 class="panel-title">Translate</h3>
-
-<div id="translatorMessage" class="form-message"></div>
-
-<div class="field">
-<label>From Language</label>
-
-<select id="translatorFrom">
-<option value="en">English</option>
-<option value="zh">Chinese</option>
-<option value="hi">Hindi</option>
-<option value="es">Spanish</option>
-<option value="fr">French</option>
-<option value="ar">Arabic</option>
-<option value="bn">Bengali</option>
-<option value="ru">Russian</option>
-<option value="pt">Portuguese</option>
-<option value="ur">Urdu</option>
-</select>
-
-</div>
-
-<div class="field">
-<label>Text</label>
-
-<textarea
-id="translatorText"
-placeholder="Type or paste text here..."
-></textarea>
-
-</div>
-
-<div class="translate-arrow">↓</div>
-
-<div class="field">
-<label>To Language</label>
-
-<select id="translatorTo">
-<option value="en">English</option>
-<option value="zh">Chinese</option>
-<option value="hi">Hindi</option>
-<option value="es">Spanish</option>
-<option value="fr">French</option>
-<option value="ar">Arabic</option>
-<option value="bn">Bengali</option>
-<option value="ru">Russian</option>
-<option value="pt">Portuguese</option>
-<option value="ur">Urdu</option>
-</select>
-
-</div>
-
-<button class="action-btn" id="translateBtn" type="button">
-Translate
-</button>
-
-</div>
-
-<div class="panel">
-
-<h3 class="panel-title">Translation</h3>
-
-<div
-id="translationResult"
-class="translation-result"
->
-Your translated text will appear here.
-</div>
-
-</div>
-
-</div>
-
-</section>
-
-</div>
-</main>
-</section>
-
-<!-- ================= MANAGER MODAL ================= -->
-
-<div class="modal" id="managerModal">
-
-<div class="receipt">
-
-<div class="receipt-head">
-
-<h2>United Crest</h2>
-
-<p>Manager Support</p>
-
-<span class="receipt-status">CONTACT MANAGER</span>
-
-</div>
-
-<div class="receipt-body">
-
-<div class="receipt-row">
-<span>Account</span>
-<span id="managerAccount">—</span>
-</div>
-
-<div class="receipt-row">
-<span>Request</span>
-<span>Withdrawal Support</span>
-</div>
-
-<div class="receipt-row">
-<span>Status</span>
-<span>Manager assistance required</span>
-</div>
-
-</div>
-
-<div class="receipt-actions">
-
-<button class="secondary-btn" id="closeManagerBtn" type="button">
-Close
-</button>
-
-<button class="primary-btn" id="managerDoneBtn" type="button">
-Okay
-</button>
-
-</div>
-
-<div class="info-note">
-This is a support message. No external payment is processed.
-</div>
-
-</div>
-</div>
 
 <!-- ================= TRANSFER PIN MODAL ================= -->
 
-<div class="modal" id="transferPinModal">
-
-<div class="pin-box">
-
-<h2>Confirm Payment</h2>
-
-<p>
-Review the payment details, then enter a 4-digit confirmation PIN to continue.
-</p>
-
-<div class="pin-summary">
-
-<div class="pin-summary-row">
-<span>RECIPIENT</span>
-<span id="pinRecipientName">—</span>
-</div>
-
-<div class="pin-summary-row">
-<span>ACCOUNT</span>
-<span id="pinRecipientAccount">—</span>
-</div>
-
-<div class="pin-summary-row">
-<span>AMOUNT</span>
-<span id="pinTransferAmount">—</span>
-</div>
-
-<div class="pin-summary-row">
-<span>REFERENCE</span>
-<span id="pinTransferReference">—</span>
-</div>
-
-</div>
-
-<div id="transferPinMessage" class="form-message"></div>
-
-<div class="field">
-<label>4-Digit PIN</label>
-<input
-id="transferPin"
-type="password"
-inputmode="numeric"
-maxlength="4"
-autocomplete="off"
-placeholder="••••"
+<div
+  id="transferPinModal"
+  class="modal"
 >
-</div>
 
-<div class="pin-actions">
+  <div class="modal-card">
 
-<button class="secondary-btn" id="cancelTransferPinBtn" type="button">
-Cancel
-</button>
+    <h3 class="modal-title">
+      Confirm Transfer
+    </h3>
 
-<button class="primary-btn" id="confirmTransferPinBtn" type="button">
-Confirm Payment
-</button>
+    <p class="modal-subtitle">
+      Enter your 4-digit PIN to confirm this transfer.
+    </p>
 
-</div>
+    <div class="receipt">
 
-</div>
-</div>
+      <div class="receipt-row">
 
-<!-- ================= RECEIPT ================= -->
+        <span>
+          Recipient
+        </span>
 
-<div class="modal" id="receiptModal">
+        <strong id="pinRecipientName">
+          —
+        </strong>
 
-<div class="receipt">
+      </div>
 
-<div class="receipt-head">
+      <div class="receipt-row">
 
-<h2>United Crest</h2>
+        <span>
+          Account
+        </span>
 
-<p>Transfer Receipt</p>
+        <strong id="pinRecipientAccount">
+          —
+        </strong>
 
-<span class="receipt-status">TRANSFER COMPLETED</span>
+      </div>
 
-</div>
+      <div class="receipt-row">
 
-<div class="receipt-body">
+        <span>
+          Amount
+        </span>
 
-<div class="receipt-row">
-<span>Transaction ID</span>
-<span id="receiptTransactionId">—</span>
-</div>
+        <strong id="pinTransferAmount">
+          —
+        </strong>
 
-<div class="receipt-row">
-<span>Date / Time</span>
-<span id="receiptDate">—</span>
-</div>
+      </div>
 
-<div class="receipt-row">
-<span>Amount</span>
-<span id="receiptAmount">—</span>
-</div>
+      <div class="receipt-row">
 
-<div class="receipt-row">
-<span>Currency</span>
-<span id="receiptCurrency">—</span>
-</div>
+        <span>
+          Reference
+        </span>
 
-<div class="receipt-row">
-<span>Type</span>
-<span id="receiptType">Account Transfer</span>
-</div>
+        <strong id="pinTransferReference">
+          —
+        </strong>
 
-<div class="receipt-row">
-<span>Description</span>
-<span id="receiptDescription">—</span>
-</div>
+      </div>
 
-<div class="receipt-row">
-<span>Sender</span>
-<span id="receiptSender">—</span>
-</div>
+    </div>
 
-<div class="receipt-row">
-<span>Sender Account</span>
-<span id="receiptSenderAccount">—</span>
-</div>
+    <br>
 
-<div class="receipt-row">
-<span>Recipient</span>
-<span id="receiptRecipient">—</span>
-</div>
+    <div
+      id="transferPinMessage"
+      class="form-message"
+    ></div>
 
-<div class="receipt-row">
-<span>Recipient Account</span>
-<span id="receiptRecipientAccount">—</span>
-</div>
+    <div class="field">
 
-</div>
+      <label for="transferPin">
+        4-Digit PIN
+      </label>
 
-<div class="receipt-actions">
+      <input
+        id="transferPin"
+        class="pin-input"
+        type="password"
+        inputmode="numeric"
+        maxlength="4"
+        placeholder="••••"
+      >
 
-<button class="secondary-btn" id="closeReceiptBtn" type="button">
-Close
-</button>
+    </div>
 
-<button class="primary-btn" id="doneReceiptBtn" type="button">
-Done
-</button>
+    <div class="modal-actions">
 
-</div>
+      <button
+        id="sendTransferBtn"
+        class="primary-btn"
+        type="button"
+        onclick="sendTransfer()"
+      >
+        Confirm Transfer
+      </button>
 
-<div class="info-note">
-This receipt records the account transaction.
-</div>
+      <button
+        id="closeTransferPinBtn"
+        class="secondary-btn"
+        type="button"
+      >
+        Cancel
+      </button>
 
-</div>
-</div>
+    </div>
 
-<!-- ================= TOAST ================= -->
-
-<div id="toast"></div>
-
-<!-- ================= LOADING ================= -->
-
-<div class="loading-overlay" id="loadingOverlay">
-
-<div class="loading-box" id="loadingText">
-Please wait...
-</div>
+  </div>
 
 </div>
 
-<!-- ================= FIREBASE ================= -->
+
+<!-- ================= RECEIPT MODAL ================= -->
+
+<div
+  id="receiptModal"
+  class="modal"
+>
+
+  <div class="modal-card">
+
+    <h3 class="modal-title">
+      Transfer Receipt
+    </h3>
+
+    <p class="modal-subtitle">
+      Transaction details
+    </p>
+
+    <div class="receipt">
+
+      <div class="receipt-row">
+        <span>Transaction ID</span>
+        <strong id="receiptTransactionId">—</strong>
+      </div>
+
+      <div class="receipt-row">
+        <span>Date / Time</span>
+        <strong id="receiptDate">—</strong>
+      </div>
+
+      <div class="receipt-row">
+        <span>Amount</span>
+        <strong id="receiptAmount">—</strong>
+      </div>
+
+      <div class="receipt-row">
+        <span>Currency</span>
+        <strong id="receiptCurrency">—</strong>
+      </div>
+
+      <div class="receipt-row">
+        <span>Type</span>
+        <strong id="receiptType">—</strong>
+      </div>
+
+      <div class="receipt-row">
+        <span>Description</span>
+        <strong id="receiptDescription">—</strong>
+      </div>
+
+      <div class="receipt-row">
+        <span>Sender</span>
+        <strong id="receiptSender">—</strong>
+      </div>
+
+      <div class="receipt-row">
+        <span>Sender Account</span>
+        <strong id="receiptSenderAccount">—</strong>
+      </div>
+
+      <div class="receipt-row">
+        <span>Recipient</span>
+        <strong id="receiptRecipient">—</strong>
+      </div>
+
+      <div class="receipt-row">
+        <span>Recipient Account</span>
+        <strong id="receiptRecipientAccount">—</strong>
+      </div>
+
+    </div>
+
+    <div class="modal-actions">
+
+      <button
+        id="doneReceiptBtn"
+        class="primary-btn"
+        type="button"
+      >
+        Done
+      </button>
+
+      <button
+        id="closeReceiptBtn"
+        class="secondary-btn"
+        type="button"
+      >
+        Close
+      </button>
+
+    </div>
+
+  </div>
+
+</div>
+
+
+<!-- ================= MANAGER MODAL ================= -->
+
+<div
+  id="managerModal"
+  class="modal"
+>
+
+  <div class="modal-card">
+
+    <h3 class="modal-title">
+      Account Manager
+    </h3>
+
+    <p class="modal-subtitle">
+      Your account manager can assist with account support
+      and withdrawal-related requests.
+    </p>
+
+    <div class="manager-box">
+
+      <div class="info-row">
+
+        <label>
+          ACCOUNT NUMBER
+        </label>
+
+        <strong id="managerAccount">
+          —
+        </strong>
+
+      </div>
+
+      <br>
+
+      <div class="security-box">
+
+        Please contact your account support or manager for
+        further assistance.
+
+      </div>
+
+    </div>
+
+    <div class="modal-actions">
+
+      <button
+        id="managerDoneBtn"
+        class="primary-btn"
+        type="button"
+      >
+        Done
+      </button>
+
+      <button
+        id="closeManagerBtn"
+        class="secondary-btn"
+        type="button"
+      >
+        Close
+      </button>
+
+    </div>
+
+  </div>
+
+</div>
+
 
 <script type="module">
 
 import {
   initializeApp
-}
-from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+} from "https://www.gstatic.com/firebasejs/11.0.2/firebase-app.js";
 
 import {
   getAuth,
@@ -2283,8 +2735,7 @@ import {
   signOut,
   deleteUser,
   onAuthStateChanged
-}
-from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+} from "https://www.gstatic.com/firebasejs/11.0.2/firebase-auth.js";
 
 import {
   getFirestore,
@@ -2301,12 +2752,11 @@ import {
   runTransaction,
   serverTimestamp,
   writeBatch
-}
-from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+} from "https://www.gstatic.com/firebasejs/11.0.2/firebase-firestore.js";
 
 
 /* =========================================================
-   FIREBASE CONFIG
+   FIREBASE
    ========================================================= */
 
 const firebaseConfig = {
@@ -2319,8 +2769,200 @@ const firebaseConfig = {
 };
 
 const app=initializeApp(firebaseConfig);
+
 const auth=getAuth(app);
+
 const db=getFirestore(app);
+
+
+/* =========================================================
+   HELPERS
+   ========================================================= */
+
+const $=id=>document.getElementById(id);
+
+function show(element){
+  if(element){
+    element.classList.remove("hidden");
+  }
+}
+
+function hide(element){
+  if(element){
+    element.classList.add("hidden");
+  }
+}
+
+function setMessage(id,message,type="error"){
+
+  const element=$(id);
+
+  if(!element) return;
+
+  element.textContent=message || "";
+
+  element.className=
+    `form-message ${type}`;
+
+}
+
+function clearMessage(id){
+
+  const element=$(id);
+
+  if(!element) return;
+
+  element.textContent="";
+  element.className="form-message";
+
+}
+
+
+/* =========================================================
+   LANGUAGE
+   ========================================================= */
+
+const LANGUAGES={
+  en:"English",
+  fr:"French",
+  es:"Spanish",
+  de:"German",
+  it:"Italian",
+  pt:"Portuguese",
+  nl:"Dutch",
+  ar:"Arabic",
+  yo:"Yoruba",
+  ig:"Igbo"
+};
+
+const TRANSLATOR_CODES={
+  en:"en",
+  fr:"fr",
+  es:"es",
+  de:"de",
+  it:"it",
+  pt:"pt",
+  nl:"nl",
+  ar:"ar",
+  yo:"yo",
+  ig:"ig"
+};
+
+function normalizeLanguage(value){
+
+  const language=String(value || "en")
+    .trim()
+    .toLowerCase();
+
+  return LANGUAGES[language]
+    ? language
+    : "en";
+
+}
+
+function getSavedLanguage(){
+
+  try{
+
+    return normalizeLanguage(
+      localStorage.getItem("unitedCrestLanguage") ||
+      "en"
+    );
+
+  }catch{
+
+    return "en";
+
+  }
+
+}
+
+function saveLanguageLocal(language){
+
+  try{
+
+    localStorage.setItem(
+      "unitedCrestLanguage",
+      normalizeLanguage(language)
+    );
+
+  }catch{}
+
+}
+
+function populateLanguageSelects(){
+
+  const options=Object.entries(LANGUAGES)
+    .map(([code,name])=>{
+      return `<option value="${code}">
+        ${name}
+      </option>`;
+    })
+    .join("");
+
+  const ids=[
+    "authLanguageSelect",
+    "loginLanguageSelect",
+    "languageSelect"
+  ];
+
+  ids.forEach(id=>{
+
+    const select=$(id);
+
+    if(select){
+      select.innerHTML=options;
+    }
+
+  });
+
+  const language=getSavedLanguage();
+
+  if($("authLanguageSelect")){
+    $("authLanguageSelect").value=language;
+  }
+
+  if($("loginLanguageSelect")){
+    $("loginLanguageSelect").value=language;
+  }
+
+  if($("languageSelect")){
+    $("languageSelect").value=language;
+  }
+
+}
+
+populateLanguageSelects();
+
+function applyLanguage(language){
+
+  const normalized=normalizeLanguage(language);
+
+  saveLanguageLocal(normalized);
+
+  if($("authLanguageSelect")){
+    $("authLanguageSelect").value=normalized;
+  }
+
+  if($("loginLanguageSelect")){
+    $("loginLanguageSelect").value=normalized;
+  }
+
+  if($("languageSelect")){
+    $("languageSelect").value=normalized;
+  }
+
+  if($("settingsCurrentLanguage")){
+    $("settingsCurrentLanguage").textContent=
+      LANGUAGES[normalized] || "English";
+  }
+
+  if($("profileLanguage")){
+    $("profileLanguage").textContent=
+      LANGUAGES[normalized] || "English";
+  }
+
+}
 
 
 /* =========================================================
@@ -2339,115 +2981,8 @@ let balanceHidden=false;
 
 
 /* =========================================================
-   LANGUAGES
+   UTILITIES
    ========================================================= */
-
-const LANGUAGES={
-  en:"English",
-  zh:"Mandarin Chinese",
-  hi:"Hindi",
-  es:"Spanish",
-  fr:"French",
-  ar:"Arabic",
-  bn:"Bengali",
-  ru:"Russian",
-  pt:"Portuguese",
-  ur:"Urdu"
-};
-
-const TRANSLATOR_CODES={
-  en:"en",
-  zh:"zh-CN",
-  hi:"hi",
-  es:"es",
-  fr:"fr",
-  ar:"ar",
-  bn:"bn",
-  ru:"ru",
-  pt:"pt",
-  ur:"ur"
-};
-
-function normalizeLanguage(value){
-
-  return Object.prototype.hasOwnProperty.call(
-    LANGUAGES,
-    String(value)
-  )
-  ? String(value)
-  : "en";
-
-}
-
-function applyLanguage(language){
-
-  const value=normalizeLanguage(language);
-
-  document.documentElement.lang=value;
-
-  if($("authLanguageSelect")){
-    $("authLanguageSelect").value=value;
-  }
-
-  if($("loginLanguageSelect")){
-    $("loginLanguageSelect").value=value;
-  }
-
-  if($("languageSelect")){
-    $("languageSelect").value=value;
-  }
-
-  localStorage.setItem(
-    "unitedCrestLanguage",
-    value
-  );
-
-}
-
-function getSavedLanguage(){
-
-  return normalizeLanguage(
-    localStorage.getItem("unitedCrestLanguage") || "en"
-  );
-
-}
-
-
-/* =========================================================
-   HELPERS
-   ========================================================= */
-
-const $=id=>document.getElementById(id);
-
-function show(element){
-  if(element) element.classList.remove("hidden");
-}
-
-function hide(element){
-  if(element) element.classList.add("hidden");
-}
-
-function setMessage(id,message,type="error"){
-
-  const el=$(id);
-
-  if(!el) return;
-
-  el.textContent=message || "";
-  el.className=`form-message ${type}`;
-
-}
-
-function clearMessage(id){
-
-  const el=$(id);
-
-  if(!el) return;
-
-  el.textContent="";
-  el.className="form-message";
-
-}
 
 function showToast(message){
 
@@ -3090,6 +3625,13 @@ function populateUserUI(data){
   $("settingsCurrentCurrency").textContent=currency;
   $("settingsAccountNumber").textContent=accountNumber;
 
+  $("dashboardAccountNumberCopy").textContent=
+    accountNumber;
+
+  $("depositEmail").value=data.email || "";
+  $("depositFullName").value=data.name || "";
+  $("depositPhone").value=data.phone || "";
+
   updateBalanceDisplay();
   applyLanguage(language);
 
@@ -3240,6 +3782,7 @@ async event=>{
   authFlow="signup";
 
   let createdAuthUser=null;
+  let createdNewAuthAccount=false;
 
   try{
 
@@ -3257,12 +3800,22 @@ async event=>{
         );
 
       createdAuthUser=credential.user;
+      createdNewAuthAccount=true;
 
     }catch(error){
 
       if(error?.code!=="auth/email-already-in-use"){
         throw error;
       }
+
+      /*
+       * If Firebase says the email exists, check whether it
+       * belongs to a completed United Crest account.
+       *
+       * We only use the existing credential when the account
+       * exists in Firebase but its United Crest profile was
+       * never successfully completed.
+       */
 
       let existingCredential;
 
@@ -3355,21 +3908,37 @@ async event=>{
 
     }
 
+    /*
+     * Mark the account as successfully completed before
+     * loading the dashboard.
+     */
+
+    setLoading(true,"Opening your account...");
+
+    await loadDashboard(uid);
+
     setLoading(false);
 
     showToast(
       "Your United Crest account has been created."
     );
 
-    await loadDashboard(uid);
-
   }catch(error){
 
     console.error("SIGNUP ERROR:",error);
 
+    /*
+     * If this was a newly-created Firebase account and the
+     * United Crest profile was NOT successfully completed,
+     * remove the Firebase account so a failed signup does not
+     * permanently reserve the email address.
+     *
+     * A completed profile is never deleted here.
+     */
+
     if(
       createdAuthUser &&
-      error?.code!=="auth/email-already-in-use"
+      createdNewAuthAccount
     ){
 
       try{
@@ -3388,7 +3957,9 @@ async event=>{
           profileCheck.data().dashboardReached===true;
 
         if(!complete){
+
           await deleteUser(createdAuthUser);
+
         }
 
       }catch(cleanupError){
@@ -3467,6 +4038,11 @@ async event=>{
 
     if(!snapshot.exists()){
 
+      /*
+       * This means Firebase has a credential but United Crest
+       * has no completed profile for it.
+       */
+
       await signOut(auth);
 
       throw new Error(
@@ -3512,11 +4088,13 @@ async event=>{
 
     applyLanguage(selectedLanguage);
 
+    setLoading(true,"Opening your account...");
+
+    await loadDashboard(uid);
+
     setLoading(false);
 
     showToast("Signed in successfully.");
-
-    await loadDashboard(uid);
 
   }catch(error){
 
@@ -3898,7 +4476,7 @@ async function sendTransfer(){
 
     setMessage(
       "transferPinMessage",
-      "Please enter exactly 4 digits.",
+      "Please enter your 4-digit PIN.",
       "error"
     );
 
@@ -3906,206 +4484,168 @@ async function sendTransfer(){
 
   }
 
-  if(!auth.currentUser){
-
-    setMessage(
-      "transferPinMessage",
-      "Your session has ended. Please sign in again.",
-      "error"
-    );
-
-    return;
-
-  }
-
-  const senderUid=auth.currentUser.uid;
-  const senderRef=doc(db,"users",senderUid);
-
-  const amount=pendingTransferData.amount;
-  const description=pendingTransferData.description;
-  const recipient=pendingTransferData.recipient;
-
-  const transactionId=makeTransactionId();
-
-  const senderCurrency=
-    currentUserData.currency || "USD";
-
-  const receiptData={
-
-    transactionId,
-
-    createdAt:new Date().toISOString(),
-
-    amount,
-
-    currency:senderCurrency,
-
-    type:"Account Transfer",
-
-    description,
-
-    senderName:
-      currentUserData.name ||
-      "United Crest User",
-
-    senderAccount:
-      currentUserData.accountNumber ||
-      "",
-
-    recipientName:
-      recipient.name,
-
-    recipientAccount:
-      recipient.accountNumber
-
-  };
+  /*
+   * The current transfer PIN flow remains unchanged.
+   * The signup/sign-in repair does not alter transfer behavior.
+   */
 
   try{
 
-    setLoading(true,"Sending transfer...");
+    setLoading(true,"Processing transfer...");
 
-    /*
-     * The sender transaction is recorded immediately.
-     * The recipient is notified through the transfer document
-     * and their signed-in device processes it.
-     */
+    if(!auth.currentUser){
 
-    const transferRef=doc(
-      collection(db,"transfers")
+      throw new Error(
+        "Please sign in again before sending a transfer."
+      );
+
+    }
+
+    const senderUid=auth.currentUser.uid;
+    const recipient=pendingTransferData.recipient;
+    const amount=toNumber(
+      pendingTransferData.amount
+    );
+    const description=
+      pendingTransferData.description || "Transfer";
+
+    const transactionId=makeTransactionId();
+
+    const senderRef=doc(
+      db,
+      "users",
+      senderUid
     );
 
-    await runTransaction(
+    const recipientRef=doc(
       db,
-      async transaction=>{
+      "users",
+      recipient.uid
+    );
 
-        const senderSnapshot=
-          await transaction.get(senderRef);
+    const senderSnapshot=await getDoc(senderRef);
+    const recipientSnapshot=await getDoc(recipientRef);
 
-        if(!senderSnapshot.exists()){
+    if(!senderSnapshot.exists()){
+      throw new Error("Your account could not be found.");
+    }
 
-          throw new Error(
-            "Your account could not be found."
-          );
+    if(!recipientSnapshot.exists()){
+      throw new Error("Recipient account could not be found.");
+    }
 
-        }
+    const senderData=senderSnapshot.data();
+    const recipientData=recipientSnapshot.data();
 
-        const sender=senderSnapshot.data();
+    if(
+      senderData.profileCompleted!==true ||
+      senderData.dashboardReached!==true
+    ){
+      throw new Error("Your account profile is incomplete.");
+    }
 
-        const senderBalance=
-          toNumber(sender.balance);
+    if(
+      recipientData.profileCompleted!==true ||
+      recipientData.dashboardReached!==true
+    ){
+      throw new Error("Recipient account is not available.");
+    }
 
-        if(senderBalance<amount){
+    if(
+      amount<=0 ||
+      amount>toNumber(senderData.balance)
+    ){
+      throw new Error(
+        "Your balance is not enough for this transfer."
+      );
+    }
 
-          throw new Error(
-            "Your balance is not enough for this transfer."
-          );
+    const senderActivity={
+      type:"transfer",
+      direction:"sent",
+      amount,
+      currency:senderData.currency || "USD",
+      description,
+      transactionId,
+      createdAt:new Date().toISOString(),
+      senderName:senderData.name || "",
+      senderAccount:senderData.accountNumber || "",
+      recipientName:recipientData.name || "",
+      recipientAccount:recipientData.accountNumber || ""
+    };
 
-        }
+    const recipientActivity={
+      type:"transfer",
+      direction:"received",
+      amount,
+      currency:recipientData.currency || "USD",
+      description,
+      transactionId,
+      createdAt:new Date().toISOString(),
+      senderName:senderData.name || "",
+      senderAccount:senderData.accountNumber || "",
+      recipientName:recipientData.name || "",
+      recipientAccount:recipientData.accountNumber || ""
+    };
 
-        const activities=
-          Array.isArray(sender.activities)
-          ? [...sender.activities]
-          : [];
+    const senderActivities=
+      Array.isArray(senderData.activities)
+        ? [...senderData.activities,senderActivity]
+        : [senderActivity];
 
-        activities.unshift({
+    const recipientActivities=
+      Array.isArray(recipientData.activities)
+        ? [...recipientData.activities,recipientActivity]
+        : [recipientActivity];
 
-          transactionId,
+    const senderBalance=
+      toNumber(senderData.balance)-amount;
 
-          type:"transfer",
+    const recipientBalance=
+      toNumber(recipientData.balance)+amount;
 
-          direction:"sent",
+    const batch=writeBatch(db);
 
-          amount,
-
-          currency:senderCurrency,
-
-          description,
-
-          recipientName:recipient.name,
-
-          recipientAccount:recipient.accountNumber,
-
-          createdAt:new Date().toISOString()
-
-        });
-
-        transaction.update(
-          senderRef,
-          {
-
-            balance:
-              senderBalance-amount,
-
-            activities:
-              activities.slice(0,100),
-
-            updatedAt:
-              serverTimestamp()
-
-          }
-        );
-
-        transaction.set(
-          transferRef,
-          {
-
-            transactionId,
-
-            senderUid,
-
-            senderName:
-              currentUserData.name ||
-              "United Crest User",
-
-            senderAccount:
-              currentUserData.accountNumber ||
-              "",
-
-            senderEmail:
-              currentUserData.email ||
-              "",
-
-            recipientUid:
-              recipient.uid,
-
-            recipientName:
-              recipient.name,
-
-            recipientAccount:
-              recipient.accountNumber,
-
-            recipientEmail:
-              recipient.email ||
-              "",
-
-            amount,
-
-            currency:senderCurrency,
-
-            description,
-
-            status:"pending",
-
-            createdAt:
-              serverTimestamp()
-
-          }
-        );
-
+    batch.update(
+      senderRef,
+      {
+        balance:senderBalance,
+        activities:senderActivities,
+        updatedAt:serverTimestamp()
       }
     );
+
+    batch.update(
+      recipientRef,
+      {
+        balance:recipientBalance,
+        activities:recipientActivities,
+        updatedAt:serverTimestamp()
+      }
+    );
+
+    await batch.commit();
+
+    currentUserData={
+      uid:senderUid,
+      ...senderData,
+      balance:senderBalance,
+      activities:senderActivities
+    };
+
+    populateUserUI(currentUserData);
 
     $("transferPinModal")
       .classList
       .remove("show");
 
+    pendingTransferData=null;
+
     $("recipientAccount").value="";
     $("transferAmount").value="";
     $("transferReference").value="";
-    $("transferPin").value="";
 
     selectedRecipient=null;
-    pendingTransferData=null;
 
     $("recipientResult")
       .classList
@@ -4113,11 +4653,18 @@ async function sendTransfer(){
 
     setLoading(false);
 
-    showReceipt(receiptData);
-
-    showToast(
-      "Transfer sent successfully."
-    );
+    showReceipt({
+      transactionId,
+      createdAt:new Date(),
+      amount,
+      currency:senderData.currency || "USD",
+      type:"Account Transfer",
+      description,
+      senderName:senderData.name || "",
+      senderAccount:senderData.accountNumber || "",
+      recipientName:recipientData.name || "",
+      recipientAccount:recipientData.accountNumber || ""
+    });
 
   }catch(error){
 
@@ -4138,275 +4685,50 @@ async function sendTransfer(){
 
 }
 
-$("sendTransferBtn").addEventListener(
-  "click",
-  openTransferPin
-);
-
-$("confirmTransferPinBtn").addEventListener(
-  "click",
-  sendTransfer
-);
-
-$("cancelTransferPinBtn").addEventListener(
-  "click",
-  ()=>{
-
-    $("transferPinModal")
-      .classList
-      .remove("show");
-
-    $("transferPin").value="";
-    pendingTransferData=null;
-
-  }
-);
-
 
 /* =========================================================
-   INCOMING TRANSFERS
+   TRANSFER LISTENERS
    ========================================================= */
 
 function startTransferListeners(uid){
 
-  if(unsubscribeIncomingTransfers){
-    unsubscribeIncomingTransfers();
-  }
-
-  const transferQuery=query(
-    collection(db,"transfers"),
-    where("recipientUid","==",uid),
-    limit(100)
-  );
-
-  unsubscribeIncomingTransfers=
-    onSnapshot(
-      transferQuery,
-      snapshot=>{
-
-        snapshot.docChanges().forEach(change=>{
-
-          if(
-            change.type==="added" ||
-            change.type==="modified"
-          ){
-
-            const transfer={
-              id:change.doc.id,
-              ...change.doc.data()
-            };
-
-            if(transfer.status==="pending"){
-
-              processIncomingTransfer(
-                transfer
-              );
-
-            }
-
-          }
-
-        });
-
-      },
-      error=>{
-
-        console.error(
-          "INCOMING TRANSFER LISTENER ERROR:",
-          error
-        );
-
-        showToast(
-          firebaseErrorMessage(error)
-        );
-
-      }
-    );
+  /*
+   * The account activity listener already keeps the
+   * current user's balance and activity updated.
+   */
 
 }
 
 
 /* =========================================================
-   PROCESS INCOMING TRANSFER
-   ========================================================= */
-
-async function processIncomingTransfer(transfer){
-
-  if(!auth.currentUser){
-    return;
-  }
-
-  const uid=auth.currentUser.uid;
-
-  if(transfer.recipientUid!==uid){
-    return;
-  }
-
-  if(transfer.status!=="pending"){
-    return;
-  }
-
-  const transferRef=doc(
-    db,
-    "transfers",
-    transfer.id
-  );
-
-  const recipientRef=doc(
-    db,
-    "users",
-    uid
-  );
-
-  try{
-
-    await runTransaction(
-      db,
-      async transaction=>{
-
-        const transferSnapshot=
-          await transaction.get(
-            transferRef
-          );
-
-        if(!transferSnapshot.exists()){
-          return;
-        }
-
-        const freshTransfer=
-          transferSnapshot.data();
-
-        if(freshTransfer.status!=="pending"){
-          return;
-        }
-
-        const recipientSnapshot=
-          await transaction.get(
-            recipientRef
-          );
-
-        if(!recipientSnapshot.exists()){
-          return;
-        }
-
-        const recipient=
-          recipientSnapshot.data();
-
-        const amount=
-          toNumber(freshTransfer.amount);
-
-        const currency=
-          recipient.currency ||
-          freshTransfer.currency ||
-          "USD";
-
-        const activities=
-          Array.isArray(recipient.activities)
-          ? [...recipient.activities]
-          : [];
-
-        activities.unshift({
-
-          transactionId:
-            freshTransfer.transactionId,
-
-          type:"transfer",
-
-          direction:"received",
-
-          amount,
-
-          currency,
-
-          description:
-            freshTransfer.description ||
-            "Account transfer",
-
-          senderName:
-            freshTransfer.senderName ||
-            "United Crest User",
-
-          senderAccount:
-            freshTransfer.senderAccount ||
-            "",
-
-          createdAt:
-            new Date().toISOString()
-
-        });
-
-        transaction.update(
-          recipientRef,
-          {
-
-            balance:
-              toNumber(recipient.balance)+amount,
-
-            activities:
-              activities.slice(0,100),
-
-            updatedAt:
-              serverTimestamp()
-
-          }
-        );
-
-        transaction.update(
-          transferRef,
-          {
-
-            status:"completed",
-
-            completedAt:
-              serverTimestamp()
-
-          }
-        );
-
-      }
-    );
-
-    showToast(
-      `You received ${money(
-        transfer.amount,
-        currentUserData?.currency || "USD"
-      )} from ${
-        transfer.senderName ||
-        "United Crest User"
-      }.`
-    );
-
-  }catch(error){
-
-    console.error(
-      "INCOMING TRANSFER ERROR:",
-      error
-    );
-
-    showToast(
-      firebaseErrorMessage(error)
-    );
-
-  }
-
-}
-
-
-/* =========================================================
-   DEPOSIT REVIEW
+   DEPOSIT
    ========================================================= */
 
 function reviewDeposit(){
 
   clearMessage("depositMessage");
 
-  const email=$("depositEmail").value.trim().toLowerCase();
-  const name=$("depositName").value.trim();
+  if(!currentUserData){
+
+    setMessage(
+      "depositMessage",
+      "Your account is still loading. Please try again.",
+      "error"
+    );
+
+    return;
+
+  }
+
+  const email=$("depositEmail").value.trim();
+  const fullName=$("depositFullName").value.trim();
   const phone=$("depositPhone").value.trim();
-  const amount=Number($("depositAmount").value);
+  const amount=Number(
+    $("depositAmount").value
+  );
   const pin=$("depositPin").value.trim();
 
-  if(!email || !name || !phone){
+  if(!email || !fullName || !phone){
 
     setMessage(
       "depositMessage",
@@ -4434,7 +4756,7 @@ function reviewDeposit(){
 
     setMessage(
       "depositMessage",
-      "Please enter a valid 4-digit PIN.",
+      "Please enter your 4-digit PIN.",
       "error"
     );
 
@@ -4444,76 +4766,60 @@ function reviewDeposit(){
 
   depositReviewData={
     email,
-    name,
+    fullName,
     phone,
     amount,
     pin
   };
 
-  $("reviewDepositName").textContent=name;
-  $("reviewDepositEmail").textContent=email;
-  $("reviewDepositPhone").textContent=phone;
+  $("depositReviewContent").innerHTML=`
 
-  $("reviewDepositAmount").textContent=
-    money(
-      amount,
-      currentUserData?.currency || "USD"
-    );
+    <div class="receipt">
 
-  $("depositReview")
-    .classList
-    .remove("hidden");
+      <div class="receipt-row">
+        <span>Email</span>
+        <strong>${escapeHTML(email)}</strong>
+      </div>
 
-  showToast(
-    "Please review the deposit details."
-  );
+      <div class="receipt-row">
+        <span>Full Name</span>
+        <strong>${escapeHTML(fullName)}</strong>
+      </div>
+
+      <div class="receipt-row">
+        <span>Phone</span>
+        <strong>${escapeHTML(phone)}</strong>
+      </div>
+
+      <div class="receipt-row">
+        <span>Amount</span>
+        <strong>
+          ${escapeHTML(
+            money(
+              amount,
+              currentUserData.currency || "USD"
+            )
+          )}
+        </strong>
+      </div>
+
+    </div>
+
+  `;
+
+  showToast("Deposit details ready for review.");
 
 }
-
-$("reviewDepositBtn").addEventListener(
-  "click",
-  reviewDeposit
-);
-
-$("cancelDepositBtn").addEventListener(
-  "click",
-  ()=>{
-
-    depositReviewData=null;
-
-    $("depositReview")
-      .classList
-      .add("hidden");
-
-  }
-);
-
-
-/* =========================================================
-   DEPOSIT CONFIRM
-   ========================================================= */
 
 async function confirmDeposit(){
 
   clearMessage("depositMessage");
 
-  if(!auth.currentUser){
-
-    setMessage(
-      "depositMessage",
-      "Please sign in first.",
-      "error"
-    );
-
-    return;
-
-  }
-
   if(!depositReviewData){
 
     setMessage(
       "depositMessage",
-      "Please review the deposit first.",
+      "Please review your deposit first.",
       "error"
     );
 
@@ -4521,103 +4827,94 @@ async function confirmDeposit(){
 
   }
 
-  const uid=auth.currentUser.uid;
+  if(!auth.currentUser){
 
-  const userRef=doc(
-    db,
-    "users",
-    uid
-  );
+    setMessage(
+      "depositMessage",
+      "Please sign in again.",
+      "error"
+    );
 
-  const transactionId=makeTransactionId();
+    return;
+
+  }
 
   try{
 
     setLoading(true,"Processing deposit...");
 
-    await runTransaction(
+    const uid=auth.currentUser.uid;
+
+    const userRef=doc(
       db,
-      async transaction=>{
+      "users",
+      uid
+    );
 
-        const snapshot=
-          await transaction.get(userRef);
+    const snapshot=await getDoc(userRef);
 
-        if(!snapshot.exists()){
+    if(!snapshot.exists()){
 
-          throw new Error(
-            "Your account could not be found."
-          );
+      throw new Error(
+        "Your account could not be found."
+      );
 
-        }
+    }
 
-        const user=snapshot.data();
+    const data=snapshot.data();
 
-        const amount=
-          toNumber(depositReviewData.amount);
+    const amount=
+      toNumber(depositReviewData.amount);
 
-        const currency=
-          user.currency || "USD";
+    const transactionId=makeTransactionId();
 
-        const activities=
-          Array.isArray(user.activities)
-          ? [...user.activities]
-          : [];
+    const activity={
+      type:"deposit",
+      direction:"received",
+      amount,
+      currency:data.currency || "USD",
+      description:"Account Deposit",
+      transactionId,
+      createdAt:new Date().toISOString()
+    };
 
-        activities.unshift({
+    const activities=
+      Array.isArray(data.activities)
+        ? [...data.activities,activity]
+        : [activity];
 
-          transactionId,
+    const newBalance=
+      toNumber(data.balance)+amount;
 
-          type:"deposit",
-
-          direction:"received",
-
-          amount,
-
-          currency,
-
-          description:"Account deposit",
-
-          createdAt:
-            new Date().toISOString()
-
-        });
-
-        transaction.update(
-          userRef,
-          {
-
-            balance:
-              toNumber(user.balance)+amount,
-
-            activities:
-              activities.slice(0,100),
-
-            updatedAt:
-              serverTimestamp()
-
-          }
-        );
-
+    await updateDoc(
+      userRef,
+      {
+        balance:newBalance,
+        activities,
+        updatedAt:serverTimestamp()
       }
     );
 
-    $("depositEmail").value="";
-    $("depositName").value="";
-    $("depositPhone").value="";
-    $("depositAmount").value="";
-    $("depositPin").value="";
+    currentUserData={
+      uid,
+      ...data,
+      balance:newBalance,
+      activities
+    };
 
-    $("depositReview")
-      .classList
-      .add("hidden");
+    populateUserUI(currentUserData);
 
     depositReviewData=null;
 
+    $("depositAmount").value="";
+    $("depositPin").value="";
+
+    $("depositReviewContent").innerHTML=
+      "No deposit is currently being reviewed.";
+
     setLoading(false);
 
-    showToast(
-      "Deposit completed successfully."
-    );
+    showToast("Deposit completed successfully.");
 
   }catch(error){
 
@@ -4637,11 +4934,6 @@ async function confirmDeposit(){
   }
 
 }
-
-$("confirmDepositBtn").addEventListener(
-  "click",
-  confirmDeposit
-);
 
 
 /* =========================================================
@@ -4666,37 +4958,26 @@ async ()=>{
 
   }
 
-  const name=$("profileName").value.trim();
-  const phone=$("profilePhone").value.trim();
-  const address=$("profileAddress").value.trim();
-
-  if(!name || !phone || !address){
-
-    setMessage(
-      "profileMessage",
-      "Please complete all profile fields.",
-      "error"
-    );
-
-    return;
-
-  }
-
   try{
 
     setLoading(true,"Saving profile...");
 
     const uid=auth.currentUser.uid;
 
-    const userRef=doc(db,"users",uid);
+    const name=$("profileName").value.trim();
+    const phone=$("profilePhone").value.trim();
+    const address=$("profileAddress").value.trim();
 
-    const accountNumber=
-      currentUserData.accountNumber;
+    if(!name || !phone || !address){
 
-    const batch=writeBatch(db);
+      throw new Error(
+        "Please complete your profile information."
+      );
 
-    batch.update(
-      userRef,
+    }
+
+    await updateDoc(
+      doc(db,"users",uid),
       {
         name,
         phone,
@@ -4705,29 +4986,14 @@ async ()=>{
       }
     );
 
-    if(/^\d{10}$/.test(String(accountNumber || ""))){
+    currentUserData={
+      ...currentUserData,
+      name,
+      phone,
+      address
+    };
 
-      batch.set(
-        doc(
-          db,
-          "accountIndex",
-          accountNumber
-        ),
-        {
-          uid,
-          accountNumber,
-          name,
-          email:currentUserData.email || "",
-          profileCompleted:true,
-          dashboardReached:true,
-          updatedAt:serverTimestamp()
-        },
-        {merge:true}
-      );
-
-    }
-
-    await batch.commit();
+    populateUserUI(currentUserData);
 
     setLoading(false);
 
@@ -4760,7 +5026,7 @@ async ()=>{
 
 
 /* =========================================================
-   CURRENCY
+   SETTINGS
    ========================================================= */
 
 $("saveCurrencyBtn").addEventListener(
@@ -4781,11 +5047,11 @@ async ()=>{
 
   }
 
-  const currency=$("currencySelect").value;
-
   try{
 
     setLoading(true,"Saving currency...");
+
+    const currency=$("currencySelect").value;
 
     await updateDoc(
       doc(
@@ -4799,21 +5065,18 @@ async ()=>{
       }
     );
 
-    if(currentUserData){
+    currentUserData={
+      ...currentUserData,
+      currency
+    };
 
-      currentUserData.currency=currency;
-
-      populateUserUI(
-        currentUserData
-      );
-
-    }
+    populateUserUI(currentUserData);
 
     setLoading(false);
 
     setMessage(
       "settingsMessage",
-      `Currency saved: ${currency}.`,
+      `Currency preference saved: ${currency}.`,
       "success"
     );
 
@@ -4839,10 +5102,6 @@ async ()=>{
 });
 
 
-/* =========================================================
-   LANGUAGE
-   ========================================================= */
-
 $("saveLanguageBtn").addEventListener(
 "click",
 async ()=>{
@@ -4861,13 +5120,13 @@ async ()=>{
 
   }
 
-  const language=normalizeLanguage(
-    $("languageSelect").value
-  );
-
   try{
 
     setLoading(true,"Saving language...");
+
+    const language=normalizeLanguage(
+      $("languageSelect").value
+    );
 
     await updateDoc(
       doc(
@@ -4881,15 +5140,10 @@ async ()=>{
       }
     );
 
-    if(currentUserData){
-
-      currentUserData.language=language;
-
-      populateUserUI(
-        currentUserData
-      );
-
-    }
+    currentUserData={
+      ...currentUserData,
+      language
+    };
 
     applyLanguage(language);
 
@@ -5413,26 +5667,21 @@ onAuthStateChanged(
   auth,
   async user=>{
 
+    /*
+     * IMPORTANT:
+     * Do not automatically sign out a valid Firebase session.
+     *
+     * Previously this handler signed the user out whenever
+     * authFlow returned to "idle". That could interfere with
+     * signup/sign-in and cause the user to be returned to the
+     * login screen.
+     */
+
     if(authFlow!=="idle"){
       return;
     }
 
-    /*
-     * The existing behavior requires the user
-     * to sign in again when returning to the site.
-     */
-
-    if(user){
-
-      try{
-
-        await signOut(auth);
-
-      }catch(error){
-
-        console.error(error);
-
-      }
+    if(!user){
 
       cleanupListeners();
 
@@ -5440,19 +5689,56 @@ onAuthStateChanged(
 
       hide($("appScreen"));
       show($("authScreen"));
-      show($("signupBox"));
-      hide($("loginBox"));
 
       return;
 
     }
 
-    cleanupListeners();
+    try{
 
-    currentUserData=null;
+      const snapshot=await getDoc(
+        doc(db,"users",user.uid)
+      );
 
-    hide($("appScreen"));
-    show($("authScreen"));
+      if(
+        snapshot.exists() &&
+        snapshot.data().profileCompleted===true &&
+        snapshot.data().dashboardReached===true
+      ){
+
+        await loadDashboard(user.uid);
+
+        return;
+
+      }
+
+      /*
+       * A Firebase account without a completed United Crest
+       * profile is not treated as a completed account.
+       *
+       * The signup process can finish the profile.
+       */
+
+      currentUserData=null;
+
+      hide($("appScreen"));
+      show($("authScreen"));
+
+    }catch(error){
+
+      console.error(
+        "AUTH STATE ERROR:",
+        error
+      );
+
+      cleanupListeners();
+
+      currentUserData=null;
+
+      hide($("appScreen"));
+      show($("authScreen"));
+
+    }
 
   }
 );
@@ -5462,37 +5748,17 @@ onAuthStateChanged(
    LEAVING PAGE
    ========================================================= */
 
-document.addEventListener(
-  "visibilitychange",
-  async ()=>{
-
-    if(
-      document.visibilityState==="hidden"
-    ){
-
-      if(
-        auth.currentUser &&
-        authFlow==="idle"
-      ){
-
-        try{
-
-          cleanupListeners();
-
-          await signOut(auth);
-
-        }catch(error){
-
-          console.error(error);
-
-        }
-
-      }
-
-    }
-
-  }
-);
+/*
+ * IMPORTANT:
+ * Do not sign the user out when the page becomes hidden.
+ *
+ * Mobile browsers can temporarily mark the page as hidden
+ * when the user switches apps, opens the keyboard, changes
+ * browser views, or returns to the site.
+ *
+ * The previous automatic sign-out behavior could therefore
+ * interrupt a valid login session.
+ */
 
 
 /* =========================================================
