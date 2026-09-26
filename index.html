@@ -2751,7 +2751,8 @@ import {
   onSnapshot,
   runTransaction,
   serverTimestamp,
-  writeBatch
+  writeBatch,
+  increment
 } from "https://www.gstatic.com/firebasejs/11.0.2/firebase-firestore.js";
 
 
@@ -4898,8 +4899,9 @@ async function confirmDeposit(){
       uid
     );
 
-    const amount=
-      toNumber(depositReviewData.amount);
+    const amount=toNumber(
+      depositReviewData.amount
+    );
 
     if(!Number.isFinite(amount) || amount<=0){
       throw new Error(
@@ -4907,83 +4909,76 @@ async function confirmDeposit(){
       );
     }
 
+    /*
+     * Read the current account first, then write the deposit
+     * with Firestore's atomic increment. This makes the deposit
+     * increase the stored Firebase balance itself, rather than
+     * only changing the balance shown on the page.
+     */
+    const snapshot=await getDoc(userRef);
+
+    if(!snapshot.exists()){
+
+      throw new Error(
+        "Your account could not be found."
+      );
+
+    }
+
+    const data=snapshot.data();
+
+    if(
+      data.profileCompleted!==true ||
+      data.dashboardReached!==true
+    ){
+      throw new Error(
+        "Your account profile is incomplete."
+      );
+    }
+
     const transactionId=makeTransactionId();
 
-    /*
-     * Use a Firestore transaction so the deposit is applied
-     * to the latest stored balance and cannot overwrite a
-     * newer balance change.
-     */
-    const result=await runTransaction(
-      db,
-      async transaction=>{
+    const activity={
+      type:"deposit",
+      direction:"received",
+      amount,
+      currency:data.currency || "USD",
+      description:"Account Deposit",
+      transactionId,
+      createdAt:new Date().toISOString()
+    };
 
-        const snapshot=
-          await transaction.get(userRef);
+    const activities=
+      Array.isArray(data.activities)
+        ? [...data.activities,activity]
+        : [activity];
 
-        if(!snapshot.exists()){
-
-          throw new Error(
-            "Your account could not be found."
-          );
-
-        }
-
-        const data=snapshot.data();
-
-        if(
-          data.profileCompleted!==true ||
-          data.dashboardReached!==true
-        ){
-          throw new Error(
-            "Your account profile is incomplete."
-          );
-        }
-
-        const oldBalance=
-          toNumber(data.balance);
-
-        const newBalance=
-          oldBalance+amount;
-
-        const activity={
-          type:"deposit",
-          direction:"received",
-          amount,
-          currency:data.currency || "USD",
-          description:"Account Deposit",
-          transactionId,
-          createdAt:new Date().toISOString()
-        };
-
-        const activities=
-          Array.isArray(data.activities)
-            ? [...data.activities,activity]
-            : [activity];
-
-        transaction.update(
-          userRef,
-          {
-            balance:newBalance,
-            activities,
-            updatedAt:serverTimestamp()
-          }
-        );
-
-        return {
-          data,
-          newBalance,
-          activities
-        };
-
+    await updateDoc(
+      userRef,
+      {
+        balance:increment(amount),
+        activities,
+        updatedAt:serverTimestamp()
       }
     );
 
+    /*
+     * Read the saved value back from Firebase so the dashboard
+     * is always displaying the balance that was actually stored.
+     */
+    const savedSnapshot=await getDoc(userRef);
+
+    if(!savedSnapshot.exists()){
+      throw new Error(
+        "The deposit could not be completed. Please try again."
+      );
+    }
+
+    const savedData=savedSnapshot.data();
+
     currentUserData={
       uid,
-      ...result.data,
-      balance:result.newBalance,
-      activities:result.activities
+      ...savedData
     };
 
     populateUserUI(currentUserData);
