@@ -4484,21 +4484,14 @@ async function sendTransfer(){
 
   }
 
-  /*
-   * The current transfer PIN flow remains unchanged.
-   * The signup/sign-in repair does not alter transfer behavior.
-   */
-
   try{
 
     setLoading(true,"Processing transfer...");
 
     if(!auth.currentUser){
-
       throw new Error(
         "Please sign in again before sending a transfer."
       );
-
     }
 
     const senderUid=auth.currentUser.uid;
@@ -4508,6 +4501,18 @@ async function sendTransfer(){
     );
     const description=
       pendingTransferData.description || "Transfer";
+
+    if(
+      !recipient ||
+      !recipient.uid ||
+      recipient.uid===senderUid
+    ){
+      throw new Error("Recipient account could not be found.");
+    }
+
+    if(!Number.isFinite(amount) || amount<=0){
+      throw new Error("Please enter a valid transfer amount.");
+    }
 
     const transactionId=makeTransactionId();
 
@@ -4523,114 +4528,155 @@ async function sendTransfer(){
       recipient.uid
     );
 
-    const senderSnapshot=await getDoc(senderRef);
-    const recipientSnapshot=await getDoc(recipientRef);
+    /*
+     * Use one Firestore transaction for both accounts.
+     * This prevents a transfer from updating one account
+     * without updating the other and always uses the latest
+     * balances from Firestore.
+     */
+    const result=await runTransaction(
+      db,
+      async transaction=>{
 
-    if(!senderSnapshot.exists()){
-      throw new Error("Your account could not be found.");
-    }
+        const senderSnapshot=
+          await transaction.get(senderRef);
 
-    if(!recipientSnapshot.exists()){
-      throw new Error("Recipient account could not be found.");
-    }
+        const recipientSnapshot=
+          await transaction.get(recipientRef);
 
-    const senderData=senderSnapshot.data();
-    const recipientData=recipientSnapshot.data();
+        if(!senderSnapshot.exists()){
+          throw new Error(
+            "Your account could not be found."
+          );
+        }
 
-    if(
-      senderData.profileCompleted!==true ||
-      senderData.dashboardReached!==true
-    ){
-      throw new Error("Your account profile is incomplete.");
-    }
+        if(!recipientSnapshot.exists()){
+          throw new Error(
+            "Recipient account could not be found."
+          );
+        }
 
-    if(
-      recipientData.profileCompleted!==true ||
-      recipientData.dashboardReached!==true
-    ){
-      throw new Error("Recipient account is not available.");
-    }
+        const senderData=
+          senderSnapshot.data();
 
-    if(
-      amount<=0 ||
-      amount>toNumber(senderData.balance)
-    ){
-      throw new Error(
-        "Your balance is not enough for this transfer."
-      );
-    }
+        const recipientData=
+          recipientSnapshot.data();
 
-    const senderActivity={
-      type:"transfer",
-      direction:"sent",
-      amount,
-      currency:senderData.currency || "USD",
-      description,
-      transactionId,
-      createdAt:new Date().toISOString(),
-      senderName:senderData.name || "",
-      senderAccount:senderData.accountNumber || "",
-      recipientName:recipientData.name || "",
-      recipientAccount:recipientData.accountNumber || ""
-    };
+        if(
+          senderData.profileCompleted!==true ||
+          senderData.dashboardReached!==true
+        ){
+          throw new Error(
+            "Your account profile is incomplete."
+          );
+        }
 
-    const recipientActivity={
-      type:"transfer",
-      direction:"received",
-      amount,
-      currency:recipientData.currency || "USD",
-      description,
-      transactionId,
-      createdAt:new Date().toISOString(),
-      senderName:senderData.name || "",
-      senderAccount:senderData.accountNumber || "",
-      recipientName:recipientData.name || "",
-      recipientAccount:recipientData.accountNumber || ""
-    };
+        if(
+          recipientData.profileCompleted!==true ||
+          recipientData.dashboardReached!==true
+        ){
+          throw new Error(
+            "Recipient account is not available."
+          );
+        }
 
-    const senderActivities=
-      Array.isArray(senderData.activities)
-        ? [...senderData.activities,senderActivity]
-        : [senderActivity];
+        const senderBalance=
+          toNumber(senderData.balance);
 
-    const recipientActivities=
-      Array.isArray(recipientData.activities)
-        ? [...recipientData.activities,recipientActivity]
-        : [recipientActivity];
+        const recipientBalance=
+          toNumber(recipientData.balance);
 
-    const senderBalance=
-      toNumber(senderData.balance)-amount;
+        if(
+          amount<=0 ||
+          amount>senderBalance
+        ){
+          throw new Error(
+            "Your balance is not enough for this transfer."
+          );
+        }
 
-    const recipientBalance=
-      toNumber(recipientData.balance)+amount;
+        const createdAt=
+          new Date().toISOString();
 
-    const batch=writeBatch(db);
+        const senderActivity={
+          type:"transfer",
+          direction:"sent",
+          amount,
+          currency:senderData.currency || "USD",
+          description,
+          transactionId,
+          createdAt,
+          senderName:senderData.name || "",
+          senderAccount:senderData.accountNumber || "",
+          recipientName:recipientData.name || "",
+          recipientAccount:recipientData.accountNumber || ""
+        };
 
-    batch.update(
-      senderRef,
-      {
-        balance:senderBalance,
-        activities:senderActivities,
-        updatedAt:serverTimestamp()
+        const recipientActivity={
+          type:"transfer",
+          direction:"received",
+          amount,
+          currency:recipientData.currency || "USD",
+          description,
+          transactionId,
+          createdAt,
+          senderName:senderData.name || "",
+          senderAccount:senderData.accountNumber || "",
+          recipientName:recipientData.name || "",
+          recipientAccount:recipientData.accountNumber || ""
+        };
+
+        const senderActivities=
+          Array.isArray(senderData.activities)
+            ? [...senderData.activities,senderActivity]
+            : [senderActivity];
+
+        const recipientActivities=
+          Array.isArray(recipientData.activities)
+            ? [...recipientData.activities,recipientActivity]
+            : [recipientActivity];
+
+        const newSenderBalance=
+          senderBalance-amount;
+
+        const newRecipientBalance=
+          recipientBalance+amount;
+
+        transaction.update(
+          senderRef,
+          {
+            balance:newSenderBalance,
+            activities:senderActivities,
+            updatedAt:serverTimestamp()
+          }
+        );
+
+        transaction.update(
+          recipientRef,
+          {
+            balance:newRecipientBalance,
+            activities:recipientActivities,
+            updatedAt:serverTimestamp()
+          }
+        );
+
+        return {
+          senderData,
+          recipientData,
+          senderActivities,
+          newSenderBalance,
+          newRecipientBalance,
+          createdAt
+        };
+
       }
     );
-
-    batch.update(
-      recipientRef,
-      {
-        balance:recipientBalance,
-        activities:recipientActivities,
-        updatedAt:serverTimestamp()
-      }
-    );
-
-    await batch.commit();
 
     currentUserData={
       uid:senderUid,
-      ...senderData,
-      balance:senderBalance,
-      activities:senderActivities
+      ...result.senderData,
+      balance:result.newSenderBalance,
+      activities:result.senderActivities
     };
 
     populateUserUI(currentUserData);
@@ -4644,6 +4690,7 @@ async function sendTransfer(){
     $("recipientAccount").value="";
     $("transferAmount").value="";
     $("transferReference").value="";
+    $("transferPin").value="";
 
     selectedRecipient=null;
 
@@ -4655,15 +4702,15 @@ async function sendTransfer(){
 
     showReceipt({
       transactionId,
-      createdAt:new Date(),
+      createdAt:new Date(result.createdAt),
       amount,
-      currency:senderData.currency || "USD",
+      currency:result.senderData.currency || "USD",
       type:"Account Transfer",
       description,
-      senderName:senderData.name || "",
-      senderAccount:senderData.accountNumber || "",
-      recipientName:recipientData.name || "",
-      recipientAccount:recipientData.accountNumber || ""
+      senderName:result.senderData.name || "",
+      senderAccount:result.senderData.accountNumber || "",
+      recipientName:result.recipientData.name || "",
+      recipientAccount:result.recipientData.accountNumber || ""
     });
 
   }catch(error){
@@ -4851,55 +4898,92 @@ async function confirmDeposit(){
       uid
     );
 
-    const snapshot=await getDoc(userRef);
-
-    if(!snapshot.exists()){
-
-      throw new Error(
-        "Your account could not be found."
-      );
-
-    }
-
-    const data=snapshot.data();
-
     const amount=
       toNumber(depositReviewData.amount);
 
+    if(!Number.isFinite(amount) || amount<=0){
+      throw new Error(
+        "Please enter a valid deposit amount."
+      );
+    }
+
     const transactionId=makeTransactionId();
 
-    const activity={
-      type:"deposit",
-      direction:"received",
-      amount,
-      currency:data.currency || "USD",
-      description:"Account Deposit",
-      transactionId,
-      createdAt:new Date().toISOString()
-    };
+    /*
+     * Use a Firestore transaction so the deposit is applied
+     * to the latest stored balance and cannot overwrite a
+     * newer balance change.
+     */
+    const result=await runTransaction(
+      db,
+      async transaction=>{
 
-    const activities=
-      Array.isArray(data.activities)
-        ? [...data.activities,activity]
-        : [activity];
+        const snapshot=
+          await transaction.get(userRef);
 
-    const newBalance=
-      toNumber(data.balance)+amount;
+        if(!snapshot.exists()){
 
-    await updateDoc(
-      userRef,
-      {
-        balance:newBalance,
-        activities,
-        updatedAt:serverTimestamp()
+          throw new Error(
+            "Your account could not be found."
+          );
+
+        }
+
+        const data=snapshot.data();
+
+        if(
+          data.profileCompleted!==true ||
+          data.dashboardReached!==true
+        ){
+          throw new Error(
+            "Your account profile is incomplete."
+          );
+        }
+
+        const oldBalance=
+          toNumber(data.balance);
+
+        const newBalance=
+          oldBalance+amount;
+
+        const activity={
+          type:"deposit",
+          direction:"received",
+          amount,
+          currency:data.currency || "USD",
+          description:"Account Deposit",
+          transactionId,
+          createdAt:new Date().toISOString()
+        };
+
+        const activities=
+          Array.isArray(data.activities)
+            ? [...data.activities,activity]
+            : [activity];
+
+        transaction.update(
+          userRef,
+          {
+            balance:newBalance,
+            activities,
+            updatedAt:serverTimestamp()
+          }
+        );
+
+        return {
+          data,
+          newBalance,
+          activities
+        };
+
       }
     );
 
     currentUserData={
       uid,
-      ...data,
-      balance:newBalance,
-      activities
+      ...result.data,
+      balance:result.newBalance,
+      activities:result.activities
     };
 
     populateUserUI(currentUserData);
