@@ -1734,7 +1734,6 @@ button{
               id="openTransferPinBtn"
               class="primary-btn"
               type="button"
-              onclick="openTransferPin()"
             >
               Continue Transfer
             </button>
@@ -1852,9 +1851,9 @@ button{
             </div>
 
             <button
+              id="reviewDepositBtn"
               class="primary-btn"
               type="button"
-              onclick="reviewDeposit()"
             >
               Review Deposit
             </button>
@@ -1893,7 +1892,7 @@ button{
                 id="confirmDepositBtn"
                 class="primary-btn"
                 type="button"
-                onclick="confirmDeposit()"
+                disabled
               >
                 Confirm Deposit
               </button>
@@ -2537,7 +2536,6 @@ button{
         id="sendTransferBtn"
         class="primary-btn"
         type="button"
-        onclick="sendTransfer()"
       >
         Confirm Transfer
       </button>
@@ -2751,8 +2749,7 @@ import {
   onSnapshot,
   runTransaction,
   serverTimestamp,
-  writeBatch,
-  increment
+  writeBatch
 } from "https://www.gstatic.com/firebasejs/11.0.2/firebase-firestore.js";
 
 
@@ -4723,9 +4720,19 @@ async function sendTransfer(){
 
     setLoading(false);
 
+    const transferErrorCode=String(error?.code || "");
+    const transferErrorText=String(error?.message || "");
+    let transferUserMessage=firebaseErrorMessage(error);
+    if(transferErrorCode.includes("permission-denied")){
+      transferUserMessage="Transfer was blocked by the database security rules. The Firebase rules/backend must allow a verified transfer operation before balances can be updated.";
+    }else if(transferErrorCode.includes("unavailable") || transferErrorCode.includes("network")){
+      transferUserMessage="The database could not be reached. Check the internet connection and try again.";
+    }else if(transferErrorText && transferUserMessage==="Something went wrong. Please try again."){
+      transferUserMessage=`Transfer failed: ${transferErrorText}`;
+    }
     setMessage(
       "transferPinMessage",
-      firebaseErrorMessage(error),
+      transferUserMessage,
       "error"
     );
 
@@ -4816,9 +4823,11 @@ function reviewDeposit(){
     email,
     fullName,
     phone,
-    amount,
-    pin
+    amount
   };
+
+  // A review must be completed again if any deposit field changes.
+  $("confirmDepositBtn").disabled=false;
 
   $("depositReviewContent").innerHTML=`
 
@@ -4855,6 +4864,15 @@ function reviewDeposit(){
 
   `;
 
+  const reviewPanel=$("depositReview");
+  if(reviewPanel){
+    reviewPanel.scrollIntoView({behavior:"smooth",block:"start"});
+  }
+  setMessage(
+    "depositMessage",
+    "Review the details below, then select Confirm Deposit to submit your request.",
+    "success"
+  );
   showToast("Deposit details ready for review.");
 
 }
@@ -4864,154 +4882,92 @@ async function confirmDeposit(){
   clearMessage("depositMessage");
 
   if(!depositReviewData){
-
-    setMessage(
-      "depositMessage",
-      "Please review your deposit first.",
-      "error"
-    );
-
+    setMessage("depositMessage","Please review your deposit first.","error");
     return;
-
   }
 
   if(!auth.currentUser){
-
-    setMessage(
-      "depositMessage",
-      "Please sign in again.",
-      "error"
-    );
-
+    setMessage("depositMessage","Please sign in again.","error");
     return;
-
   }
 
   try{
-
-    setLoading(true,"Processing deposit...");
+    setLoading(true,"Submitting deposit request...");
 
     const uid=auth.currentUser.uid;
-
-    const userRef=doc(
-      db,
-      "users",
-      uid
-    );
-
-    const amount=toNumber(
-      depositReviewData.amount
-    );
+    const userRef=doc(db,"users",uid);
+    const amount=toNumber(depositReviewData.amount);
 
     if(!Number.isFinite(amount) || amount<=0){
-      throw new Error(
-        "Please enter a valid deposit amount."
-      );
-    }
-
-    /*
-     * Read the current account first, then write the deposit
-     * with Firestore's atomic increment. This makes the deposit
-     * increase the stored Firebase balance itself, rather than
-     * only changing the balance shown on the page.
-     */
-    const snapshot=await getDoc(userRef);
-
-    if(!snapshot.exists()){
-
-      throw new Error(
-        "Your account could not be found."
-      );
-
-    }
-
-    const data=snapshot.data();
-
-    if(
-      data.profileCompleted!==true ||
-      data.dashboardReached!==true
-    ){
-      throw new Error(
-        "Your account profile is incomplete."
-      );
+      throw new Error("Please enter a valid deposit amount.");
     }
 
     const transactionId=makeTransactionId();
 
-    const activity={
-      type:"deposit",
-      direction:"received",
-      amount,
-      currency:data.currency || "USD",
-      description:"Account Deposit",
-      transactionId,
-      createdAt:new Date().toISOString()
-    };
-
-    const activities=
-      Array.isArray(data.activities)
-        ? [...data.activities,activity]
-        : [activity];
-
-    await updateDoc(
-      userRef,
-      {
-        balance:increment(amount),
-        activities,
-        updatedAt:serverTimestamp()
-      }
-    );
-
     /*
-     * Read the saved value back from Firebase so the dashboard
-     * is always displaying the balance that was actually stored.
+     * Do not credit the account until a payment provider or
+     * authorized manager confirms that funds were received.
+     * This records a pending request only; it does not create
+     * money or falsely mark an unverified payment as complete.
      */
-    const savedSnapshot=await getDoc(userRef);
+    const result=await runTransaction(db,async transaction=>{
+      const snapshot=await transaction.get(userRef);
+      if(!snapshot.exists()) throw new Error("Your account could not be found.");
 
-    if(!savedSnapshot.exists()){
-      throw new Error(
-        "The deposit could not be completed. Please try again."
-      );
-    }
+      const data=snapshot.data();
+      if(data.profileCompleted!==true || data.dashboardReached!==true){
+        throw new Error("Your account profile is incomplete.");
+      }
 
-    const savedData=savedSnapshot.data();
+      const request={
+        type:"deposit_request",
+        status:"pending_verification",
+        amount,
+        currency:data.currency || "USD",
+        transactionId,
+        email:depositReviewData.email,
+        fullName:depositReviewData.fullName,
+        phone:depositReviewData.phone,
+        createdAt:new Date().toISOString()
+      };
 
-    currentUserData={
-      uid,
-      ...savedData
-    };
+      const depositRequests=Array.isArray(data.depositRequests)
+        ? [...data.depositRequests,request]
+        : [request];
 
-    populateUserUI(currentUserData);
+      transaction.update(userRef,{
+        depositRequests,
+        updatedAt:serverTimestamp()
+      });
 
+      return {data,depositRequests};
+    });
+
+    currentUserData={uid,...result.data,depositRequests:result.depositRequests};
     depositReviewData=null;
-
+    $("confirmDepositBtn").disabled=true;
     $("depositAmount").value="";
     $("depositPin").value="";
-
-    $("depositReviewContent").innerHTML=
-      "No deposit is currently being reviewed.";
-
+    $("depositReviewContent").innerHTML="No deposit is currently being reviewed.";
     setLoading(false);
-
-    showToast("Deposit completed successfully.");
+    setMessage("depositMessage","Deposit request submitted. Your balance will update only after the payment is verified.","success");
+    showToast("Deposit request submitted for verification.");
 
   }catch(error){
-
-    console.error(
-      "DEPOSIT ERROR:",
-      error
-    );
-
+    console.error("DEPOSIT REQUEST ERROR:",error);
     setLoading(false);
-
-    setMessage(
-      "depositMessage",
-      firebaseErrorMessage(error),
-      "error"
-    );
-
+    const depositErrorCode=String(error?.code || "");
+    const depositErrorText=String(error?.message || "");
+    let depositUserMessage=firebaseErrorMessage(error);
+    if(depositErrorCode.includes("permission-denied")){
+      depositUserMessage="Deposit request was blocked by the database security rules. The Firebase rules/backend must allow a verified deposit-request operation.";
+    }else if(depositErrorCode.includes("unavailable") || depositErrorCode.includes("network")){
+      depositUserMessage="The database could not be reached. Check the internet connection and try again.";
+    }else if(depositErrorText && depositUserMessage==="Something went wrong. Please try again."){
+      depositUserMessage=`Deposit request failed: ${depositErrorText}`;
+    }
+    setMessage("depositMessage",depositUserMessage,"error");
   }
-
 }
 
 
@@ -5852,6 +5808,30 @@ hide($("appScreen"));
 show($("authScreen"));
 show($("signupBox"));
 hide($("loginBox"));
+
+/* =========================================================
+   TRANSFER AND DEPOSIT BUTTON CONNECTIONS
+   These functions are inside a JavaScript module, so connect
+   them with addEventListener rather than inline onclick.
+   ========================================================= */
+$("openTransferPinBtn").addEventListener("click", openTransferPin);
+$("sendTransferBtn").addEventListener("click", sendTransfer);
+$("confirmDepositBtn").addEventListener("click", confirmDeposit);
+$("confirmDepositBtn").disabled=true;
+
+$("reviewDepositBtn").addEventListener("click", reviewDeposit);
+
+function invalidateDepositReview(){
+  if(!depositReviewData) return;
+  depositReviewData=null;
+  $("confirmDepositBtn").disabled=true;
+  $("depositReviewContent").textContent="Your details changed. Review the deposit again before confirming.";
+  clearMessage("depositMessage");
+}
+
+["depositEmail","depositFullName","depositPhone","depositAmount","depositPin"].forEach(id=>{
+  $(id).addEventListener("input",invalidateDepositReview);
+});
 
 </script>
 
