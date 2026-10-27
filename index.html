@@ -2742,6 +2742,25 @@ button{
 </div>
 
 
+<!-- ================= DEPOSIT RECEIPT MODAL ================= -->
+<div id="depositReceiptModal" class="modal">
+  <div class="modal-card">
+    <h3 class="modal-title">UNITED CREST</h3>
+    <p class="modal-subtitle">DEPOSIT RECEIPT</p>
+    <div class="receipt">
+      <div class="receipt-row"><span>Status</span><strong id="depositReceiptStatus">Successful</strong></div>
+      <div class="receipt-row"><span>Transaction Reference</span><strong id="depositReceiptReference">—</strong></div>
+      <div class="receipt-row"><span>Date / Time</span><strong id="depositReceiptDate">—</strong></div>
+      <div class="receipt-row"><span>Deposit Amount</span><strong id="depositReceiptAmount">—</strong></div>
+      <div class="receipt-row"><span>Previous Balance</span><strong id="depositReceiptPrevious">—</strong></div>
+      <div class="receipt-row"><span>New Balance</span><strong id="depositReceiptNew">—</strong></div>
+    </div>
+    <div class="modal-actions">
+      <button id="doneDepositReceiptBtn" class="primary-btn" type="button">DONE</button>
+    </div>
+  </div>
+</div>
+
 <!-- ================= MANAGER MODAL ================= -->
 
 <div
@@ -4982,21 +5001,78 @@ async function confirmDeposit(){
     return;
   }
 
-  /*
-   * Do not create a pending deposit request or increase the balance
-   * from a PIN alone. The balance must only change after the deposit
-   * has been verified by an authorized payment provider or manager.
-   */
-  depositReviewData=null;
-  $("confirmDepositBtn").disabled=true;
-  setMessage(
-    "depositMessage",
-    "Please contact your manager to verify that the deposit was received. Your dashboard balance can be updated after verification.",
-    "success"
-  );
-  openManagerModal();
+  const details={...depositReviewData};
+  const uid=auth.currentUser.uid;
+  const userRef=doc(db,"users",uid);
+  const transactionId=makeTransactionId();
+  const createdAt=new Date().toISOString();
+  const button=$("confirmDepositBtn");
+  button.disabled=true;
+  button.textContent="Processing...";
+
+  try{
+    const result=await runTransaction(db,async transaction=>{
+      const snapshot=await transaction.get(userRef);
+      if(!snapshot.exists()) throw new Error("Your account could not be found.");
+      const userData=snapshot.data();
+      const previousBalance=toNumber(userData.balance);
+      const currency=userData.currency || "USD";
+      const amount=toNumber(details.amount);
+      if(!Number.isFinite(amount) || amount<=0) throw new Error("Please enter a valid deposit amount.");
+      const newBalance=previousBalance+amount;
+      const activity={
+        type:"deposit",
+        direction:"received",
+        title:"Deposit",
+        amount,
+        currency,
+        description:"Deposit added to account balance",
+        transactionId,
+        createdAt,
+        previousBalance,
+        newBalance,
+        status:"Successful"
+      };
+      const activities=Array.isArray(userData.activities)?[...userData.activities,activity]:[activity];
+      transaction.update(userRef,{
+        balance:newBalance,
+        activities:activities.slice(-200),
+        updatedAt:serverTimestamp()
+      });
+      return {userData,previousBalance,newBalance,currency,amount,activities};
+    });
+
+    currentUserData={uid,...result.userData,balance:result.newBalance,activities:result.activities};
+    populateUserUI(currentUserData);
+    renderActivities(currentUserData.activities || []);
+
+    $("depositReceiptStatus").textContent="Successful";
+    $("depositReceiptReference").textContent=transactionId;
+    $("depositReceiptDate").textContent=formatDate(createdAt);
+    $("depositReceiptAmount").textContent=money(result.amount,result.currency);
+    $("depositReceiptPrevious").textContent=money(result.previousBalance,result.currency);
+    $("depositReceiptNew").textContent=money(result.newBalance,result.currency);
+    $("depositReceiptModal").classList.add("show");
+
+    depositReviewData=null;
+    $("depositPin").value="";
+    $("depositAmount").value="";
+    $("depositReviewContent").textContent="No deposit is currently being reviewed.";
+    setMessage("depositMessage","Deposit completed successfully.","success");
+  }catch(error){
+    console.error("Deposit could not be saved:",error);
+    setMessage("depositMessage",error?.message || "The deposit could not be completed. Please try again.","error");
+  }finally{
+    button.disabled=false;
+    button.textContent="Confirm Deposit";
+  }
 
 }
+
+$("doneDepositReceiptBtn").addEventListener("click",()=>{
+  $("depositReceiptModal").classList.remove("show");
+  openPage("dashboardPage");
+});
 
 
 /* =========================================================
