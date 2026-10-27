@@ -1280,6 +1280,13 @@ button{
 
     <button
       class="nav-item"
+      data-page="transferToBankPage"
+    >
+      Transfer to Bank
+    </button>
+
+    <button
+      class="nav-item"
       data-page="activityPage"
     >
       Activity
@@ -1455,6 +1462,46 @@ button{
 
             <p>
               Add funds to your account.
+            </p>
+
+          </div>
+
+
+          <div
+            class="quick-card"
+            data-page-link="transferToBankPage"
+          >
+
+            <div class="quick-icon">
+              ⇄
+            </div>
+
+            <h3>
+              Transfer to Bank
+            </h3>
+
+            <p>
+              Contact your manager for bank-transfer assistance.
+            </p>
+
+          </div>
+
+
+          <div
+            class="quick-card"
+            data-page-link="withdrawPage"
+          >
+
+            <div class="quick-icon">
+              ↓
+            </div>
+
+            <h3>
+              Withdraw
+            </h3>
+
+            <p>
+              Contact your manager for withdrawal assistance.
             </p>
 
           </div>
@@ -1964,6 +2011,50 @@ button{
             type="button"
           >
             Contact Account Manager
+          </button>
+
+        </div>
+
+      </section>
+
+
+      <!-- TRANSFER TO BANK -->
+
+      <section
+        id="transferToBankPage"
+        class="page"
+      >
+
+        <div class="page-heading">
+
+          <h2>Transfer to Bank</h2>
+
+          <p>For bank-transfer assistance, please contact your manager.</p>
+
+        </div>
+
+        <div class="panel">
+
+          <div class="manager-box">
+
+            <h3 class="panel-title">Contact Your Manager</h3>
+
+            <p>
+              Please contact your account manager for assistance with a bank transfer.
+              Transfers will only be processed after the required details and transaction
+              have been verified.
+            </p>
+
+          </div>
+
+          <br>
+
+          <button
+            id="contactManagerBankTransferBtn"
+            class="primary-btn"
+            type="button"
+          >
+            Contact Your Manager
           </button>
 
         </div>
@@ -4882,92 +4973,29 @@ async function confirmDeposit(){
   clearMessage("depositMessage");
 
   if(!depositReviewData){
-    setMessage("depositMessage","Please review your deposit first.","error");
+    setMessage("depositMessage","Please review your deposit details first.","error");
     return;
   }
 
-  if(!auth.currentUser){
+  if(!auth.currentUser || !currentUserData){
     setMessage("depositMessage","Please sign in again.","error");
     return;
   }
 
-  try{
-    setLoading(true,"Submitting deposit request...");
+  /*
+   * Do not create a pending deposit request or increase the balance
+   * from a PIN alone. The balance must only change after the deposit
+   * has been verified by an authorized payment provider or manager.
+   */
+  depositReviewData=null;
+  $("confirmDepositBtn").disabled=true;
+  setMessage(
+    "depositMessage",
+    "Please contact your manager to verify that the deposit was received. Your dashboard balance can be updated after verification.",
+    "success"
+  );
+  openManagerModal();
 
-    const uid=auth.currentUser.uid;
-    const userRef=doc(db,"users",uid);
-    const amount=toNumber(depositReviewData.amount);
-
-    if(!Number.isFinite(amount) || amount<=0){
-      throw new Error("Please enter a valid deposit amount.");
-    }
-
-    const transactionId=makeTransactionId();
-
-    /*
-     * Do not credit the account until a payment provider or
-     * authorized manager confirms that funds were received.
-     * This records a pending request only; it does not create
-     * money or falsely mark an unverified payment as complete.
-     */
-    const result=await runTransaction(db,async transaction=>{
-      const snapshot=await transaction.get(userRef);
-      if(!snapshot.exists()) throw new Error("Your account could not be found.");
-
-      const data=snapshot.data();
-      if(data.profileCompleted!==true || data.dashboardReached!==true){
-        throw new Error("Your account profile is incomplete.");
-      }
-
-      const request={
-        type:"deposit_request",
-        status:"pending_verification",
-        amount,
-        currency:data.currency || "USD",
-        transactionId,
-        email:depositReviewData.email,
-        fullName:depositReviewData.fullName,
-        phone:depositReviewData.phone,
-        createdAt:new Date().toISOString()
-      };
-
-      const depositRequests=Array.isArray(data.depositRequests)
-        ? [...data.depositRequests,request]
-        : [request];
-
-      transaction.update(userRef,{
-        depositRequests,
-        updatedAt:serverTimestamp()
-      });
-
-      return {data,depositRequests};
-    });
-
-    currentUserData={uid,...result.data,depositRequests:result.depositRequests};
-    depositReviewData=null;
-    $("confirmDepositBtn").disabled=true;
-    $("depositAmount").value="";
-    $("depositPin").value="";
-    $("depositReviewContent").innerHTML="No deposit is currently being reviewed.";
-    setLoading(false);
-    setMessage("depositMessage","Deposit request submitted. Your balance will update only after the payment is verified.","success");
-    showToast("Deposit request submitted for verification.");
-
-  }catch(error){
-    console.error("DEPOSIT REQUEST ERROR:",error);
-    setLoading(false);
-    const depositErrorCode=String(error?.code || "");
-    const depositErrorText=String(error?.message || "");
-    let depositUserMessage=firebaseErrorMessage(error);
-    if(depositErrorCode.includes("permission-denied")){
-      depositUserMessage="Deposit request was blocked by the database security rules. The Firebase rules/backend must allow a verified deposit-request operation.";
-    }else if(depositErrorCode.includes("unavailable") || depositErrorCode.includes("network")){
-      depositUserMessage="The database could not be reached. Check the internet connection and try again.";
-    }else if(depositErrorText && depositUserMessage==="Something went wrong. Please try again."){
-      depositUserMessage=`Deposit request failed: ${depositErrorText}`;
-    }
-    setMessage("depositMessage",depositUserMessage,"error");
-  }
 }
 
 
@@ -5228,6 +5256,11 @@ function openManagerModal(){
 }
 
 $("contactManagerBtn").addEventListener(
+  "click",
+  openManagerModal
+);
+
+$("contactManagerBankTransferBtn").addEventListener(
   "click",
   openManagerModal
 );
