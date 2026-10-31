@@ -2742,25 +2742,6 @@ button{
 </div>
 
 
-<!-- ================= DEPOSIT RECEIPT MODAL ================= -->
-<div id="depositReceiptModal" class="modal">
-  <div class="modal-card">
-    <h3 class="modal-title">UNITED CREST</h3>
-    <p class="modal-subtitle">DEPOSIT RECEIPT</p>
-    <div class="receipt">
-      <div class="receipt-row"><span>Status</span><strong id="depositReceiptStatus">Successful</strong></div>
-      <div class="receipt-row"><span>Transaction Reference</span><strong id="depositReceiptReference">—</strong></div>
-      <div class="receipt-row"><span>Date / Time</span><strong id="depositReceiptDate">—</strong></div>
-      <div class="receipt-row"><span>Deposit Amount</span><strong id="depositReceiptAmount">—</strong></div>
-      <div class="receipt-row"><span>Previous Balance</span><strong id="depositReceiptPrevious">—</strong></div>
-      <div class="receipt-row"><span>New Balance</span><strong id="depositReceiptNew">—</strong></div>
-    </div>
-    <div class="modal-actions">
-      <button id="doneDepositReceiptBtn" class="primary-btn" type="button">DONE</button>
-    </div>
-  </div>
-</div>
-
 <!-- ================= MANAGER MODAL ================= -->
 
 <div
@@ -5001,78 +4982,106 @@ async function confirmDeposit(){
     return;
   }
 
-  const details={...depositReviewData};
+  const deposit={...depositReviewData};
   const uid=auth.currentUser.uid;
   const userRef=doc(db,"users",uid);
-  const transactionId=makeTransactionId();
-  const createdAt=new Date().toISOString();
-  const button=$("confirmDepositBtn");
-  button.disabled=true;
-  button.textContent="Processing...";
 
   try{
-    const result=await runTransaction(db,async transaction=>{
-      const snapshot=await transaction.get(userRef);
-      if(!snapshot.exists()) throw new Error("Your account could not be found.");
-      const userData=snapshot.data();
-      const previousBalance=toNumber(userData.balance);
-      const currency=userData.currency || "USD";
-      const amount=toNumber(details.amount);
-      if(!Number.isFinite(amount) || amount<=0) throw new Error("Please enter a valid deposit amount.");
-      const newBalance=previousBalance+amount;
-      const activity={
-        type:"deposit",
-        direction:"received",
-        title:"Deposit",
-        amount,
-        currency,
-        description:"Deposit added to account balance",
-        transactionId,
-        createdAt,
-        previousBalance,
-        newBalance,
-        status:"Successful"
-      };
-      const activities=Array.isArray(userData.activities)?[...userData.activities,activity]:[activity];
-      transaction.update(userRef,{
-        balance:newBalance,
-        activities:activities.slice(-200),
-        updatedAt:serverTimestamp()
-      });
-      return {userData,previousBalance,newBalance,currency,amount,activities};
+    setLoading(true,"Processing simulated deposit...");
+
+    const snapshot=await getDoc(userRef);
+    if(!snapshot.exists()){
+      throw new Error("Your account record could not be found.");
+    }
+
+    const latestData=snapshot.data();
+    const previousBalance=toNumber(latestData.balance);
+    const amount=toNumber(deposit.amount);
+
+    if(!Number.isFinite(amount) || amount<=0){
+      throw new Error("Please enter a valid deposit amount.");
+    }
+
+    const updatedBalance=previousBalance+amount;
+    const transactionId="TEST-DEP-"+Date.now().toString(36).toUpperCase()+"-"+Math.random().toString(36).slice(2,7).toUpperCase();
+    const createdAt=new Date().toISOString();
+    const currency=latestData.currency || "USD";
+
+    const activity={
+      type:"deposit",
+      direction:"received",
+      amount,
+      currency,
+      description:"Simulated test deposit — not real money",
+      transactionId,
+      createdAt,
+      simulated:true
+    };
+
+    const activities=Array.isArray(latestData.activities)
+      ? [...latestData.activities,activity]
+      : [activity];
+
+    await updateDoc(userRef,{
+      balance:updatedBalance,
+      activities,
+      updatedAt:serverTimestamp()
     });
 
-    currentUserData={uid,...result.userData,balance:result.newBalance,activities:result.activities};
-    populateUserUI(currentUserData);
-    renderActivities(currentUserData.activities || []);
+    currentUserData={
+      ...currentUserData,
+      ...latestData,
+      balance:updatedBalance,
+      activities
+    };
 
-    $("depositReceiptStatus").textContent="Successful";
-    $("depositReceiptReference").textContent=transactionId;
-    $("depositReceiptDate").textContent=formatDate(createdAt);
-    $("depositReceiptAmount").textContent=money(result.amount,result.currency);
-    $("depositReceiptPrevious").textContent=money(result.previousBalance,result.currency);
-    $("depositReceiptNew").textContent=money(result.newBalance,result.currency);
-    $("depositReceiptModal").classList.add("show");
+    populateUserUI(currentUserData);
 
     depositReviewData=null;
-    $("depositPin").value="";
+    $("confirmDepositBtn").disabled=true;
+    $("depositReview").classList.remove("show");
     $("depositAmount").value="";
-    $("depositReviewContent").textContent="No deposit is currently being reviewed.";
-    setMessage("depositMessage","Deposit completed successfully.","success");
+    $("depositPin").value="";
+
+    const receipt=document.createElement("div");
+    receipt.id="simulatedDepositReceipt";
+    receipt.style.cssText="position:fixed;inset:0;z-index:99999;background:rgba(7,18,38,.72);display:flex;align-items:center;justify-content:center;padding:18px;";
+    receipt.innerHTML=`
+      <div style="background:#fff;width:100%;max-width:430px;border-radius:20px;padding:24px;box-shadow:0 20px 60px rgba(0,0,0,.25);max-height:90vh;overflow:auto;">
+        <div style="text-align:center;margin-bottom:18px;">
+          <div style="width:56px;height:56px;margin:0 auto 12px;border-radius:50%;background:#e8f7ef;color:#168653;display:flex;align-items:center;justify-content:center;font-size:28px;font-weight:900;">✓</div>
+          <div style="font-size:11px;font-weight:900;letter-spacing:1.2px;color:#b45309;">SIMULATED TEST TRANSACTION</div>
+          <h2 style="margin:8px 0;color:#172033;font-size:22px;">Test Deposit Successful</h2>
+          <p style="margin:0;color:#718096;font-size:12px;">No real money was received or transferred.</p>
+        </div>
+        <div style="border:1px solid #e5eaf1;border-radius:12px;padding:14px;">
+          <div style="display:flex;justify-content:space-between;gap:12px;margin:8px 0;"><span style="color:#718096;">Deposit amount</span><strong>${escapeHTML(money(amount,currency))}</strong></div>
+          <div style="display:flex;justify-content:space-between;gap:12px;margin:8px 0;"><span style="color:#718096;">Previous balance</span><strong>${escapeHTML(money(previousBalance,currency))}</strong></div>
+          <div style="display:flex;justify-content:space-between;gap:12px;margin:8px 0;"><span style="color:#718096;">Updated balance</span><strong style="color:#168653;">${escapeHTML(money(updatedBalance,currency))}</strong></div>
+          <div style="border-top:1px dashed #d9e0e9;margin:12px 0;padding-top:12px;font-size:12px;">
+            <div style="margin:6px 0;"><span style="color:#718096;">Test reference</span><br><strong style="overflow-wrap:anywhere;">${escapeHTML(transactionId)}</strong></div>
+            <div style="margin:6px 0;"><span style="color:#718096;">Date & time</span><br><strong>${escapeHTML(new Date(createdAt).toLocaleString())}</strong></div>
+          </div>
+        </div>
+        <div style="background:#fff7e6;color:#8a5200;border-radius:10px;padding:10px;margin:14px 0;font-size:12px;line-height:1.5;">TEST ONLY • This entry is simulated for platform testing and has no monetary value.</div>
+        <button id="closeSimulatedDepositReceipt" style="width:100%;border:0;border-radius:12px;padding:14px;background:linear-gradient(135deg,#0b2a5b,#1769aa);color:white;font-weight:800;">Done — Return to Dashboard</button>
+      </div>`;
+    document.body.appendChild(receipt);
+    $("closeSimulatedDepositReceipt").addEventListener("click",()=>{
+      receipt.remove();
+      $("dashboardScreen")?.scrollIntoView({behavior:"smooth",block:"start"});
+    });
+
+    setMessage("depositMessage","Simulated test deposit recorded successfully. No real money was involved.","success");
+    showToast("Simulated test deposit recorded.");
+
   }catch(error){
-    console.error("Deposit could not be saved:",error);
-    setMessage("depositMessage",error?.message || "The deposit could not be completed. Please try again.","error");
+    console.error("SIMULATED DEPOSIT ERROR:",error);
+    setMessage("depositMessage",firebaseErrorMessage(error),"error");
   }finally{
-    button.disabled=false;
-    button.textContent="Confirm Deposit";
+    setLoading(false);
   }
-
 }
-
-$("doneDepositReceiptBtn").addEventListener("click",()=>{
-  $("depositReceiptModal").classList.remove("show");
-  openPage("dashboardPage");
-});
 
 
 /* =========================================================
